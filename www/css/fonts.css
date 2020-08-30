@@ -1,0 +1,20 @@
+@font-face {
+    font-family: "Roboto";
+    font-weight: 400;
+    src: url('../fonts/Roboto-Regular.woff2');
+}
+@font-face {
+    font-family: "Roboto";
+    font-weight: 700;
+    src: url('../fonts/Roboto-Bold.woff2');
+}
+@font-face {
+    font-family: "Circular Std";
+    font-weight: 400;
+    src: url('../fonts/CircularStd-Book.woff2');
+}
+@font-face {
+    font-family: "Circular Std";
+    font-weight: 700;
+    src: url('../fonts/CircularStd-Bold.woff2');
+}
