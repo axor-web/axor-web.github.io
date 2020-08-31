@@ -3,8 +3,93 @@
     margin: 0;
     outline: none;
     border: none;
-    font-family: Roboto;
+    font-family: 'Roboto';
+    list-style: none;
+    text-decoration: none;
+    --comBlack: #272D4E;
+    --comViolet: #7854F7;
 }
+
 *:active, *:visited {
     color: inherit;
+}
+
+.hoverup {
+    transition: transform .2s;
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+
+.wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+
+.button {
+    border-radius: 5px;
+    padding: 14px;
+    margin: 0 20px;
+}
+
+.header {
+    width: 100%;
+    max-width: 1920px;
+    box-sizing: border-box;
+    padding: 45px 55px;
+    font-size: 18px;
+    
+    &__wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    &__logo {
+        display: block;
+    }
+
+    &__nav {
+        margin-left: 140px;
+        
+        &-li {
+            display: inline-block;
+            padding: 20px;
+
+            & a {
+                display: block;
+                padding: 10px 20px;
+                color: var(--comBlack);
+            }
+        }
+    }
+
+    &__buttons {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        &-login {
+            color: var(--comBlack);
+        }
+
+        &-getstarted {
+            background: var(--comViolet);
+            color: #fff;
+        }
+
+        &-search {
+            & img {
+                cursor: pointer;
+                padding: 20px;
+            }
+            &_hidden {
+                & input[type="text"] {
+                    width: 0;
+                    visibility: hidden;
+                    opacity: 0;
+                }
+            }
+        }
+    }
 }
