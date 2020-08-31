@@ -8,6 +8,7 @@
     text-decoration: none;
     --comBlack: #272D4E;
     --comViolet: #7854F7;
+    --comBlue: #299EF3;
 }
 
 *:active, *:visited {
@@ -79,15 +80,28 @@
         }
 
         &-search {
+            display: flex;
+            align-items: center;
             & img {
                 cursor: pointer;
                 padding: 20px;
+            }
+            & input[type="text"] {
+                width: 120px;
+                height: 45px;
+                border: 2px solid var(--comBlue);
+                border-radius: 5px;
+                transition: width .3s;
+                padding: 0 10px;
+                font-size: 18px;
+
             }
             &_hidden {
                 & input[type="text"] {
                     width: 0;
                     visibility: hidden;
                     opacity: 0;
+                    transition: width .3s, visibility .3s, opacity .3s;
                 }
             }
         }
