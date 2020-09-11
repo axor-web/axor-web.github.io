@@ -1,3 +1,5 @@
+// Скрипт для поиска
+
 let searchButton = document.querySelector('.header__buttons-search img');
 let searchInput = document.querySelector('.header__buttons-search input[type="text"]');
 let searchParent = searchInput.parentNode;
@@ -13,7 +15,7 @@ function search(value) {
 }
 
 searchButton.addEventListener('click', () => {
-    if ([].includes.call(searchParent.classList, hiddenClass)) {
+    if ([].includes.call(searchParent.classList, hiddenClass)) { // заимствуем у массива метод includes для classList
         searchParent.classList.remove(hiddenClass);
         searchButton.blur();
         searchInput.focus();
@@ -32,4 +34,20 @@ searchInput.addEventListener('keyup', event => {
     if (event.code == 'Enter') {
         search(searchInput.value);
     }
+});
+
+
+
+
+// Скрипт для мобильного меню
+
+let mobileButton = document.querySelector('.header__mobile-button');
+
+mobileButton.addEventListener('click', () => {
+    let header = document.querySelector('.header');
+    
+    if (![].includes.call(header.classList, 'header_hidden')) {
+        header.classList.add('header_hidden');
+    } 
+    else header.classList.remove('header_hidden');
 });

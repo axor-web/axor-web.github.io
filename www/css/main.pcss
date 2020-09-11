@@ -1,0 +1,110 @@
+.wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1580px;
+    padding: 0 50px;
+    margin: 0 auto;
+}
+
+.main {
+    &__background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: auto;
+        z-index: -1;
+    }
+    &__hero {
+        & .wrapper {
+            display: flex;
+            justify-content: space-between;
+        }
+        &-info {
+            width: 43vw;
+            & h1 {
+                font-size: 4.3vw;
+                font-family: "Circular Std";
+                color: var(--comBlack);
+            }
+            
+            & p {
+                color: var(--comGray);
+                font-size: 1vw;
+                margin: 1.5vw 0;
+            }
+        }
+        &-buttons {
+            & > div, a {
+                display: inline-block;
+            }
+            &-start {
+                padding: 1.35vw 3vw;
+                background: var(--comViolet);
+                border-radius: 60px;
+                font-size: 1vw;
+                color: #fff;
+            }
+
+            &-custom {
+                font-size: 1vw;
+                color: var(--comGray);
+
+                & a {
+                    color: var(--comBlue);
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+}
+
+
+
+@media screen and (max-width: 1270px) {
+    .wrapper {
+        padding: 0 20px;
+    }
+    .main {
+        &__hero {
+            & p, &-buttons > div, a {
+                font-size: 18px;
+            }
+            &-buttons {
+                &-start {
+                    padding: 25px 60px;
+                }
+            }
+            & .wrapper {
+                flex-direction: column;
+            }
+            &-info {
+                width: 100%;
+                max-width: 600px;
+                margin: 150px auto 0 auto;
+
+                & h1 {
+                    font-size: 42px;
+                }
+
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .main {
+        &__hero {
+            &-buttons {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center ;
+
+                &-start {
+                    margin: 25px 0;
+                }
+            }
+        }
+    }
+}
