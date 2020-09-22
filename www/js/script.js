@@ -3,7 +3,7 @@
 let searchButton = document.querySelector('.header__buttons-search img');
 let searchInput = document.querySelector('.header__buttons-search input[type="text"]');
 let searchParent = searchInput.parentNode;
-let hiddenClass= 'header__buttons-search_hidden';
+const hiddenClass= 'header__buttons-search_hidden';
 
 function search(value) {
     if (value) {
@@ -51,3 +51,24 @@ mobileButton.addEventListener('click', () => {
     } 
     else header.classList.remove('header_hidden');
 });
+
+
+
+// Скрипт для параллакса по движению мыши
+
+document.addEventListener('mousemove', parallax);
+
+function parallax(e) {
+    const mobileWidth = 1270;
+    if (window.innerWidth > mobileWidth) {
+        document.querySelectorAll('.main__hero-layer').forEach(layer => {
+            const speed = layer.getAttribute('data-speed');
+    
+            const x = (window.innerHeight - e.pageX * speed)/100;
+            const y = (window.innerWidth - e.pageY * speed)/100;
+            
+            layer.style.transform = `translateX(${x}px) translateY(${y}px)`;
+            console.log(layer.style.transform);
+        });
+    }
+}
