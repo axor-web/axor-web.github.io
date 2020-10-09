@@ -68,7 +68,6 @@ function parallax(e) {
             const y = (window.innerWidth - e.pageY * speed)/100;
             
             layer.style.transform = `translateX(${x}px) translateY(${y}px)`;
-            console.log(layer.style.transform);
         });
     }
 }
