@@ -165,10 +165,19 @@ body {
             &-card {
                 width: 22.4vw;
                 margin: 0 1.8vw;
+
+                &:hover & {
+                    &-pic img:nth-of-type(1), &-info h3 {
+                        transform: translateY(-1vw);
+                    }
+                }
                 &-pic {
                     position: relative;
+
                     & img {
                         position: absolute;
+                        transition: transform .5s;
+
                         &:nth-of-type(1) {
                             position: static;
                             width: 100%;
@@ -183,6 +192,7 @@ body {
                         font-family: "Circular Std";
                         font-size: 2vw;
                         color: var(--comBlack);
+                        transition: transform .3s;
                     }
                     & p {
                         font-size: 1vw;
