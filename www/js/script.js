@@ -48,8 +48,12 @@ mobileButton.addEventListener('click', () => {
     
     if (![].includes.call(header.classList, 'header_hidden')) {
         header.classList.add('header_hidden');
+        document.body.style.overflowY = '';
     } 
-    else header.classList.remove('header_hidden');
+    else {
+        header.classList.remove('header_hidden');
+        document.body.style.overflowY = 'hidden';
+    }
 });
 
 
