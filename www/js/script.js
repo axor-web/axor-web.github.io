@@ -60,7 +60,7 @@ mobileButton.addEventListener('click', () => {
 
 // Скрипт для параллакса по движению мыши
 
-document.addEventListener('mousemove', parallax);
+/*document.addEventListener('mousemove', parallax);
 
 function parallax(e) {
     const mobileWidth = 1270;
@@ -74,4 +74,22 @@ function parallax(e) {
             layer.style.transform = `translateX(${x}px) translateY(${y}px)`;
         });
     }
+}*/
+
+function makeParallax(layers, mobileWidth) {
+    document.addEventListener('mousemove', (e) => {
+        if (window.innerWidth > mobileWidth) {
+            layers.forEach(layer => {
+                const speed = layer.getAttribute('data-speed');
+        
+                const x = (window.innerHeight - e.pageX * speed)/100;
+                const y = (window.innerWidth - e.pageY * speed)/100;
+                
+                layer.style.transform = `translateX(${x}px) translateY(${y}px)`;
+            });
+        }
+    });
 }
+
+makeParallax(document.querySelectorAll('.main__hero-layer'), 1270)
+makeParallax(document.querySelectorAll('.main__documentation-layer'), 1270)

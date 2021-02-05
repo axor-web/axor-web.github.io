@@ -1,7 +1,7 @@
 .wrapper {
     box-sizing: border-box;
     width: 100%;
-    max-width: 1580px;
+    max-width: 1530px;
     padding: 0 50px;
     margin: 0 auto;
 }
@@ -32,7 +32,6 @@ body {
             z-index: 200;
             & h1 {
                 font-size: 4.3vw;
-                font-family: "Circular Std";
                 color: var(--comBlack);
             }
             
@@ -40,6 +39,7 @@ body {
                 color: var(--comGray);
                 font-size: 1vw;
                 margin: 1.5vw 0;
+                line-height: 1.3vw;
             }
             &-buttons {
                 & > div, a {
@@ -148,8 +148,8 @@ body {
 
 
     &__features {
+        margin-bottom: 8vw;
         & h2 {
-            font-family: "Circular Std";
             font-size: 2.9vw;
             text-align: center;
             color: var(--comBlack);
@@ -189,7 +189,6 @@ body {
                 &-info {
                     padding: 2vw 0;
                     & h3 {
-                        font-family: "Circular Std";
                         font-size: 2vw;
                         color: var(--comBlack);
                         transition: transform .3s;
@@ -197,7 +196,8 @@ body {
                     & p {
                         font-size: 1vw;
                         color: var(--comGray);
-                        padding: 20px 0;
+                        padding: 1vw 0;
+                        line-height: 1.5vw;
                     }
                     & a {
                         color: var(--comBlue);
@@ -293,12 +293,153 @@ body {
 
     &__documentation {
         position: relative;
+        color: #fff;
+
+        & .wrapper {
+            max-width: 70vw;
+            padding: 0 2.6vw;
+        }
+
+        & h3 {
+            font-size: 2vw;
+            line-height: 2.5vw;
+        }
+        & p {
+            font-size: 0.94vw;
+            line-height: 1.55vw;
+        }
+
         &-background {
             width: 100vw;
             min-height: 100%;
             position: absolute;
-            z-index: -100;
+            z-index: -300;
             right: 0;
+            top: 0.5vw;
+        }
+
+        &-cards {
+            &-card {
+                display: flex;
+                &-img {
+                    position: relative;
+                    text-align: center;
+                    & img {
+                        &:first-of-type {
+                            width: 22.5vw;
+                            box-shadow: -1.3vw 1vw 2.3vw rgba(84, 48, 209, .4);
+                        }
+                        &:last-of-type {
+                            position: absolute;
+                            bottom: -3.5vw;
+                            width: 22.5vw;
+                            left: 0;
+                            z-index: -100;
+                        }
+                        height: auto;
+                        border-radius: 15px;
+                        transition: transform 0.5s;
+                    }
+                }
+                &-info {
+                    width: 25vw;
+                    &-button {
+                        background: #70C217;
+                        display: inline-block;
+                        border-radius: 50px;
+                        text-align: center;
+                        padding: 1vw 1.4vw;
+                        margin-top: 2vw;
+                    }
+                }
+
+                &:first-of-type {
+                    margin-bottom: 3vw;
+                    & img {
+                        margin-right: 3.6vw;
+                    }
+                    & .main__documentation-cards-card-info {
+                        margin-top: 7.5vw;
+                    }
+                }
+                &:last-of-type {
+                    justify-content: flex-end;
+                    & img {
+                        margin-left: 3.6vw;
+                        &:last-of-type {
+                            left: none;
+                            right: 0;
+                        }
+                    }
+                    & .main__documentation-cards-card-info {
+                        margin-top: 1.6vw;
+                    }
+                }
+            }
+        }
+
+
+        &-picture {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100%;
+            z-index: -200;
+            & > div {
+                width: 100%;
+                height: 100%;
+                transition: transform .2s;
+            }
+            & div, & img {
+                position: absolute;
+            }
+            &-dots {
+                & img {
+                    &:first-of-type {
+                        width: 11vw;
+                        top: 20.5vw;
+                        left: 13vw;
+                    }
+                    &:last-of-type {
+                        height: 11vw;
+                        bottom: 7.5vw;
+                        right: 8vw;
+                    }
+                }
+            }
+
+            &-circs {
+                &[data-num="1"] {
+                    & img {
+                        width: 3.4vw;
+
+                        &:first-of-type {
+                            top: 7.6vw;
+                            left: 11.3vw;
+                        }
+                        &:last-of-type {
+                            top: 30vw;
+                            right: 32vw;
+                        }
+                    }
+                }
+
+                &[data-num="2"] {
+                    & img {
+                        &:first-of-type {
+                            width: 21vw;
+                            top: 11vw;
+                            left: 12.3vw;
+                        }
+                        &:last-of-type {
+                            width: 13.6vw;
+                            bottom: 18vw;
+                            right: 10vw;
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -492,6 +633,13 @@ body {
                         }
                     }
                 }
+            }
+        }
+
+        &__documentation {
+            & .wrapper {
+                padding: 0 50px;
+                max-width: 1330px;
             }
         }
     }
