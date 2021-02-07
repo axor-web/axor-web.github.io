@@ -485,7 +485,9 @@ body {
                 & h1 {
                     font-size: 42px;
                 }
-                
+                & p {
+                    line-height: normal;
+                }
             }
             &-picture {
                 position: relative;
@@ -570,17 +572,19 @@ body {
                     &-pic {
                         & img {
                             &:nth-of-type(1) {
-                                border-radius: 14px;
+                                border-radius: 4vw;
                             }
                         }
                     }
                     &-info {
                         padding: 20px 0;
                         & h3 { 
-                            font-size: 22px;      
+                            font-size: 22px;   
+                            line-height: normal;   
                         }
                         & p {
                             font-size: 18px;
+                            line-height: normal;
                         }
                         & a {
                             font-size: 20px;
@@ -637,9 +641,131 @@ body {
         }
 
         &__documentation {
+            margin-top: 150px;
+            padding-bottom: 100px;
+            overflow: hidden;
             & .wrapper {
                 padding: 0 50px;
                 max-width: 1330px;
+            }
+
+            & h3 {
+                font-size: 22px;
+                line-height: normal;
+            }
+            & p {
+                font-size: 18px;
+                line-height: normal;
+            }
+    
+            &-background {
+                width: auto;
+                height: 100%;
+                top: 0;
+                transform: translateX(50%);
+            }
+    
+            &-cards {
+                &-card {
+                    flex-direction: column;
+                    margin-top: 30px;
+                    &-img {
+                        & img {
+                            &:first-of-type {
+                                width: 100%;
+                            }
+                            &:last-of-type {
+                                bottom: -12vw;
+                                width: 100%;
+                            }
+                            border-radius: 4.5vw;
+                        }
+                    }
+                    &-info {
+                        width: 100%;
+                        &-button {
+                            padding: 10px 15px;
+                            margin-top: 20px;
+                            margin-bottom: 20px;
+                        }
+                    }
+    
+                    &:first-of-type {
+                        margin-bottom: 30px;
+                        & img {
+                            margin-right: 0;
+                        }
+                        & .main__documentation-cards-card-info {
+                            margin-top: 20px;
+                        }
+                    }
+                    &:last-of-type {
+                        justify-content: center;
+                        & img {
+                            margin-left: 0;
+                            &:last-of-type {
+                                left: none;
+                                right: 0;
+                            }
+                        }
+                        & .main__documentation-cards-card-info {
+                            margin-top: 16px;
+                        }
+                    }
+                }
+            }
+    
+    
+            &-picture {
+                &-dots {
+                    & img {
+                        &:first-of-type {
+                            width: 44vw;
+                            top: 20.5vw;
+                            left: 5vw;
+                        }
+                        &:last-of-type {
+                            height: 44vw;
+                            bottom: 11vw;
+                            right: 5vw;
+                        }
+                    }
+                }
+    
+                &-circs {
+                    &[data-num="1"] {
+                        & img {
+                            width: 14vw;
+    
+                            &:first-of-type {
+                                top: 5vw;
+                                left: 5vw;
+                            }
+                            &:last-of-type {
+                                top: auto;
+                                bottom: 117vw;
+                                right: 20vw;
+                            }
+                        }
+                    }
+    
+                    &[data-num="2"] {
+                        & img {
+                            &:first-of-type {
+                                width: 64vw;
+                                top: 15vw;
+                                left: auto;
+                                right: 1vw;
+                            }
+                            &:last-of-type {
+                                width: 54vw;
+                                bottom: 15vw;
+                                right: auto;
+                                left: 1vw;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
