@@ -93,8 +93,9 @@ function makeParallax(layers, mobileWidth) {
     });
 }
 
-makeParallax(document.querySelectorAll('.main__hero-layer'), 1100)
+makeParallax(document.querySelectorAll('.main__hero-layer'         ), 1100)
 makeParallax(document.querySelectorAll('.main__documentation-layer'), 1100)
+makeParallax(document.querySelectorAll('.main__testimonials-layer' ), 1100)
 
 
 function makeSlider(block, perspective, depth) {
