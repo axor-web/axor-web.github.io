@@ -62,22 +62,6 @@ mobileButton.addEventListener('click', () => {
 
 // Скрипт для параллакса по движению мыши
 
-/*document.addEventListener('mousemove', parallax);
-
-function parallax(e) {
-    const mobileWidth = 1270;
-    if (window.innerWidth > mobileWidth) {
-        document.querySelectorAll('.main__hero-layer').forEach(layer => {
-            const speed = layer.getAttribute('data-speed');
-    
-            const x = (window.innerHeight - e.pageX * speed)/100;
-            const y = (window.innerWidth - e.pageY * speed)/100;
-            
-            layer.style.transform = `translateX(${x}px) translateY(${y}px)`;
-        });
-    }
-}*/
-
 function makeParallax(layers, mobileWidth) {
     document.addEventListener('mousemove', (e) => {
         if (window.innerWidth > mobileWidth) {
@@ -93,9 +77,10 @@ function makeParallax(layers, mobileWidth) {
     });
 }
 
-makeParallax(document.querySelectorAll('.main__hero-layer'         ), 1100)
-makeParallax(document.querySelectorAll('.main__documentation-layer'), 1100)
-makeParallax(document.querySelectorAll('.main__testimonials-layer' ), 1100)
+makeParallax(document.querySelectorAll('.main__hero-layer'         ), 1050);
+makeParallax(document.querySelectorAll('.main__documentation-layer'), 1050);
+makeParallax(document.querySelectorAll('.main__testimonials-layer' ), 1050);
+makeParallax(document.querySelectorAll('.footer__people-layer'     ), 1050);
 
 
 function makeSlider(block, perspective, depth) {
@@ -151,13 +136,13 @@ function makeSlider(block, perspective, depth) {
         //чекаем допустим ли num и меняем состояние стрелочек
         num += count;
 
-        if (num < 0)     { num = 0; return false }
+        if (num < 0)         { num = 0;    return false }
         if (num == last + 1) { num = last; return false }
 
         // меняем вид стрелочек
         arrows[0].classList.remove('arrow_inactive');
         arrows[1].classList.remove('arrow_inactive');
-        if (num == 0)        { arrows[0].classList.add('arrow_inactive'); }
+        if (num == 0)    { arrows[0].classList.add('arrow_inactive'); }
         if (num == last) { arrows[1].classList.add('arrow_inactive'); }
 
         //меняем позиции элементов

@@ -11,6 +11,7 @@ body {
 }
 
 .main {
+    width: 100vw;
     &__background {
         position: absolute;
         top: 0;
@@ -74,7 +75,7 @@ body {
                 position: absolute;
                 top: 0;
                 right: 0;
-                transition: transform .2s;
+                transition: transform 1s ease-out;
                 & img {
                     position: absolute;
                     right: 0;
@@ -210,6 +211,7 @@ body {
                 }
                 &:nth-of-type(1) &-pic {
                     & img {
+                       
                         &:nth-of-type(2) {
                             width: 3.5vw;
                             left: -4.3vw;
@@ -390,7 +392,7 @@ body {
             & > div {
                 width: 100%;
                 height: 100%;
-                transition: transform .2s;
+                transition: transform 1s ease-out;
             }
             & div, & img {
                 position: absolute;
@@ -464,7 +466,7 @@ body {
             align-items: center;
             & h2 {
                 color: var(--comBlack);
-                font-size: 2.9vw;
+                font-size: 3vw;
                 margin-top: 7vw;
                 margin-bottom: 5vw;
                 z-index: 5;
@@ -496,6 +498,7 @@ body {
                 top: 0;
                 position: absolute;
                 box-shadow: 0 1vw 2.7vw rgba(215, 228, 249, 0.5);
+                user-select: none;
 
                 & p {
                     color: var(--comGray);
@@ -589,7 +592,7 @@ body {
 
             &-img {
                 width: 100%;
-                transition: transform .3s;
+                transition: transform 1s ease-out;
 
                 & img {
                     height: auto;
@@ -635,7 +638,7 @@ body {
                 top: 5vw;
                 left: 0;
                 width: 100%;
-                transition: transform .3s;
+                transition: transform 1s ease-out;
 
                 & img {
                     width: 24.6vw;
@@ -695,7 +698,7 @@ body {
                     }
                 }
                 & h1 {
-                    font-size: 42px;
+                    font-size: 9vw;
                 }
                 & p {
                     line-height: normal;
@@ -773,7 +776,7 @@ body {
         }
         &__features {
             & h2 {
-                font-size: 32px;
+                font-size: 5vw;
             }
             &-cards {
                 flex-direction: column;
@@ -791,15 +794,15 @@ body {
                     &-info {
                         padding: 20px 0;
                         & h3 { 
-                            font-size: 22px;   
+                            font-size: 4vw;   
                             line-height: normal;   
                         }
                         & p {
-                            font-size: 18px;
+                            font-size: 2.5vw;
                             line-height: normal;
                         }
                         & a {
-                            font-size: 20px;
+                            font-size: 3vw;
                         }
                     }
                     &:nth-of-type(1) &-pic {
@@ -934,12 +937,12 @@ body {
                 &-dots {
                     & img {
                         &:first-of-type {
-                            width: 44vw;
+                            width: 22vw;
                             top: 18vw;
                             left: 8.5vw;
                         }
                         &:last-of-type {
-                            height: 44vw;
+                            height: 22vw;
                             bottom: 11vw;
                             right: 5vw;
                         }
@@ -949,15 +952,14 @@ body {
                 &-circs {
                     &[data-num="1"] {
                         & img {
-                            width: 14vw;
+                            width: 7vw;
     
                             &:first-of-type {
                                 top: 5vw;
                                 left: 5vw;
                             }
                             &:last-of-type {
-                                top: auto;
-                                bottom: 100vw;
+                                top: 6vw;
                                 right: 20vw;
                             }
                         }
@@ -966,13 +968,13 @@ body {
                     &[data-num="2"] {
                         & img {
                             &:first-of-type {
-                                width: 64vw;
+                                width: 32vw;
                                 top: 15vw;
                                 left: auto;
                                 right: 1vw;
                             }
                             &:last-of-type {
-                                width: 54vw;
+                                width: 27vw;
                                 bottom: 15vw;
                                 right: auto;
                                 left: 1vw;
@@ -1072,6 +1074,14 @@ body {
             }
         }
 
+        &__features {
+            &-cards {
+                &-card {
+                    width: 80%;
+                }
+            }
+        }
+
         &__documentation {
             & h3 {
                 font-size: 24px;
@@ -1102,7 +1112,11 @@ body {
                 &-dots {
                     & img {
                         &:first-of-type {
-                            top: 20.5vw;
+                            width: 44vw;
+                            
+                        }
+                        &:last-of-type {
+                            height: 44vw;
                         }
                     }
                 }
@@ -1110,8 +1124,22 @@ body {
                 &-circs {
                     &[data-num="1"] {
                         & img {
+                            width: 14vw;
+    
                             &:last-of-type {
+                                top: auto;
                                 bottom: 117vw;
+                            }
+                        }
+                    }
+    
+                    &[data-num="2"] {
+                        & img {
+                            &:first-of-type {
+                                width: 64vw;
+                            }
+                            &:last-of-type {
+                                width: 54vw;
                             }
                         }
                     }
