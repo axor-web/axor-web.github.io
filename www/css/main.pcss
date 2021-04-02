@@ -455,9 +455,11 @@ body {
         padding-bottom: 18vw;
         background: linear-gradient(180deg, rgba(236, 240, 253, 0) 0%, rgba(236, 240, 253, 0.53) 14%, #ECF0FD 46%, rgba(236, 240, 253, 0.43) 84%, rgba(236, 240, 253, 0) 100%);
         position: relative;
+        z-index: 50;
 
         & .wrapper {
             width: 100%;
+            z-index: 50;
         }
         &-info {
             z-index: 100;
@@ -477,12 +479,13 @@ body {
                 perspective-origin: 50% 200%;
                 height: 20vw;
                 margin-bottom: 13%;
-                z-index: 100;
+                z-index: 80;
 
                 &-wrapper {
                     width: 38vw;
                     display: flex;
                     flex-direction: column;
+                    z-index: 70;
                 }
             }
             &-card {
@@ -493,7 +496,6 @@ body {
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                z-index: 20;
                 width: 100%;
                 top: 0;
                 position: absolute;
@@ -518,7 +520,7 @@ body {
                 height: 25px;
                 align-self: flex-end;
                 margin-right: 12%;
-                z-index: 100;
+                z-index: 50;
 
                 & .arrow {
                     display: inline-flex;

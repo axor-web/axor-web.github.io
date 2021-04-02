@@ -99,6 +99,7 @@ function makeSlider(block, perspective, depth) {
         `;
     }
 
+    //делаем анимацию
     style.textContent += `
         @keyframes leaf-card {
             from {
@@ -127,12 +128,16 @@ function makeSlider(block, perspective, depth) {
         ${block}-card {
             transition: transform .3s, z-index .3s;
         }
+        ${block}-card.leaf, ${block}-card.leaf-back  {
+            transition: none;
+        }
     `;
 
     let arrows = document.querySelectorAll(block + '-arrows a');
 
     let num = 0;
     function leafCard(count) {
+        //count = -1 или 1, т.е. листать назад или вперед
         //чекаем допустим ли num и меняем состояние стрелочек
         num += count;
 
@@ -186,9 +191,17 @@ makeSlider('.main__testimonials-info', '15vw', 1.3);
 
 //переход между блоками по скроллу
 
-let sections = document.querySelectorAll('section');
+/*let sections = document.querySelectorAll('.section');
 let numOfSec = 0;
 
-sections.forEach(section => {
-    
-});
+document.addEventListener('scroll', e => {
+    let distance = document.documentElement.scrollTop + document.documentElement.clientHeight;
+    let current = sections[numOfSec];
+
+
+    if (distance > current.offsetTop + current.offsetHeight) {
+        numOfSec++;
+        current = sections[numOfSec];
+        document.documentElement.scrollTop = current.offsetTop - 100;
+    }
+});*/
