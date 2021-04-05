@@ -220,10 +220,10 @@ a {
                 background: var(--comViolet);
                 transition: transform .2s;
 
-                &:first-of-type {
+                &:first-child {
                     transform: rotateZ(45deg) translateX(10px);
                 }
-                &:last-of-type {
+                &:last-child {
                     transform: rotateZ(-45deg) translateX(10px);
                 }
             }
@@ -237,10 +237,10 @@ a {
             }
             & .header__mobile-button {
                 & > div {
-                    &:first-of-type {
+                    &:first-child {
                         transform: rotateZ(0) translateX(0);
                     }
-                    &:last-of-type {
+                    &:last-child {
                         transform: rotateZ(0) translateX(0);
                     }
                 }

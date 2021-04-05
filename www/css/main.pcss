@@ -10,6 +10,16 @@ body {
     overflow-x: hidden;
 }
 
+picture {
+    display: block;
+    height: auto;
+    & img, & source {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+}
+
 .main {
     width: 100vw;
     &__background {
@@ -76,7 +86,7 @@ body {
                 top: 0;
                 right: 0;
                 transition: transform 1s ease-out;
-                & img {
+                & .img {
                     position: absolute;
                     right: 0;
                     display: block;
@@ -85,19 +95,19 @@ body {
             div&-dots {
                 top: 2vw;
                 
-                & img {
-                    &:nth-of-type(1) {
+                & .img {
+                    &:nth-child(1) {
                         width: 13vw;
                         height: auto;
                         right: 10vw;
                     }
-                    &:nth-of-type(2) {
+                    &:nth-child(2) {
                         height: 13vw;
                         width: auto;
                         right: 15vw;
                         top: 8.6vw;
                     }
-                    &:nth-of-type(3) {
+                    &:nth-child(3) {
                         width: 13vw;
                         height: auto;
                         right: 0;
@@ -107,22 +117,22 @@ body {
             }
             div&-product {
                 top: 10vw;
-                & img {
+                & .img {
                     width: auto;
-                    &:nth-of-type(1) {
+                    &:nth-child(1) {
                         height: 22vw;
                     }
-                    &:nth-of-type(2) {
+                    &:nth-child(2) {
                         height: 2.8vw;
                         right: 15.5vw;
                         transform: translateY(-45%);
                     }
-                    &:nth-of-type(3) {
+                    &:nth-child(3) {
                         height: 4vw;
                         right: 35vw;
                         top: 17vw;
                     }
-                    &:nth-of-type(4) {
+                    &:nth-child(4) {
                         height: 3.5vw;
                         right: 3.5vw;
                         top: 21vw;
@@ -131,14 +141,14 @@ body {
             }
             div&-pics {
                 top: 5vw;
-                & img {
+                & .img {
                     width: auto;
-                    &:nth-of-type(1) {
-                        height: 15vw;
-                        right: 24vw;
+                    &:nth-child(1) {
+                        width: 15vw;
+                        right: 28vw;
                     }
-                    &:nth-of-type(2) {
-                        height: 18vw;
+                    &:nth-child(2) {
+                        width: 21vw;
                         right: 10vw;
                         top: 20vw;
                     }
@@ -168,18 +178,18 @@ body {
                 margin: 0 1.8vw;
 
                 &:hover & {
-                    &-pic img:nth-of-type(1), &-info h3 {
+                    &-pic .img:nth-child(1), &-info h3 {
                         transform: translateY(-1vw);
                     }
                 }
                 &-pic {
                     position: relative;
 
-                    & img {
+                    & .img {
                         position: absolute;
                         transition: transform .5s;
 
-                        &:nth-of-type(1) {
+                        &:nth-child(1) {
                             position: static;
                             width: 100%;
                             box-shadow: 0 0 20px #e0ecff;
@@ -206,20 +216,20 @@ body {
                     }
                 }
 
-                &:nth-of-type(1) {
+                &:nth-child(1) {
                     
                 }
-                &:nth-of-type(1) &-pic {
-                    & img {
+                &:nth-child(1) &-pic {
+                    & .img {
                        
-                        &:nth-of-type(2) {
+                        &:nth-child(2) {
                             width: 3.5vw;
                             left: -4.3vw;
                             top: 0.3vw;
                             opacity: 1;
                             visibility: visible;
                         }
-                        &:nth-of-type(3) {
+                        &:nth-child(3) {
                             width: 10.5vw;
                             left: -5.5vw;
                             top: 3vw;
@@ -230,57 +240,57 @@ body {
                 }
                 
                 
-                &:nth-of-type(2) {
+                &:nth-child(2) {
                     margin-top: 4vw;
                 }
-                &:nth-of-type(2) &-pic {
-                    & img {
-                        height: 3.6vw;
+                &:nth-child(2) &-pic {
+                    & .img {
+                        width: 5.5vw;
                         box-shadow: 0 0 20px #e0ecff;
                         border-radius: 0.6vw;
-                        &:nth-of-type(1) {
-                            height: auto;
+                        &:nth-child(1) {
+                            width: 100%;
                             border-radius: 1vw;
                         }
-                        &:nth-of-type(2) {
+                        &:nth-child(2) {
                             left: 2.5vw;
                             top: -2.2vw;
                         }
-                        &:nth-of-type(3) {
+                        &:nth-child(3) {
                             right: 1.9vw;
                             top: 1vw;
                         }
-                        &:nth-of-type(4) {
+                        &:nth-child(4) {
                             left: 2.5vw;
                             top: 5.8vw;
                         }
-                        &:nth-of-type(5) {
+                        &:nth-child(5) {
                             right: 5vw;
                             bottom: 4.7vw;
                         }
-                        &:nth-of-type(6) {
+                        &:nth-child(6) {
                             left: 8vw;
                             bottom: -1.25vw;
                         }
                     }
                 }
                 
-                &:nth-of-type(3) {
+                &:nth-child(3) {
                     margin-top: 8vw;
                 }
-                &:nth-of-type(3) &-pic {
-                    & img {
-                        &:nth-of-type(2) {
+                &:nth-child(3) &-pic {
+                    & .img {
+                        &:nth-child(2) {
                             width: 6vw;
                             right: 2.5vw;
                             top: -6vw;
                         }
-                        &:nth-of-type(3) {
+                        &:nth-child(3) {
                             width: 7.3vw;
                             left: 1.7vw;
                             top: -2.7vw;
                         }
-                        &:nth-of-type(4) {
+                        &:nth-child(4) {
                             width: 8.9vw;
                             right: -3.4vw;
                             bottom: 3.3vw;
@@ -327,12 +337,12 @@ body {
                     position: relative;
                     text-align: center;
                     z-index: 1;
-                    & img {
-                        &:first-of-type {
+                    & .img {
+                        &:first-child {
                             width: 22.5vw;
                             box-shadow: -1.3vw 1vw 2.3vw rgba(84, 48, 209, .4);
                         }
-                        &:last-of-type {
+                        &:last-child {
                             position: absolute;
                             bottom: -3.5vw;
                             width: 22.5vw;
@@ -356,20 +366,20 @@ body {
                     }
                 }
 
-                &:first-of-type {
+                &:first-child {
                     margin-bottom: 3vw;
-                    & img {
+                    & .img {
                         margin-right: 3.6vw;
                     }
                     & .main__documentation-cards-card-info {
                         margin-top: 7.5vw;
                     }
                 }
-                &:last-of-type {
+                &:last-child {
                     justify-content: flex-end;
-                    & img {
+                    & .img {
                         margin-left: 3.6vw;
-                        &:last-of-type {
+                        &:last-child {
                             left: none;
                             right: 0;
                         }
@@ -399,12 +409,12 @@ body {
             }
             &-dots {
                 & img {
-                    &:first-of-type {
+                    &:first-child {
                         width: 11vw;
                         top: 20.5vw;
                         left: 13vw;
                     }
-                    &:last-of-type {
+                    &:last-child {
                         height: 11vw;
                         bottom: 7.5vw;
                         right: 8vw;
@@ -417,11 +427,11 @@ body {
                     & img {
                         width: 3.4vw;
 
-                        &:first-of-type {
+                        &:first-child {
                             top: 7.6vw;
                             left: 11.3vw;
                         }
-                        &:last-of-type {
+                        &:last-child {
                             top: 28vw;
                             right: 32vw;
                             z-index: 20;
@@ -431,12 +441,12 @@ body {
 
                 &[data-num="2"] {
                     & img {
-                        &:first-of-type {
+                        &:first-child {
                             width: 21vw;
                             top: 11vw;
                             left: 12.3vw;
                         }
-                        &:last-of-type {
+                        &:last-child {
                             width: 13.6vw;
                             bottom: 18vw;
                             right: 10vw;
@@ -537,38 +547,38 @@ body {
                         background: #000;
                         height: 4px;
                         border-radius: 4px;
-                        &:nth-of-type(1) {
+                        &:nth-child(1) {
                             width: 100%;
                         }
-                        &:nth-of-type(2) {
+                        &:nth-child(2) {
                             width: 20px;
                             right: 0;
                             transform: rotateZ(45deg) translateY(-8px);
                         }
-                        &:nth-of-type(3) {
+                        &:nth-child(3) {
                             width: 20px;
                             right: 0;
                             transform: rotateZ(-45deg) translateY(8px);
                         }
                     }
-                    &:first-of-type {
+                    &:first-child {
                         &:hover {
                             transform: translateX(-5px);
                         }
                         margin-right: 10px;
                             & div {
-                            &:nth-of-type(2) {
+                            &:nth-child(2) {
                                 left: 0;
                                 transform: rotateZ(-45deg) translateY(-8px);
                             }
 
-                            &:nth-of-type(3) {
+                            &:nth-child(3) {
                                 left: 0;
                                 transform: rotateZ(45deg) translateY(8px);
                             }
                         }
                     }
-                    &:last-of-type {
+                    &:last-child {
                         &:hover {
                             transform: translateX(5px);
                         }
@@ -596,38 +606,38 @@ body {
                 width: 100%;
                 transition: transform 1s ease-out;
 
-                & img {
+                & .img {
                     height: auto;
                     position: absolute;
 
-                    &:nth-of-type(1) {
+                    &:nth-child(1) {
                         width: 8vw;
                         top: 11.6vw;
                         left: 20.3vw;
                     }
-                    &:nth-of-type(2) {
+                    &:nth-child(2) {
                         width: 6vw;
                         top: 22.8vw;
                         left: 5.3vw
                     }
-                    &:nth-of-type(3) {
+                    &:nth-child(3) {
                         width: 7vw;
                         top: 40.6vw;
                         left: 13.3vw;
                     }
 
 
-                    &:nth-of-type(4) {
+                    &:nth-child(4) {
                         width: 7vw;
                         top: 11vw;
                         right: 23.3vw;
                     }
-                    &:nth-of-type(5) {
+                    &:nth-child(5) {
                         width: 10vw;
                         top: 24.3vw;
                         right: 12vw;
                     }
-                    &:nth-of-type(6) {
+                    &:nth-child(6) {
                         width: 5vw;
                         top: 44vw;
                         right: 20.6vw;
@@ -646,12 +656,12 @@ body {
                     width: 24.6vw;
                     position: absolute;
 
-                    &:nth-of-type(1) {
+                    &:nth-child(1) {
                         top: 10vw;
                         right: 24.4vw;
                     }
 
-                    &:nth-of-type(2) {
+                    &:nth-child(2) {
                         top: 25vw;
                         left: 24.7vw;
                     }
@@ -712,18 +722,18 @@ body {
                 min-height: 85vw;
                 div&-dots {
                     top: 0;
-                    & img {
-                        &:nth-of-type(1) {
+                    & .img {
+                        &:nth-child(1) {
                             width: 100px;
                             right: 10vw;
                             top: -2vw;
                         }
-                        &:nth-of-type(2) {
+                        &:nth-child(2) {
                             height: 100px;
                             right: 30vw;
                             top: 11vw;
                         }
-                        &:nth-of-type(3) {
+                        &:nth-child(3) {
                             width: 100px;
                             right: 0;
                             top: 15vw;
@@ -732,25 +742,25 @@ body {
                 }
                 div&-product {
                     top: 10vw;
-                    & img {
+                    & .img {
                         width: auto;
-                        &:nth-of-type(1) {
+                        &:nth-child(1) {
                             height: auto;
                             width: 80vw;
                             right: -20px;
                         }
-                        &:nth-of-type(2) {
+                        &:nth-child(2) {
                             height: auto;
                             width: 20vw;
                             right: 30vw;
                         }
-                        &:nth-of-type(3) {
+                        &:nth-child(3) {
                             height: auto;
                             width: 10vw;
                             right: 69vw;
                             top: 17vw;
                         }
-                        &:nth-of-type(4) {
+                        &:nth-child(4) {
                             height: auto;
                             width: 12vw;
                             right: 3.5vw;
@@ -760,13 +770,13 @@ body {
                 }
                 div&-pics {
                     top: -2vw;
-                    & img {
-                        &:nth-of-type(1) {
+                    & .img {
+                        &:nth-child(1) {
                             height: auto;
                             width: 40vw;
                             right: 55vw;
                         }
-                        &:nth-of-type(2) {
+                        &:nth-child(2) {
                             height: auto;
                             width: 50vw;
                             right: 12vw;
@@ -787,8 +797,8 @@ body {
                     width: 70%;
                     margin: 0;
                     &-pic {
-                        & img {
-                            &:nth-of-type(1) {
+                        & .img {
+                            &:nth-child(1) {
                                 border-radius: 4vw;
                             }
                         }
@@ -807,48 +817,48 @@ body {
                             font-size: 3vw;
                         }
                     }
-                    &:nth-of-type(1) &-pic {
-                        & img {
-                            &:nth-of-type(2) {
+                    &:nth-child(1) &-pic {
+                        & .img {
+                            &:nth-child(2) {
                                 width: 14vw;
                             }
-                            &:nth-of-type(3) {
+                            &:nth-child(3) {
                                 width: 25vw;
                                 top: 10vw;
                             }
                         }
                     }
                     
-                    &:nth-of-type(2) {
+                    &:nth-child(2) {
                         margin-top: 5vw;
                     }
-                    &:nth-of-type(2) &-pic {
-                        & img {
-                            height: 14vw;
+                    &:nth-child(2) &-pic {
+                        & .img {
+                            width: 21vw;
                             border-radius: 1.7vw;
-                            &:nth-of-type(1) {
+                            &:nth-child(1) {
                                 height: auto;
                                 border-radius: 3vw;
                             }
-                            &:nth-of-type(4) {
+                            &:nth-child(4) {
                                 top: 15vw;
                             }
                         }
                     }
                     
                     
-                    &:nth-of-type(3) {
+                    &:nth-child(3) {
                         margin-top: 8vw;
                     }
-                    &:nth-of-type(3) &-pic {
-                        & img {
-                            &:nth-of-type(2) {
+                    &:nth-child(3) &-pic {
+                        & .img {
+                            &:nth-child(2) {
                                 width: 18vw;
                             }
-                            &:nth-of-type(3) {
+                            &:nth-child(3) {
                                 width: 22vw;
                             }
-                            &:nth-of-type(4) {
+                            &:nth-child(4) {
                                 width: 27vw;
                             }
                         }
@@ -888,11 +898,11 @@ body {
                     margin-top: 30px;
                     &-img {
                         width: 50%;
-                        & img {
-                            &:first-of-type {
+                        & .img {
+                            &:first-child {
                                 width: 100%;
                             }
-                            &:last-of-type {
+                            &:last-child {
                                 bottom: -6vw;
                                 width: 100%;
                             }
@@ -910,19 +920,19 @@ body {
                         }
                     }
     
-                    &:first-of-type {
+                    &:first-child {
                         margin-bottom: 30px;
-                        & img {
+                        & .img {
                             margin-right: 0;
                         }
                         & .main__documentation-cards-card-info {
                             margin-top: 20px;
                         }
                     }
-                    &:last-of-type {
-                        & img {
+                    &:last-child {
+                        & .img {
                             margin-left: 0;
-                            &:last-of-type {
+                            &:last-child {
                                 left: none;
                                 right: 0;
                             }
@@ -938,12 +948,12 @@ body {
             &-picture {
                 &-dots {
                     & img {
-                        &:first-of-type {
+                        &:first-child {
                             width: 22vw;
                             top: 18vw;
                             left: 8.5vw;
                         }
-                        &:last-of-type {
+                        &:last-child {
                             height: 22vw;
                             bottom: 11vw;
                             right: 5vw;
@@ -956,11 +966,11 @@ body {
                         & img {
                             width: 7vw;
     
-                            &:first-of-type {
+                            &:first-child {
                                 top: 5vw;
                                 left: 5vw;
                             }
-                            &:last-of-type {
+                            &:last-child {
                                 top: 6vw;
                                 right: 20vw;
                             }
@@ -969,13 +979,13 @@ body {
     
                     &[data-num="2"] {
                         & img {
-                            &:first-of-type {
+                            &:first-child {
                                 width: 32vw;
                                 top: 15vw;
                                 left: auto;
                                 right: 1vw;
                             }
-                            &:last-of-type {
+                            &:last-child {
                                 width: 27vw;
                                 bottom: 15vw;
                                 right: auto;
@@ -1008,31 +1018,31 @@ body {
 
             &-picture {
                 &-img {
-                    & img {
-                        &:nth-of-type(1) {
+                    & .img {
+                        &:nth-child(1) {
                             width: 16vw;
                             top: 13vw;
                             left: 5vw;
                         }
-                        &:nth-of-type(2) {
+                        &:nth-child(2) {
                             display: none;
                         }
-                        &:nth-of-type(3) {
+                        &:nth-child(3) {
                             width: 14vw;
                             top: 70vw;
                             left: 3vw;
                         }
     
     
-                        &:nth-of-type(4) {
+                        &:nth-child(4) {
                             width: 14vw;
                             top: 8vw;
                             right: 3vw;
                         }
-                        &:nth-of-type(5) {
+                        &:nth-child(5) {
                             display: none;
                         }
-                        &:nth-of-type(6) {
+                        &:nth-child(6) {
                             width: 10vw;
                             top: 80vw;
                             right: 40vw;
@@ -1044,11 +1054,11 @@ body {
                     & img {
                         width: 50vw;
 
-                        &:nth-of-type(1) {
+                        &:nth-child(1) {
                             right: 5vw;
                         }
 
-                        &:nth-of-type(2) {
+                        &:nth-child(2) {
                             top: 45vw;
                             left: 5vw;
                         }
@@ -1134,11 +1144,11 @@ body {
             &-picture {
                 &-dots {
                     & img {
-                        &:first-of-type {
+                        &:first-child {
                             width: 44vw;
                             
                         }
-                        &:last-of-type {
+                        &:last-child {
                             height: 44vw;
                         }
                     }
@@ -1149,7 +1159,7 @@ body {
                         & img {
                             width: 14vw;
     
-                            &:last-of-type {
+                            &:last-child {
                                 top: auto;
                                 bottom: 117vw;
                             }
@@ -1158,10 +1168,10 @@ body {
     
                     &[data-num="2"] {
                         & img {
-                            &:first-of-type {
+                            &:first-child {
                                 width: 64vw;
                             }
-                            &:last-of-type {
+                            &:last-child {
                                 width: 54vw;
                             }
                         }
@@ -1190,12 +1200,12 @@ body {
 
             &-picture {
                 &-img {
-                    & img {
-                        &:nth-of-type(3) {
+                    & .img {
+                        &:nth-child(3) {
                             top: 80vw;
                             left: 3vw;
                         }
-                        &:nth-of-type(6) {
+                        &:nth-child(6) {
                             top: 90vw;
                             right: 50vw;
                         }
@@ -1204,7 +1214,7 @@ body {
 
                 &-background {
                     img {
-                        &:nth-of-type(2) {
+                        &:nth-child(2) {
                             top: 60vw;
                         }
                     }

@@ -13,7 +13,7 @@
 <body>
     <header class="header header_hidden">
         <div class="header__wrapper">
-            <a href="#" class="header__logo hoverup"><img src="img/logo.svg" alt="logo"></a>
+            <a href="#" class="header__logo hoverup"><img src="./img/logo.svg" alt="logo"></a>
             <ul class="header__nav">
                 <li class="header__nav-li"><a href="#" class="hoverup">Sell</a></li>
                 <li class="header__nav-li"><a href="#" class="hoverup">Marketplace</a></li>
@@ -25,7 +25,7 @@
                 <a href="#" class="button hoverup header__buttons-login">Log In</a>
                 <a href="#" class="button hoverup header__buttons-getstarted">Get Started</a>
                 <div class="header__buttons-search header__buttons-search_hidden">
-                    <img src="img/icon-search.svg" alt="search" class="hoverup">
+                    <img src="./img/icon-search.svg" alt="search" class="hoverup">
                     <input type="text" placeholder="Search">
                 </div>
             </div>
@@ -37,7 +37,7 @@
     </header>
 
     <main class="main">
-        <img src="./img/background.jpg" alt="background" class="main__background">
+        <img src="./img/background.svg" alt="background" class="main__background">
         <section class="main__hero section">
             <div class="wrapper">
                 <div class="main__hero-info">
@@ -52,21 +52,24 @@
 
                 <div class="main__hero-picture">
                     <div class="main__hero-picture-dots main__hero-layer" data-speed="-4">
-                        <img src="./img/dots1.svg" alt="dots">
-                        <img src="./img/dots2.svg" alt="dots">
-                        <img src="./img/dots3.svg" alt="dots">
+                        <img class="img" src="./img/dots1.svg" alt="dots">
+                        <img class="img" src="./img/dots2.svg" alt="dots">
+                        <img class="img" src="./img/dots3.svg" alt="dots">
                     </div>
 
                     <div class="main__hero-picture-product main__hero-layer" data-speed="-2">
-                        <img src="./img/product.svg" alt="product">
-                        <img src="./img/sale.svg" alt="sale">
-                        <img src="./img/cart.svg" alt="cart">
-                        <img src="./img/safe.svg" alt="safe">
+                        <img class="img" src="./img/product.svg" alt="product">
+                        <img class="img" src="./img/sale.svg" alt="sale">
+                        <img class="img" src="./img/cart.svg" alt="cart">
+                        <img class="img" src="./img/safe.svg" alt="safe">
                     </div>
 
                     <div class="main__hero-picture-pics main__hero-layer" data-speed="2">
-                        <img src="./img/womans.png" alt="womans">
-                        <img src="./img/payments.svg" alt="payments">
+                        <picture class="img">
+                            <source type="image/webp" srcset="./img/womans.webp">
+                            <img src="./img/womans.png" loading="lazy" alt="womans">
+                        </picture>
+                        <img class="img" src="./img/payments.svg" alt="payments">
                     </div>
                 </div>
             </div>
@@ -81,9 +84,15 @@
                 <div class="main__features-cards">
                     <div class="main__features-cards-card">
                         <div class="main__features-cards-card-pic">
-                            <img src="./img/nfc.png" alt="NFC">
-                            <img src="./img/apay.svg" alt="Apple Pay">
-                            <img src="./img/payinfo.png" alt="payment Info">
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/nfc.webp">
+                                <img src="./img/nfc.png" loading="lazy" alt="NFC">
+                            </picture>
+                            <img class="img" src="./img/apay.svg" alt="Apple Pay">
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/payinfo.webp">
+                                <img src="./img/payinfo.png" loading="lazy" alt="payment Info">
+                            </picture>
                         </div>
                         <div class="main__features-cards-card-info">
                             <h3>All You Need to Start</h3>
@@ -94,12 +103,35 @@
 
                     <div class="main__features-cards-card">
                         <div class="main__features-cards-card-pic">
-                            <img src="./img/custom.png" alt="custom">
-                            <img src="./img/square.png" alt="square">
-                            <img src="./img/mailchimp.png" alt="mailchimp">
-                            <img src="./img/facebook.png" alt="facebook">
-                            <img src="./img/jetpack.png" alt="jetpack">
-                            <img src="./img/gads.png" alt="Google Ads">
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/custom.webp">
+                                <img src="./img/custom.png" loading="lazy" alt="custom">
+                            </picture>
+
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/square.webp">
+                                <img src="./img/square.png" loading="lazy" alt="square">
+                            </picture>
+
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/mailchimp.webp">
+                                <img src="./img/mailchimp.png" loading="lazy" alt="mailchimp">
+                            </picture>
+
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/facebook.webp">
+                                <img src="./img/facebook.png" loading="lazy" alt="facebook">
+                            </picture>
+
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/jetpack.webp">
+                                <img src="./img/jetpack.png" loading="lazy" alt="jetpack">
+                            </picture>
+
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/gads.webp">
+                                <img src="./img/gads.png" loading="lazy" alt="Google Ads">
+                            </picture>
                         </div>
                         <div class="main__features-cards-card-info">
                             <h3>Customize and Extend</h3>
@@ -110,10 +142,25 @@
 
                     <div class="main__features-cards-card">
                         <div class="main__features-cards-card-pic">
-                            <img src="./img/devs.png" alt="developers">
-                            <img src="./img/people.png" alt="people">
-                            <img src="./img/laptop.png" alt="laptop">
-                            <img src="./img/people2.png" alt="people">
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/devs.webp">
+                                <img src="./img/devs.png" loading="lazy" alt="developers">
+                            </picture>
+
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/people.webp">
+                                <img src="./img/people.png" loading="lazy" alt="people">
+                            </picture>
+
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/laptop.webp">
+                                <img src="./img/laptop.png" loading="lazy" alt="laptop">
+                            </picture>
+
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/people2.webp">
+                                <img src="./img/people2.png" loading="lazy" alt="people">
+                            </picture>
                         </div>
                         <div class="main__features-cards-card-info">
                             <h3>Active Community</h3>
@@ -126,18 +173,26 @@
         </section>
 
         <section class="main__documentation section">
-            <img src="img/background.svg" alt="background" class="main__documentation-background">
+            <img src="./img/background1.svg" alt="background" class="main__documentation-background">
             <div class="wrapper">
                 <div class="main__documentation-cards">
                     <div class="main__documentation-cards-card">
                         <div class="main__documentation-cards-card-img">
-                            <img src="img/develop.png" alt="develop" class="hoverup">
-                            <img src="img/develop-shadow.png" alt="develop-shadow">
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/develop.webp">
+                                <img src="./img/develop.png" loading="lazy" alt="develop" class="hoverup">
+                            </picture>
+
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/develop-shadow.webp">
+                                <img src="./img/develop-shadow.png" loading="lazy" alt="develop-shadow">
+                            </picture>
+
                         </div>
                         <div class="main__documentation-cards-card-info">
                             <h3>Develop<br>
                                 Without Limits</h3>
-                            <p>WooCommerce is developer friendly, too. Built with a REST API, WooCommerce is scalable and can integrate with virtually any service. Design a complex store from scratch, extend a store for a client, or simply add a single product to a WordPress site—your store, your way.</p>
+                            <p>WooCommerce is developer friendly, too. Built with a REST API, WooCommerce is scalable and can integrate with virtually any service. Design a complex store from scratch, extend a store for a client, or simply add a single product to a WordPress site — your store, your way.</p>
                             <a href="#" class="main__documentation-cards-card-info-button hoverup">Read the Documentation</a>
                         </div>
                     </div>
@@ -150,8 +205,15 @@
                             <a href="#" class="main__documentation-cards-card-info-button hoverup">Read the Documentation</a>
                         </div>
                         <div class="main__documentation-cards-card-img">
-                            <img src="img/graphic.png" alt="graphic" class="hoverup">
-                            <img src="img/graphic-shadow.png" alt="graphic-shadow">
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/graphic.webp">
+                                <img src="./img/graphic.png" loading="lazy" alt="graphic" class="hoverup">
+                            </picture>
+
+                            <picture class="img">
+                                <source type="image/webp" srcset="./img/graphic-shadow.webp">
+                                <img src="./img/graphic-shadow.png" loading="lazy" alt="graphic-shadow">
+                            </picture>
                         </div>
                     </div>
                 </div>
@@ -160,18 +222,18 @@
 
             <div class="main__documentation-picture">
                 <div class="main__documentation-picture-dots main__documentation-layer" data-speed="-2">
-                    <img src="img/odots1.svg" alt="dots">
-                    <img src="img/odots2.svg" alt="dots">
+                    <img src="./img/odots1.svg" alt="dots">
+                    <img src="./img/odots2.svg" alt="dots">
                 </div>
 
                 <div class="main__documentation-picture-circs main__documentation-layer" data-speed="-1" data-num="1">
-                    <img src="img/circle1.svg" alt="circle">
-                    <img src="img/circle1.svg" alt="circle">
+                    <img src="./img/circle1.svg" alt="circle">
+                    <img src="./img/circle1.svg" alt="circle">
                 </div>
 
                 <div class="main__documentation-picture-circs main__documentation-layer" data-speed="1" data-num="2">
-                    <img src="img/circle2.svg" alt="circle">
-                    <img src="img/circle3.svg" alt="circle">
+                    <img src="./img/circle2.svg" alt="circle">
+                    <img src="./img/circle3.svg" alt="circle">
                 </div>
             </div>
         </section>
@@ -185,17 +247,17 @@
                         <div class="main__testimonials-info-cards-wrapper">
                             <div class="main__testimonials-info-cards">
                                 <div class="main__testimonials-info-card" data-pos="0">
-                                    <img src="img/quote.svg" alt="background">
+                                    <img src="./img/quote.svg" alt="background">
                                     <p>No other eCommerce platform allows people to start for free and grow their store as their business grows. More importantly, WooCommerce doesn't charge you a portion of your profits as your business grows!</p>
                                 </div>
 
                                 <div class="main__testimonials-info-card" data-pos="1">
-                                    <img src="img/quote.svg" alt="background">
+                                    <img src="./img/quote.svg" alt="background">
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum temporibus harum reprehenderit ut quis minus maiores nemo ad itaque suscipit? Asperiores cumque ipsum ex et rerum repellendus, exercitationem voluptatem!</p>
                                 </div>
 
                                 <div class="main__testimonials-info-card" data-pos="2">
-                                    <img src="img/quote.svg" alt="background">
+                                    <img src="./img/quote.svg" alt="background">
                                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam sapiente vitae perferendis voluptatum dolore hic, aliquid soluta odit aut earum voluptatibus quis voluptatem cupiditate architecto esse!</p>
                                 </div>
                             </div>
@@ -218,18 +280,41 @@
             </div>
             <div class="main__testimonials-picture">
                 <div class="main__testimonials-picture-img main__testimonials-layer" data-speed="1" data-num="1">
-                    <img src="img/worker1.png" alt="worker">
-                    <img src="img/worker2.png" alt="worker">
-                    <img src="img/worker3.png" alt="worker">
+                    <picture class="img">
+                        <source type="image/webp" srcset="./img/worker1.webp">
+                        <img src="./img/worker1.png" loading="lazy" alt="worker">
+                    </picture>
 
-                    <img src="img/worker4.png" alt="worker">
-                    <img src="img/worker5.png" alt="worker">
-                    <img src="img/worker6.png" alt="worker">
+                    <picture class="img">
+                        <source type="image/webp" srcset="./img/worker2.webp">
+                        <img src="./img/worker2.png" loading="lazy" alt="worker">
+                    </picture>
+
+                    <picture class="img">
+                        <source type="image/webp" srcset="./img/worker3.webp">
+                        <img src="./img/worker3.png" loading="lazy" alt="worker">
+                    </picture>
+
+
+                    <picture class="img">
+                        <source type="image/webp" srcset="./img/worker4.webp">
+                        <img src="./img/worker4.png" loading="lazy" alt="worker">
+                    </picture>
+
+                    <picture class="img">
+                        <source type="image/webp" srcset="./img/worker5.webp">
+                        <img src="./img/worker5.png" loading="lazy" alt="worker">
+                    </picture>
+
+                    <picture class="img">
+                        <source type="image/webp" srcset="./img/worker6.webp">
+                        <img src="./img/worker6.png" loading="lazy" alt="worker">
+                    </picture>
                 </div>
 
                 <div class="main__testimonials-picture-background main__testimonials-layer" data-speed="-2" data-num="2">
-                    <img src="img/reddots.svg" alt="dots">
-                    <img src="img/odots2.svg"  alt="dots">
+                    <img src="./img/reddots.svg" alt="dots">
+                    <img src="./img/odots2.svg"  alt="dots">
                 </div>
             </div>
         </section>
@@ -242,17 +327,20 @@
                 <p>Our team of Happiness Engineers works remotely from 58 countries providing customer support across multiple time zones.</p>
             </div>
 
-            <img src="img/workers.png" alt="workers">
+            <picture class="img">
+                <source type="image/webp" srcset="./img/workers.webp">
+                <img src="./img/workers.png" loading="lazy" alt="workers">
+            </picture>
 
             <div class="footer__people-picture">
                 <div class="footer__people-picture-circles footer__people-layer" data-speed="-2" data-num="1">
-                    <img src="img/circle4.svg" alt="circle">
-                    <img src="img/circle5.svg" alt="circle">
-                    <img src="img/circle6.svg" alt="circle">
+                    <img src="./img/circle4.svg" alt="circle">
+                    <img src="./img/circle5.svg" alt="circle">
+                    <img src="./img/circle6.svg" alt="circle">
                 </div>
                 <div class="footer__people-picture-dots footer__people-layer" data-speed="1" data-num="2">
-                    <img src="img/odots3.svg"  alt="dots">
-                    <img src="img/reddots.svg" alt="dots">
+                    <img src="./img/odots3.svg"  alt="dots">
+                    <img src="./img/reddots.svg" alt="dots">
                 </div>
             </div>
         </section>
@@ -262,21 +350,21 @@
                 <h3>WooCommerce - the <span>most customizable eCommerce platform</span> for <span>building your online business</span>.</h3>
                 <a href="#" class="footer__tag-button hoverup">GET STARTED</a>
             </div>
-            <img src="img/circle7.svg" alt="circle">
+            <img src="./img/circle7.svg" alt="circle">
         </section>
 
         <section class="footer__info">
             <div class="footer__info-features">
                 <ul>
-                    <li><img src="img/check.svg" alt="check">30 day<span> money back guarantee</span></li>
-                    <li><img src="img/union.svg" alt="union"><span>Support </span>teams across the world</li>
-                    <li><img src="img/lock.svg"  alt="lock" ><span>Safe & Secure </span>online payment</li>
+                    <li><img src="./img/check.svg" alt="check">30 day<span> money back guarantee</span></li>
+                    <li><img src="./img/union.svg" alt="union"><span>Support </span>teams across the world</li>
+                    <li><img src="./img/lock.svg"  alt="lock" ><span>Safe & Secure </span>online payment</li>
                 </ul>
             </div>
 
 
             <div class="footer__info-nav">
-                <a href="#" class="hoverup"><img src="img/logo2.svg" alt="logo"></a>
+                <a href="#" class="hoverup"><img src="./img/logo2.svg" alt="logo"></a>
                 <div class="footer__info-nav-lists">
                     <ul>
                         <li><a href="#"><h4>WHO WE ARE</h4></a></li>
@@ -340,14 +428,19 @@
 
         <section class="footer__social">
             <ul class="footer__social-links">
-                <li class="hoverup"><a href="#"><img src="img/twitter.svg" alt="twitter"></a></li>
-                <li class="hoverup"><a href="#"><img src="img/facebook.svg" alt="facebook"></a></li>
-                <li class="hoverup"><a href="#"><img src="img/feeds.svg" alt="feeds"></a></li>
-                <li class="hoverup"><a href="#"><img src="img/instagram.svg" alt="instagram"></a></li>
+                <li class="hoverup"><a href="#"><img src="./img/twitter.svg" alt="twitter"></a></li>
+                <li class="hoverup"><a href="#"><img src="./img/facebook.svg" alt="facebook"></a></li>
+                <li class="hoverup"><a href="#"><img src="./img/feeds.svg" alt="feeds"></a></li>
+                <li class="hoverup"><a href="#"><img src="./img/instagram.svg" alt="instagram"></a></li>
             </ul>
 
             <div class="footer__social-copy">COPYRIGHT WOOCOMMERCE 2021 - <a href="#" class="hoverup">TERMS & CONDITIONS  PRIVACY POLICY</a></div>
-            <a href="#" class="hoverup"><img src="img/automattic.png" alt="automattic"></a>
+            <a href="#" class="hoverup">
+                <picture class="img">
+                    <source type="image/webp" srcset="./img/automattic.webp">
+                    <img src="./img/automattic.png" loading="lazy" alt="automattic">
+                </picture>
+            </a>
         </section>
     </footer>
 

@@ -25,7 +25,7 @@
             }
         }
 
-        & > img {
+        & > .img {
             width: 80vw;
             z-index: 100;
         }
@@ -40,17 +40,17 @@
                 & img {
                     position: absolute;
                     
-                    &:nth-of-type(1) {
+                    &:nth-child(1) {
                         width: 3.5vw;
                         top: 13vw;
                         left: 5.2vw;
                     }
-                    &:nth-of-type(2) {
+                    &:nth-child(2) {
                         width: 1.5vw;
                         top: 18vw;
                         left: 10vw;
                     }
-                    &:nth-of-type(3) {
+                    &:nth-child(3) {
                         width: 2.2vw;
                         top: 10vw;
                         right: 12vw;
@@ -63,12 +63,12 @@
                 & img {
                     position: absolute;
 
-                    &:nth-of-type(1) {
+                    &:nth-child(1) {
                         width: 14vw;
                         top: 23vw;
                         left: 5vw;
                     }
-                    &:nth-of-type(2) {
+                    &:nth-child(2) {
                         width: 24.5vw;
                         top: 17.1vw;
                         right: 8.3vw;
@@ -204,7 +204,7 @@
                             transform: translateY(-5px);
                         }
 
-                        &:first-of-type {
+                        &:first-child {
                             margin-bottom: 1.5vw;
                         }
                     }
@@ -248,7 +248,7 @@
         & > a {
             margin-left: auto;
             display: inline-block;
-            & img {
+            & .img {
                 width: 9.5vw;
             }
         }
@@ -270,7 +270,7 @@
                 }
             }
 
-            & > img {
+            & > .img {
                 width: 100%;
             }
         }
@@ -347,7 +347,7 @@
                                 transform: scale(2) translateY(-5px);
                             }
 
-                            &:first-of-type {
+                            &:first-child {
                                 margin-top: 15vw;
                                 margin-bottom: 8vw;
                             }
@@ -369,7 +369,7 @@
                 }
 
                 & img {
-                    transform: scale(2);
+                    transform: scale(1.75);
                 }
             }
 
@@ -380,7 +380,7 @@
             & > a {
                 margin: 5vw 0;
                 
-                & img {
+                & .img {
                     transform: scale(3);
                 }
             }
@@ -446,7 +446,7 @@
             &-links {
                 & li {
                     & a {
-                        & img {
+                        & .img {
                             transform: scale(1.5);
                         }
                     }
