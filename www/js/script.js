@@ -188,21 +188,3 @@ function makeSlider(block, perspective, depth) {
 }
 
 makeSlider('.main__testimonials-info', '15vw', 1.3);
-
-
-//переход между блоками по скроллу
-
-/*let sections = document.querySelectorAll('.section');
-let numOfSec = 0;
-
-document.addEventListener('scroll', e => {
-    let distance = document.documentElement.scrollTop + document.documentElement.clientHeight;
-    let current = sections[numOfSec];
-
-
-    if (distance > current.offsetTop + current.offsetHeight) {
-        numOfSec++;
-        current = sections[numOfSec];
-        document.documentElement.scrollTop = current.offsetTop - 100;
-    }
-});*/
