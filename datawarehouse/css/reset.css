@@ -1,0 +1,28 @@
+:root {
+    --company-grey: #4B5D68;
+    --dark-purple: #212353;
+    --violet: #9C69E2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    list-style: none;
+    font-family: "Avenir", sans-serif;
+}
+*::selection {
+    background: var(--violet);
+    color: #fff;
+}
+.wrapper {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+body {
+    overflow-x: hidden;
+}
