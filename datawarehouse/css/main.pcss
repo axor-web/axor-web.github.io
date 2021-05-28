@@ -47,6 +47,7 @@
 
 .main {
     width: 100%;
+    overflow: hidden;
     &__appeal {
         position: relative;
         &-info {
@@ -379,12 +380,12 @@
 
 
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1450px) {
     .main {
         &__appeal {
             & img {
-                position: relative;
-                top: -300px;
+                width: 700px;
+                right: -30px;
             }
         }
     }
@@ -392,6 +393,12 @@
 
 @media screen and (max-width: 1200px) {
     .main {
+        &__appeal {
+            & img {
+                width: 600px;
+                right: 30px;
+            }
+        }
         &__description {
             flex-direction: column;
             margin: 0 auto;
