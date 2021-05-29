@@ -25,6 +25,26 @@
         opacity: 1;
     }
 }
+@keyframes slideFrom {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes slideTo {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
 
 picture {
     display: block;
@@ -35,7 +55,6 @@ picture {
         display: block;
     }
 }
-
 .button {
     border-radius: 50px;
     display: inline-block;
@@ -272,7 +291,7 @@ picture {
             border-radius: 20px;
             display: flex;
             align-items: flex-start;
-            justify-content: flex-start;
+            justify-content: center;
             max-height: 330px;
             margin-right: 20px;
             cursor: default;
@@ -387,7 +406,7 @@ picture {
                 padding: 10px;
                 padding-right: 5px;
                 cursor: pointer;
-                &_active, &:hover {
+                &:hover {
                     opacity: 1;
                     width: 40px;
                 }
@@ -488,19 +507,22 @@ picture {
                 margin: 0 auto;
             }
             &-card {
+                position: absolute;
                 opacity: 0;
-                display: none;
                 max-height: none;
                 min-width: 0;
                 max-width: none;
                 width: 100%;
                 margin-right: 0;
-                animation: hiding .7s;
+                transition: opacity .2s;
+                display: block;
+                padding: 60px 120px 50px 120px;
                 
                 &_active {
+                    position: static;
                     opacity: 1;
-                    display: block;
-                    animation: unhiding .5s;
+                    width: 100%;
+                    padding: 60px 70px 50px 70px;
                 }
 
                 &-info {
@@ -618,9 +640,14 @@ picture {
                 padding: 20px;
                 padding-top: 40px;
                 text-align: center;
+                width: calc(100% - 40px);
+                
+                &_active {
+                    width: 100%;
+                }
 
                 & .img {
-                    margin-right: 0;
+                    margin: 0 auto;
                 }
             }
             &-buttons {

@@ -15,10 +15,19 @@ function back() {
     } else if (cards[0] == active) {
         return null;
     }
+    if (document.documentElement.clientWidth <= 1100) {
+        active.style.animation           = 'slideTo 0.2s linear'  ;
+        cards[index - 1].style.animation = 'slideFrom 0.2s linear';
+
+        setTimeout(() => {
+            active.style.animation           = '';
+            cards[index - 1].style.animation = '';
+        }, 200);
+    }
 
     active.classList.remove('main__testimonials-card_active');
     cards[index - 1].classList.add('main__testimonials-card_active');
-    translate(index - 1);    
+    translate(index - 1);
 }
 
 function forward() {
@@ -29,6 +38,16 @@ function forward() {
         index = -1;
     } else if (cards[2] == active) {
         return null;
+    }
+
+    if (document.documentElement.clientWidth <= 1100) {
+        active.style.animation           = 'slideFrom 0.2s reverse linear';
+        cards[index + 1].style.animation = 'slideTo 0.2s reverse linear'  ;
+
+        setTimeout(() => {
+            active.style.animation           = '';
+            cards[index + 1].style.animation = '';
+        }, 200);
     }
 
     active.classList.remove('main__testimonials-card_active');
@@ -49,3 +68,12 @@ function translate(index) {
             cards.style.left = '-600px';
     }
 }
+arrowBack    = document.querySelector('.main__testimonials-buttons-arrow:first-of-type');
+arrowForward = document.querySelector('.main__testimonials-buttons-arrow:last-of-type');
+
+arrowBack.addEventListener('click', () => {
+    back();
+});
+arrowForward.addEventListener('click', () => {
+    forward();
+});
