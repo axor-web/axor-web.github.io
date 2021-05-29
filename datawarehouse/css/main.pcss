@@ -25,6 +25,17 @@
         opacity: 1;
     }
 }
+
+picture {
+    display: block;
+    height: auto;
+    & img, & source {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+}
+
 .button {
     border-radius: 50px;
     display: inline-block;
@@ -74,8 +85,9 @@
                 background: var(--violet);
             }
         }
-        & img {
+        & .img {
             position: absolute;
+            width: 885px;
             top: 100px;
             right: -130px;
         }
@@ -109,6 +121,9 @@
                 line-height: 160%;
                 color: var(--company-grey);
             }
+        }
+        & .img {
+            width: 477px;
         }
     }
 
@@ -149,9 +164,27 @@
             width: 100%;
             position: relative;
             margin-bottom: 100px;
-            &:first-of-type {
+            &:nth-of-type(1) {
                 .main__features-card-bg {
                     top: -30px;
+                }
+                .main__features-card-img {
+                    width: 232px;
+                }
+            }
+            &:nth-of-type(2) {
+                .main__features-card-img {
+                    width: 241px;
+                }
+            }
+            &:nth-of-type(3) {
+                .main__features-card-img {
+                    width: 245px;
+                }
+            }
+            &:nth-of-type(4) {
+                .main__features-card-img {
+                    width: 230px;
                 }
             }
             
@@ -185,11 +218,11 @@
                     font-size: 16px;
                     margin-bottom: 30px;
                     &:hover {
-                        & img {
+                        & .img {
                             transform: translateX(3px);
                         }
                     }
-                    & div, img {
+                    & div, .img {
                         display: inline-block;
                         transition: transform .3s;
                     }
@@ -201,12 +234,15 @@
                 top: 70px;
                 right: 300px;
                 z-index: -50;
+                height: auto;
             }
             &-bg {
                 position: absolute;
                 top: 0;
                 z-index: -100;
             }
+
+
         }
     }
 
@@ -267,8 +303,9 @@
                 }
             }
 
-            & img {
+            & .img {
                 width: 90px;
+                flex-shrink: 0;
                 height: auto;
                 position: relative;
                 top: -20px;
@@ -383,7 +420,7 @@
 @media screen and (max-width: 1450px) {
     .main {
         &__appeal {
-            & img {
+            & .img {
                 width: 700px;
                 right: -30px;
             }
@@ -394,7 +431,7 @@
 @media screen and (max-width: 1200px) {
     .main {
         &__appeal {
-            & img {
+            & .img {
                 width: 600px;
                 right: 30px;
             }
@@ -407,7 +444,7 @@
             &-info {
                 margin-left: 0;
             }
-            & img {
+            & .img {
                 position: relative;
                 left: -25px;
             }
@@ -422,7 +459,7 @@
 @media screen and (max-width: 1100px) {
     .main {
         &__appeal {
-            & img {
+            & .img {
                 position: relative;
                 top: -200px;
                 right: 0;
@@ -508,7 +545,7 @@
 @media screen and (max-width: 600px) {
     .main {
         &__appeal {
-            & img {
+            & .img {
                 top: -150px;
             }
         }
@@ -520,7 +557,7 @@
                     text-align: center;
                 }
             }
-            & img {
+            & .img {
                 width: 100%;
             }
         }
@@ -533,7 +570,7 @@
                 margin: 0 auto;
                 width: 100%;
                 height: auto;
-                &-img {
+                &-.img {
                     top: 50px;
                     right: 50px;
                 }
@@ -576,7 +613,7 @@
                 padding-top: 40px;
                 text-align: center;
 
-                & img {
+                & .img {
                     margin-right: 0;
                 }
             }
