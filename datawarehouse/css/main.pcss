@@ -535,6 +535,9 @@ picture {
             &-cards {
                 justify-items: end;
             }
+            &-card {
+                margin-right: 20px;
+            }
         }
         &__description {
             margin: 0 20px;
@@ -570,7 +573,10 @@ picture {
                 margin: 0 auto;
                 width: 100%;
                 height: auto;
-                &-.img {
+                border-bottom-right-radius: 30px;
+                border-bottom-left-radius: 30px;
+                overflow: hidden;
+                &-img {
                     top: 50px;
                     right: 50px;
                 }
@@ -642,7 +648,19 @@ picture {
             &-card {
                 &-bg {
                     left: -25px;
-                    clip-path: circle(40% at 35% 45%);
+                    clip-path: circle(47% at 35% 45%);
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .main {
+        &__features {
+            &-card {
+                &-img {
+                    right: 20px;
                 }
             }
         }
