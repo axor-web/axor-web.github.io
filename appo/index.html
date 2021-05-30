@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appo - mobile app</title>
+    <link href="css/worksans.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/animate.min.css" />
+    <script src="js/wow.min.js"></script>
+    <script>
+      new WOW().init();
+    </script>
+    <style>
+        .header__nav-button div {appearance: none; border-radius: 20px}
+    </style>
+  </head>
+  <body onscroll="hideHeader()">
+    <header class="header">
+      <div class="header__logo">
+        <img src="img/logo.svg" alt="logo" class="header__logo-img" />
+        <div class="header__logo-name">GROOVE APP</div>
+      </div>
+      <ul class="header__nav">
+        <li class="header__nav-link"><a href="#">Home</a></li>
+        <li class="header__nav-link"><a href="#">About</a></li>
+        <li class="header__nav-link"><a href="#">App</a></li>
+        <li class="header__nav-link"><a href="#">Info</a></li>
+      </ul>
+      <div class="header__nav-button" onclick="openMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="header__curtain" onclick="closeMenu()"></div>
+    </header>
+    <main class="main">
+      <section class="hero">
+        <div class="hero__info wow fadeIn">
+          <h1>Choose a better way to represent your app</h1>
+          <p>Vestibulum ac diam sit amet quam vehicula elementum.</p>
+          <a href="#" class="button hero__download-button wow slideInLeft"
+            >Download Free</a
+          ><a href="#" class="button hero__contact-button wow slideInRight"
+            >Contact Us</a
+          >
+        </div>
+        <img
+          src="img/smartphone.webp" srcset="img/smartphone.png"
+          alt="smartphone"
+          class="hero__smartphone wow slideInUp"
+        />
+      </section>
+      <section class="marketing-one">
+        <div class="wrapper">
+          <img
+            src="img/smartphone.webp" srcset="img/smartphone.png"
+            alt="smartphone"
+            class="marketing-one__smartphone wow slideInLeft"
+          />
+          <div class="marketing-one__cards">
+            <div class="marketing-one__card wow slideInLeft">
+              <img src="img/cart.webp" srcset="img/cart.png" alt="cart" />
+              <h4>First 7 Days Free</h4>
+              <p>
+                Cras ultricies ligula sed magna dictum porta. Nulla porttitor
+                accumsan tincidunt. Vestibulum ac diamdo.
+              </p>
+            </div>
+            <div class="marketing-one__card wow slideInRight">
+              <img src="img/message.webp" srcset="img/message.png" alt="message" />
+              <h4>Fully Support</h4>
+              <p>
+                Cras ultricies ligula sed magna dictum porta. Nulla porttitor
+                accumsan tincidunt. Vestibulum ac diamdo.
+              </p>
+            </div>
+            <div class="marketing-one__card wow slideInLeft">
+              <img src="img/roller.webp" srcset="img/roller.png" alt="roller" />
+              <h4>Modern Flat Design</h4>
+              <p>
+                Cras ultricies ligula sed magna dictum porta. Nulla porttitor
+                accumsan tincidunt. Vestibulum ac diamdo.
+              </p>
+            </div>
+            <div class="marketing-one__card wow slideInRight">
+              <img src="img/phone.webp" srcset="img/phone.png" alt="phone" />
+              <h4>User Friendly</h4>
+              <p>
+                Cras ultricies ligula sed magna dictum porta. Nulla porttitor
+                accumsan tincidunt. Vestibulum ac diamdo.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="marketing-two wrapper">
+        <div class="marketing-two__info wow slideInLeft">
+          <h2>Stable And Ready</h2>
+          <p>
+            Cras ultricies ligula sed magna dictum porta. Nulla porttitor
+            accumsan tincidunt. Vestibulum ac diam sit amet quam vehicula
+            elementum sed sit amet dui. Curabitur aliquet quam id dui posuere
+            blandit. Curabitur aliquet quam id dui posuere blandit. Vestibulum
+            ac diam sit amet quam.
+          </p>
+          <a href="#" class="button marketing-two__info-button"
+            >Download Free</a
+          >
+        </div>
+        <div class="marketing-two__cards wow slideInRight">
+          <div class="marketing-two__card">
+            <div>
+              <img src="img/heart.webp" srcset="img/heart.png" alt="heart" />
+              <h4>Made With Love</h4>
+            </div>
+            <p>
+              Cras ultricies ligula sed magna dictum porta. Nulla porttitor
+              accumsan tincidunt. Vestibulum ac diam.
+            </p>
+          </div>
+          <div class="marketing-two__card">
+            <div>
+              <img src="img/tag.webp" srcset="img/tag.png" alt="tag" />
+              <h4>Free of Use</h4>
+            </div>
+            <p>
+              Cras ultricies ligula sed magna dictum porta. Nulla porttitor
+              accumsan tincidunt. Vestibulum ac diam.
+            </p>
+          </div>
+          <div class="marketing-two__card">
+            <div>
+              <img src="img/bag.webp" srcset="img/bag.png" alt="bag" />
+              <h4>Fully Support Avaliable</h4>
+            </div>
+            <p>
+              Cras ultricies ligula sed magna dictum porta. Nulla porttitor
+              accumsan tincidunt. Vestibulum ac diam.
+            </p>
+          </div>
+          <div class="marketing-two__card">
+            <div>
+              <img src="img/pencil.webp" srcset="img/pencil.png" alt="pencil" />
+              <h4>Flat and Modern UI & UX</h4>
+            </div>
+            <p>
+              Cras ultricies ligula sed magna dictum porta. Nulla porttitor
+              accumsan tincidunt. Vestibulum ac diam.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="marketing-three">
+        <div class="wrapper">
+          <img
+            src="img/code.webp" srcset="img/code.png"
+            alt="code"
+            class="marketing-three__img wow slideInLeft"
+          />
+          <div class="marketing-three__info wow slideInRight">
+            <h2>Everything You Need</h2>
+            <div class="marketing-three__info-platforms">
+              <div>
+                <img src="img/checkmark.webp" srcset="img/checkmark.png" alt="checkmark" />
+                <h4>Android</h4>
+              </div>
+              <div>
+                <img src="img/checkmark.webp" srcset="img/checkmark.png" alt="checkmark" />
+                <h4>iPhone</h4>
+              </div>
+            </div>
+            <p>
+              Cras ultricies ligula sed magna dictum porta. Nulla porttitor
+              accumsan tincidunt. Vestibulum ac diam sit amet quam vehicula
+              elementum sed sit amet dui. Curabitur aliquet quam id dui posuere
+              blandit. Curabitur aliquet quam id dui posuere blandit. Vestibulum
+              ac diam sit amet quam.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="marketing-four">
+        <div class="wrapper">
+          <img
+            src="img/smartphone.webp" srcset="img/smartphone.png"
+            alt="smartphone"
+            class="marketing-four__img wow slideInLeft"
+          />
+          <div class="marketing-four__info wow slideInRight">
+            <h2>Now Avalible</h2>
+            <p>
+              Cras ultricies ligula sed magna dictum porta. Nulla porttitor
+              accumsan tincidunt. Vestibulum ac diam sit amet quam vehicula
+              elementum sed sit amet dui. quam vehicula elementum sed sit
+              ametsuada.
+            </p>
+            <div class="marketing-four__getit">
+              <a class="wow slideInUp" href="#"
+                ><img
+                  src="img/appstore.webp" srcset="img/appstore.png"
+                  alt="Download on the AppStore" /></a
+              ><a class="wow slideInRight" href="#"
+                ><img src="img/googleplay.webp" srcset="img/googleplay.png" alt="Get It on GooglePlay"
+              /></a>
+            </div>
+          </div>
+          <a href="#" class="marketing-four__getapp wow slideInUp faster"
+            >GET THE APP TODAY</a
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="footer wrapper wow fadeIn">
+      <div class="footer__info">
+        <div class="footer__info-cards">
+          <div class="footer__info-card">
+            <h4><a href="#">Company</a></h4>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Jobs</a></li>
+              <li><a href="#">Press</a></li>
+            </ul>
+          </div>
+          <div class="footer__info-card">
+            <h4><a href="#">Development</a></h4>
+            <ul>
+              <li><a href="#">iOS</a></li>
+              <li><a href="#">Android</a></li>
+            </ul>
+          </div>
+          <div class="footer__info-card">
+            <h4><a href="#">Community</a></h4>
+            <ul>
+              <li><a href="#">Social</a></li>
+              <li><a href="#">Forum</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer__info-card">
+            <h4><a href="#">Info</a></h4>
+            <ul>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer__subscribe">
+          <h2>Get In Touch</h2>
+          <p>
+            Subscribe to our newsletter and get notification for upcoming cool
+            sutff.
+          </p>
+          <div class="footer__subscribe-email">
+            <input type="email" class="wow slideInLeft" style="-webkit-appearance: none; appearance: none;border-radius: 0"/><input
+              type="submit"
+              value="COUNT ME IN"
+              class="wow slideInRight"
+              style="-webkit-appearance: none; appearance: none;border-radius: 0"
+            />
+          </div>
+        </div>
+      </div>
+    </footer>
+    <footer class="footer__social wow fadeIn">
+      <div class="wrapper">
+        <div class="footer__social-copyright">
+          © 2020 - Appo, All Right Reserved
+        </div>
+        <div class="footer__social-links">
+          <a href="#"><img src="img/facebook.webp" srcset="img/facebook.png" alt="facebook" /></a
+          ><a href="#"><img src="img/twitter.webp" srcset="img/twitter.png" alt="twitter" /></a
+          ><a href="#"><img src="img/dribbble.webp" srcset="img/dribbble.png" alt="dribbble" /></a
+          ><a href="#"><img src="img/google.webp" srcset="img/google.png" alt="google" /></a
+          ><a href="#"><img src="img/youtube.webp" srcset="img/youtube.png" alt="youtube" /></a>
+        </div>
+      </div>
+    </footer>
+    <script src="js/script.js"></script>
+  </body>
+</html>
