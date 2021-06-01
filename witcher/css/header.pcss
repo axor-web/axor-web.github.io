@@ -23,6 +23,16 @@ a:active, a:visited, a {
     box-sizing: border-box;
 }
 .hover {
+    transition: transform .3s;
+    &:hover {
+        transform: scale(1.1);
+    }
+    &:active {
+        transform: scale(1);
+        transition: 0.1s
+    }
+}
+.hoverText {
     transition: color .3s;
     &:hover {
         color: var(--comRed);

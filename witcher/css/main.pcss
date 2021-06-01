@@ -67,6 +67,13 @@ img.background {
             border-radius: 8px;
             margin-top: 40px;
             display: inline-block;
+
+            &:hover {
+                transform: scale(1.02)
+            }
+            &:active {
+                transform: scale(1);
+            }
         }
     }
 
@@ -87,6 +94,12 @@ img.background {
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            &:hover {
+                transform: scale(1.03)
+            }
+            &:active {
+                transform: scale(1);
+            }
             
             & img {
                 display: block;
@@ -111,6 +124,7 @@ img.background {
             display: block;
             height: 22px;
             width: 32px;
+            padding: 20px 0;
             position: relative;
             display: flex;
             align-items: center;
