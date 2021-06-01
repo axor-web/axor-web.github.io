@@ -3,11 +3,210 @@ body {
     height: 100vh;
     background-color: #141218;
     max-width: 1180px;
-    padding: 0 20px;
+    padding: 0 30px;
     margin: 0 auto;
     overflow: hidden;
+    position: relative;
+    display: grid;
+    grid-template-rows: 0.8fr 3fr 60px;
+}
+
+img.background {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    z-index: -100;
 }
 
 .main {
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    &__info {
+        max-width: 460px;
+        &-rate {
+            font-size: 14px;
+            &-stars {
+                display: flex;
+                align-items: center;
+                margin-top: 16px;
+
+                & img {
+                    margin: 0 2px;
+                    display: block;
+                }
+                & span {
+                    font-size: 12px;
+                    margin-left: 7px;
+                    margin-top: 1px;
+                }
+            }
+        }
+
+        &-name {
+            height: 55px;
+            width: auto;
+            margin: 30px 0;
+
+            & img {
+                height: 100%;
+                width: auto;
+            }
+        }
+
+        &-desc {
+            font-size: 14px;
+        }
+
+        &-btn {
+            font-size: 14px;
+            font-weight: 700;
+            padding: 20px 70px;
+            background: var(--comRed);
+            border-radius: 8px;
+            margin-top: 40px;
+            display: inline-block;
+        }
+    }
+
+    &__episodes {
+        display: flex;
+        align-items: center;
+        margin-top: 40px;
+
+        &-episode {
+            box-sizing: border-box;
+            margin-right: 30px;
+            position: relative;
+            height: 112px;
+            width: 164px;
+            overflow: hidden;
+            border-radius: 8px;
+            padding: 13px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            
+            & img {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                z-index: -50;
+            }
+            & span {
+                display: block;
+                font-size: 10px;
+            }
+            & h4 {
+                font-size: 14px;
+                font-weight: 700;
+            }
+        }
+
+        &-arrow {
+            display: block;
+            height: 22px;
+            width: 32px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            @keyframes direct {
+                from {
+                    transform: translateX(0);
+                }
+                50% {
+                    transform: translateX(5px);
+                }
+                to {
+                    transform: translateX(0);
+                }
+            }
+            &:hover {
+                animation: direct .4s;
+            }
+
+            & div {
+                position: absolute;
+                height: 2px;
+                background: var(--comRed);
+                border-radius: 50px;
+
+                &:nth-of-type(1) {
+                    width: 100%;
+                }
+                &:nth-of-type(2) {
+                    right: -2.5px;
+                    width: 50%;
+                    transform: translateY(-5px) rotateZ(45deg);
+                }
+                &:nth-of-type(3) {
+                    right: -2.5px;
+                    width: 50%;
+                    transform: translateY(5px) rotateZ(-45deg);
+                }
+            }
+        }
+    }
+
+    &__play {
+        position: absolute;
+        top: 35vh;
+        right: 21vw;
+    }
+}
+
+
+@media screen and (orientation: portrait) {
+    img.background {
+        left: -30vh;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .main {
+        &__play {
+            right: 10vw;
+        }
+    }
+}
+@media screen and (max-width: 700px) {
+    .main {
+        &__play {
+            display: none;
+        }
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        grid-template-rows: 1fr 74px;
+    }
+    .main {
+        justify-content: center;
+        margin-top: 100px;
+        &__info {
+            &-name {
+                height: 38px;
+                margin: 20px 0;
+            }
+            &-btn {
+                margin-top: 25px;
+            }
+        }
+
+        &__episodes {
+            &-episode {
+                &:nth-of-type(2) {
+                    display: none;
+                }
+            }
+        }
+    }
 }
