@@ -1,0 +1,44 @@
+.footer {
+    padding: 20px 0;
+    font-size: 14px;
+    background: #141218;
+
+    & .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__copy {
+        color: #727174;
+    }
+
+    &__nav {
+        & a {
+            color: #727174;
+            display: inline-block;
+            margin-left: 25px;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .footer {
+        padding: 20px 30px;
+
+        & .wrapper {
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 0;
+        }
+
+        &__nav {
+            margin: 8px 0;
+            & a {
+                margin-left: 0;
+                margin-right: 20px;
+            }
+        }
+    }
+}
