@@ -27,8 +27,6 @@ body {
     overflow-x: hidden;
 }
 
-
-
 .request-button {
     font-weight: 700;
     color: var(--dark-purple);
@@ -86,11 +84,14 @@ body {
             & a {
                 color: var(--company-grey);
                 position: relative;
+                line-height: 13px;
+
                 & span {
                     position: absolute;
-                    left: -0.5px;
+                    left: -0.1px;
                     top: 0;
                     font-weight: 700;
+                    letter-spacing: -0.01em;
                     color: var(--dark-purple);
                     opacity: 0;
                     transition: opacity .4s;
