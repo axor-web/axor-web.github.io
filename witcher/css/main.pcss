@@ -198,6 +198,7 @@ img.background {
 }
 @media screen and (max-width: 600px) {
     body {
+        overflow-y: scroll;
         grid-template-rows: 1fr 74px;
         &::after {
             content: '';
@@ -232,11 +233,5 @@ img.background {
                 }
             }
         }
-    }
-}
-
-@media screen and (max-width: 500px) and (max-height: 600px) {
-    body {
-        overflow-y: scroll;
     }
 }
