@@ -1,3 +1,4 @@
+'use strict';
 let button      = document.querySelector('.header__button');
 let header      = button.parentNode;
 let mobileWidth = 600;

@@ -1,4 +1,4 @@
-"use strict"
+'use strict';
 
 // Скрипт для поиска
 
@@ -28,7 +28,6 @@ searchButton.addEventListener('click', () => {
 
 searchInput.addEventListener('blur', () => {
     if ([].includes.call(searchParent.classList, visibleClass) && !searchInput.value) {
-        console.log('wow!');
         searchParent.classList.remove(visibleClass);
         searchInput.classList.remove('focused');
     }

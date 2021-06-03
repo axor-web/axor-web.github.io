@@ -1,3 +1,4 @@
+'use strict';
 function openMenu() {
     let header = document.querySelector('.header');
     if (!header.classList[1]) { header.classList.add('header_opened') }
@@ -68,8 +69,8 @@ function translate(index) {
             cards.style.left = '-600px';
     }
 }
-arrowBack    = document.querySelector('.main__testimonials-buttons-arrow:first-of-type');
-arrowForward = document.querySelector('.main__testimonials-buttons-arrow:last-of-type');
+let arrowBack    = document.querySelector('.main__testimonials-buttons-arrow:first-of-type');
+let arrowForward = document.querySelector('.main__testimonials-buttons-arrow:last-of-type');
 
 arrowBack.addEventListener('click', () => {
     back();
