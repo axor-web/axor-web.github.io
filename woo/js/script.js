@@ -1,12 +1,5 @@
 'use strict';
-
-// Скрипт для поиска
-
-let searchButton = document.querySelector('.header__buttons-search img');
-let searchInput = document.querySelector('.header__buttons-search input[type="text"]');
-let searchParent = searchInput.parentNode;
-const visibleClass= 'header__buttons-search_visible';
-
+// Функция для поиска в гугле по рофелу //
 function search(value) {
     if (value) {
         window.open(`https://www.google.com/search?q=${value}`, '_blank');
@@ -16,51 +9,57 @@ function search(value) {
     }
 }
 
-searchButton.addEventListener('click', () => {
-    if (![].includes.call(searchParent.classList, visibleClass)) { // заимствуем у массива метод includes для classList
-        searchParent.classList.add(visibleClass);
-        searchButton.blur();
-        searchInput.focus();
-        searchInput.classList.add('focused');
-    }
-    else if (searchInput.value) { search(searchInput.value); }
-});
+{   // Скрипт для поиска //
+    let searchButton = document.querySelector('.header__buttons-search img');
+    let searchInput = document.querySelector('.header__buttons-search input[type="text"]');
+    let searchParent = searchInput.parentNode;
+    const visibleClass= 'header__buttons-search_visible';
 
-searchInput.addEventListener('blur', () => {
-    if ([].includes.call(searchParent.classList, visibleClass) && !searchInput.value) {
-        searchParent.classList.remove(visibleClass);
-        searchInput.classList.remove('focused');
-    }
-});
-searchInput.addEventListener('keyup', event => {
-    if (event.code == 'Enter' && searchInput.value) {
-        search(searchInput.value);
-    }
-});
+    searchButton.addEventListener('click', () => {
+        if (![].includes.call(searchParent.classList, visibleClass)) { // заимствуем у массива метод includes для classList
+            searchParent.classList.add(visibleClass);
+            searchButton.blur();
+            searchInput.focus();
+            searchInput.classList.add('focused');
+        }
+        else if (searchInput.value) { search(searchInput.value); }
+    });
 
-
-
-
-// Скрипт для мобильного меню
-
-let mobileButton = document.querySelector('.header__mobile-button');
-
-mobileButton.addEventListener('click', () => {
-    let header = document.querySelector('.header');
-    
-    if (![].includes.call(header.classList, 'header_visible')) {
-        header.classList.add('header_visible');
-        document.body.style.overflowY = 'hidden';
-    } 
-    else {
-        header.classList.remove('header_visible');
-        document.body.style.overflowY = '';
-    }
-});
+    searchInput.addEventListener('blur', () => {
+        if ([].includes.call(searchParent.classList, visibleClass) && !searchInput.value) {
+            searchParent.classList.remove(visibleClass);
+            searchInput.classList.remove('focused');
+        }
+    });
+    searchInput.addEventListener('keyup', event => {
+        if (event.code == 'Enter' && searchInput.value) {
+            search(searchInput.value);
+        }
+    });
+}
 
 
 
-// Скрипт для параллакса по движению мыши
+
+{   // Скрипт для мобильного меню //
+    let mobileButton = document.querySelector('.header__mobile-button');
+
+    mobileButton.addEventListener('click', () => {
+        let header = document.querySelector('.header');
+        
+        if (![].includes.call(header.classList, 'header_visible')) {
+            header.classList.add('header_visible');
+            document.body.style.overflowY = 'hidden';
+        } 
+        else {
+            header.classList.remove('header_visible');
+            document.body.style.overflowY = '';
+        }
+    });
+}
+
+
+// Функция для создания параллакса по движению мыши //
 
 function makeParallax(layers, mobileWidth) {
     document.addEventListener('mousemove', (e) => {
@@ -99,7 +98,7 @@ function makeSlider(block, perspective, depth) {
         `;
     }
 
-    //делаем анимацию
+    //делаем анимацию перелистывания карточек
     style.textContent += `
         @keyframes leaf-card {
             from {
@@ -182,6 +181,7 @@ function makeSlider(block, perspective, depth) {
 
     //back
     arrows[0].addEventListener('click', leafCard.bind(null, -1));
+    
     //forward
     arrows[1].addEventListener('click', leafCard.bind(null, 1));
 }
