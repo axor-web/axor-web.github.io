@@ -18,7 +18,7 @@
 
     "compile-header-witcher": "npx postcss witcher/css/header.pcss -o witcher/css/header.css -w ",
     "compile-main-witcher":   "npx postcss witcher/css/main.pcss -o witcher/css/main.css -w ",
-    "compile-footer-witcher": "npx postcss witcher/css/footer.pcss -o witcher/css/footer.css -w ",
+    "compile-footer-witcher": "npx postcss witcher/css/footer.pcss -o witcher/css/footer.css -w "
   },
   "repository": {
     "type": "git",
