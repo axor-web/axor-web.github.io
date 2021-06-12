@@ -29,6 +29,10 @@
   },
   "homepage": "https://github.com/axor-web/axor-web.github.io#readme",
   "devDependencies": {
-    "postcss-cli": "^8.3.1"
-  }
+    "cssnano": "^5.0.6",
+    "postcss": "^8.3.2",
+    "postcss-cli": "^8.3.1",
+    "postcss-nested": "^5.0.5"
+  },
+  "dependencies": {}
 }
