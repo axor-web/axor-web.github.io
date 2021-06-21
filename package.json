@@ -15,7 +15,9 @@
     "compile-footer-woo": "npx postcss woo/css/footer.pcss -o woo/css/footer.css -w ",
     "compile-header-witcher": "npx postcss witcher/css/header.pcss -o witcher/css/header.css -w ",
     "compile-main-witcher": "npx postcss witcher/css/main.pcss -o witcher/css/main.css -w ",
-    "compile-footer-witcher": "npx postcss witcher/css/footer.pcss -o witcher/css/footer.css -w "
+    "compile-footer-witcher": "npx postcss witcher/css/footer.pcss -o witcher/css/footer.css -w ",
+    "compile-header-tamagochicat": "npx postcss tamagochicat/css/header.pcss -o tamagochicat/css/header.css -w ",
+    "compile-main-tamagochicat": "npx postcss tamagochicat/css/main.pcss -o tamagochicat/css/main.css -w "
   },
   "repository": {
     "type": "git",

@@ -5,8 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tamagochi Cat!</title>
+
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-    
+    <header class="header">
+        <div class="header__stats">
+            <div class="header__stats-feature">
+                <div class="header__stats-feature-logo">HP</div>
+                <div class="header__stats-feature-value green">100</div>
+            </div>
+
+            <div class="header__stats-feature">
+                <div class="header__stats-feature-logo"><img src="./materials/hunger.png" alt="hunger"></div>
+                <div class="header__stats-feature-value">100</div>
+            </div>
+
+            <div class="header__stats-feature">
+                <div class="header__stats-feature-logo"><img src="./materials/happy-face.png" alt="happiness"></div>
+                <div class="header__stats-feature-value">100</div>
+            </div>
+        </div>
+
+        <div class="header__acts">
+            <a href="#" class="header__acts-button button" data-act="eat">Eat</a>
+            <a href="#" class="header__acts-button button" data-act="play">Play</a>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="main__wall"></div>
+
+        <div class="main__floor"></div>
+
+        <img class="main__bed" src="./materials/bed.png" alt="bed">
+
+        <img src="./materials/window.png" alt="window" class="main__window">
+    </main>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
