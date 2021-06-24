@@ -4,11 +4,23 @@ body {
     overflow: hidden;
 }
 
+.cat {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 22vh;
+
+    & img {
+        display: block;
+        width: 100%;
+    }
+}
+
 .main {
     width: 100%;
     position: relative;
     height: 100vh;
-    visibility: hidden;
 
     &__floor {
         background-color: #606060;

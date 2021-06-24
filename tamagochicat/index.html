@@ -10,31 +10,35 @@
     <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-    <header class="header">
+    <header class="header" style="visibility: hidden;">
         <div class="header__stats">
-            <div class="header__stats-feature">
-                <div class="header__stats-feature-logo">HP</div>
-                <div class="header__stats-feature-value green">100</div>
+            <div class="header__stats-feature" id="hp">
+                <div class="header__stats-feature-logo"  id="hp-logo">HP</div>
+                <div class="header__stats-feature-value" id="hp-value"></div>
             </div>
 
-            <div class="header__stats-feature">
-                <div class="header__stats-feature-logo"><img src="./materials/hunger.png" alt="hunger"></div>
-                <div class="header__stats-feature-value">100</div>
+            <div class="header__stats-feature" id="hunger">
+                <div class="header__stats-feature-logo"  id="hunger-logo"><img src="./materials/hunger.png" alt="hunger"></div>
+                <div class="header__stats-feature-value" id="hunger-value"></div>
             </div>
 
-            <div class="header__stats-feature">
-                <div class="header__stats-feature-logo"><img src="./materials/happy-face.png" alt="happiness"></div>
-                <div class="header__stats-feature-value">100</div>
+            <div class="header__stats-feature" id="happiness">
+                <div class="header__stats-feature-logo"  id="happiness-logo"><img src="" alt="happiness"></div>
+                <div class="header__stats-feature-value" id="happiness-value"></div>
             </div>
         </div>
 
         <div class="header__acts">
-            <a href="#" class="header__acts-button button" data-act="eat">Eat</a>
-            <a href="#" class="header__acts-button button" data-act="play">Play</a>
+            <a href="#" class="header__acts-button button" id="eat">Eat</a>
+            <a href="#" class="header__acts-button button" id="play">Play</a>
         </div>
     </header>
 
-    <main class="main">
+    <main class="main" style="visibility: hidden;">
+        <div class="cat">
+            <img src="">
+        </div>
+
         <div class="main__wall"></div>
 
         <div class="main__floor"></div>

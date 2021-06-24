@@ -26,8 +26,24 @@
     --blue: #56D5DD;
 }
 
+img {
+    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated;                 /* Chrome */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+}
+
 .green {
     color: var(--green);
+}
+.yellow {
+    color: var(--yellow);
+}
+.red {
+    color: var(--red);
 }
 
 .button {
@@ -57,7 +73,6 @@
     align-items: center;
     padding: 3vh 4vh;
     background-color: #383357;
-    visibility: hidden;
 
     &__stats {
         display: inherit;
@@ -70,6 +85,7 @@
             margin-right: 3.3vh;
 
             &-logo {
+                display: block;
                 height: 5vh;
                 margin-right: 1.3vh;
 
@@ -79,12 +95,12 @@
                 }
             }
             
-            &-value {
-                margin-top: 1vh;
+            & > div:nth-of-type(2) {
+                margin-top: 1.5vh;
             }
 
-            &:nth-of-type(1) {
-                margin-top: 1vh;
+            &:nth-of-type(1) &-logo {
+                margin-top: 0.5vh;
             }
         }
     }
