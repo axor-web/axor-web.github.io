@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 class Cat {
     constructor({name, color, game, speed}) {
         this._name      = name;
@@ -18,6 +20,7 @@ class Cat {
         this.emaciation = { active: 20, sleep: 720 };
         this.isCooldown = false;
         this.hurtTimer  = false;
+        this.healTimer  = false;
     }
 
     get name()       { return this._name;       }
@@ -58,14 +61,19 @@ class Cat {
         }
 
         if (value > this._hp) {
-            
+            if (this._hp == 0) {
+                this.isCooldown = false;
+                this.y += 5;
+                setTimeout(() => this.y -= 5, 100);
+                this.animation = 'cat_idle_blink_8';
+            }
+
+            this.html.classList.add('cat_green');
+            setTimeout(() => this.html.classList.remove('cat_green'), 200);
         }
         
         if (this._hp == 0 && value > 0) {
-            this.isCooldown = false;
-            this.y += 5;
-            setTimeout(() => this.y -= 5, 100);
-            this.animation = 'cat_idle_blink_8';
+            
         }
 
         if (value > 100) { value = 100; }
@@ -152,7 +160,20 @@ class Cat {
         if (value < 0)    { value = 0;   }
         if (value > 90)   { value = 90; }
         if (value == old) { return; }
-        this._y = value;
+
+        let elem = this.game.getCollider(this);
+        if (elem) {
+            if (value > old) {
+                let height  = this.game.main.html.clientHeight;
+                let elemTop = (elem.top + elem.height*elem.areaCount) / height * 100;
+
+                this._y = 100 - elemTop;
+                
+            }
+            if (value < old) {
+                this._y = this.game.bazeY;
+            }
+        }
 
         let time = Math.abs( 2 * (this._y - old) / 1000 )**0.5;
 
@@ -179,11 +200,13 @@ class Cat {
         }, time);
     }
 
-    render(animation, x, y) {
+    start(animation, x) {
+        let y = this.game.bazeY;
+
         this.animation = animation;
         this._x = x;
         this._y = y;
-        
+
         this.html.style = `
         transform: translateX(${x}vw) 
         translateY(-${y}vh);
@@ -203,7 +226,7 @@ class Cat {
     }
 
     startHurt() {
-        if (this.hp == 0) { 
+        if (this.hp == 0 || (this.hunger > 0 && this.happiness > 0)) { 
             this.stopHurt();
             return;
         }
@@ -219,12 +242,42 @@ class Cat {
         this.hurtTimer = clearInterval(this.hurtTimer);
     }
 
+    startHeal() {
+        
+        if (this.hunger < 50 || this.happiness == 0 || this.hp == 100) { 
+            this.stopHeal();
+            return;
+        }
+
+        if (this.healTimer) { return; }
+
+        this.healTimer = setInterval(() => {
+            this.hp        += 1;
+            this.hunger    -= 1;
+        }, 1000);
+    }
+    stopHeal() {
+        this.healTimer = clearInterval(this.healTimer);
+    }
+
     checkStats() {
         if (this.hunger == 0 || this.happiness == 0) {
             this.startHurt();
-            return true;
+            this.stopHeal();
+            return;
         }
-        return false;
+        this.stopHurt();
+        
+        if (this.hp == 0 && this.hunger > 0 && this.happiness > 0) {
+            this.hp += 10; 
+        }
+
+        if (this.hunger > 50 && this.happiness > 0) {
+            this.startHeal();
+            this.stopHurt();
+            return;
+        }
+        this.stopHeal();
     }
 
     updateStats() {
@@ -251,8 +304,14 @@ class Cat {
 }
 
 class Game {
-    constructor() {
+    constructor(bazeY) {
         Object.defineProperties(this, {
+            _bazeY: {
+                enumerable: true,
+                writable: true,
+                value: bazeY,
+            },
+
             header: {
                 enumerable: true,
                 value: {
@@ -296,14 +355,93 @@ class Game {
                 enumerable: true,
                 value: {
                     html: document.querySelector('.main'),
+
+                    colliderObjects: {
+                        bed: {
+                            html: document.querySelector('.main__bed'),
+                            areaCount: 0.45,
+                        },
+                    },
+                },
+            },
+
+            food: {
+                enumerable: true,
+                writable: true,
+                value: {
+                    meat: {
+                        src: './materials/meat.png',
+                        hungerCount: 30,
+                        happinessCount: 10,
+                    },
+                    
+                    fish: {
+                        src: './materials/fish.png',
+                        hungerCount: 25,
+                        happinessCount: 10,
+                    },
+    
+                    soup: {
+                        src: './materials/soup.png',
+                        hungerCount: 20,
+                        happinessCount: 5,
+                    },
+    
+                    cake: {
+                        src: './materials/cake.png',
+                        hungerCount: 20,
+                        happinessCount: 30,
+                    },
                 },
             },
         });
     }
 
+    get bazeY() { return this._bazeY; }
+    set bazeY(value) {
+        if (value < 0)   { value = 0;   }
+        if (value > 100) { value = 100; }
+        
+        this._bazeY = value;
+    }
+
     start() {
         this.header.html.style = 'visibility: visible';
         this.main.html.style   = 'visibility: visible';
+
+        this.header.acts.eat.addEventListener('click', (e) => {
+            e.preventDefault();
+
+
+        });
+    }
+
+    getCollider(cat) {
+        for (let elem in this.main.colliderObjects) {
+            elem = this.main.colliderObjects[elem];
+            let coordinates = elem.html.getBoundingClientRect();
+            let elemLeft    = coordinates.left  / this.main.html.clientWidth * 100;
+            let elemRight   = coordinates.right / this.main.html.clientWidth * 100;
+
+            cat             = cat.html.getBoundingClientRect();
+            let catLeft     = cat.left  / this.main.html.clientWidth * 100;
+            let catRight    = cat.right / this.main.html.clientWidth * 100;
+
+            if (catLeft > elemLeft && catLeft < elemRight) {
+                if (catRight > elemLeft && catRight < elemRight) {
+                    coordinates.areaCount = elem.areaCount;
+                    return coordinates;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    dropFood(foodName) {
+        let foodObj = {};
+        
+        
     }
 }
 
@@ -317,7 +455,7 @@ if (isGameStarted) {
 }
 
 else {
-    game = new Game();
+    game = new Game(10);
 
     cat = new Cat({
         name: 'Iriska',
@@ -327,4 +465,4 @@ else {
 }
 
 game.start();
-cat.render('cat_idle_blink_8', 14, 10);
+cat.start('cat_idle_blink_8', 14);

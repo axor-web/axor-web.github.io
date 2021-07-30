@@ -10,6 +10,7 @@ body {
     bottom: 0;
     left: 0;
     width: 22vh;
+    transition: filter .2s;
 
     & img {
         display: block;
@@ -21,6 +22,10 @@ body {
         top: -25%;
         width: 100%;
         text-align: center;
+    }
+
+    &_green {
+        filter: drop-shadow(0 0 20px var(--green));
     }
 }
 
@@ -37,14 +42,6 @@ body {
         position: absolute;
         bottom: 0;
         z-index: -30;
-    }
-
-    &__bed {
-        width: 50vh;
-        position: absolute;
-        right: 0;
-        bottom: 6vh;
-        z-index: -20;
     }
 
     &__window {
@@ -65,5 +62,14 @@ body {
         background-image: url("../materials/wallpaper.svg");
         background-repeat: space;
         background-size: contain;
+    }
+
+    &__bed {
+        display: block;
+        width: 50vh;
+        position: absolute;
+        right: 0;
+        bottom: 10vh;
+        z-index: -20;
     }
 }
