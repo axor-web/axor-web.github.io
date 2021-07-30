@@ -11,6 +11,8 @@ body {
     left: 0;
     width: 22vh;
     transition: filter .2s;
+    cursor: default;
+    user-select: none;
 
     & img {
         display: block;
@@ -27,6 +29,14 @@ body {
     &_green {
         filter: drop-shadow(0 0 20px var(--green));
     }
+}
+
+.food {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 .main {

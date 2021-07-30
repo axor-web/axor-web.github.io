@@ -1,45 +1,254 @@
 'use strict';
 
+class Entity {
+    constructor(game, html, speed, x, y) {
+        this._x         = x;
+        this._y         = y;
+        this._speed     = speed || 25;
+        this._html      = html;
+        this._game      = game;
+        this.isCooldown = false;
+
+        game.main.html.append(html);
+    }
+
+    get html()       { return this._html;       }
+    get x()          { return this._x;          }
+    get y()          { return this._y;          }
+    get speed()      { return this._speed;      }
+    get game()       { return this._game;       }
 
 
-class Cat {
+    set speed(value) {
+        if (value < 5) { value = 5 }
+        this._speed = value;
+    }
+
+    set x(value) {
+        let old = this._x;
+
+        if (value < 0)  { value = 0; }
+        if (value > 90 ) { value = 90; }
+
+        if (value == old) { return; }
+
+        this._x = value;
+
+        let time = Math.abs((this._x - old)/this.speed);
+
+        this.html.style = 
+        `
+        transform: translateX(${this.x}vw) 
+        translateY(-${this.y}vh);
+        transition: transform ${time}s linear;
+        `;
+    }
+
+    set y(value) {
+        let old = this._y;
+        if (value < 0)    { value = 0;   }
+        if (value > 90)   { value = 90; }
+        if (value == old) { return; }
+
+        this._y = value;
+
+        let time = Math.abs( 2 * (this._y - old) / 1000 )**0.5;
+
+        this.html.style = 
+        `
+        transform: translateX(${this.x}vw) 
+        translateY(-${this.y}vh);
+        transition: transform ${time}s linear
+        `;
+    }
+
+    enableDragnDrop(rules) {
+        this.html.ondragstart = () => false;
+        this.html.onmousedown = (e) => {
+            if (this.isCooldown) { return; }
+            this.isCooldown = true;
+
+            let shiftX = e.clientX - this.html.getBoundingClientRect().left;
+            let shiftY = e.clientY - this.html.getBoundingClientRect().top;
+
+            this.html.onmousemove = (e) => {
+                let height = this.game.main.html.clientHeight;
+                let width  = this.game.main.html.clientWidth;
+    
+                let x = (e.clientX - shiftX) / width * 100;
+                let y = (e.clientY + shiftY) / height * 100;
+
+                let old = this.x;
+                this._x = x;
+                this._y = 100 - y;
+
+                if (this.x < old) {     //меняем направление
+                    this.html.children[0].style = 'transform: scaleX(-1)';
+                }
+                else if (this.x > old) { this.html.children[0].style = ''; }
+
+                this.html.style = `
+                transform: translateX(${this.x}vw)
+                translateY(-${this.y}vh);
+                transition: transform 0s linear;`;
+    
+            }
+
+            document.onmouseup = (e) => {
+                this.isCooldown = false;
+                this.html.onmousemove = null;
+                document.onmouseup = null;
+                this.y = 0;
+
+                if (rules.isCollider) {
+                    let coordinates = game.getCollider(this);
+                    if (coordinates) {
+
+                    }
+                }
+            };
+        };
+    }
+}
+
+
+class Cat extends Entity {
     constructor({name, color, game, speed}) {
+        let cat = document.createElement('div');
+        cat.className = 'cat';
+        cat.insertAdjacentHTML('beforeend', `
+            <img src="">
+            <div class="cat__name"></div>
+        `);
+
+        super(game, cat, speed, 0, 0);
+        
         this._name      = name;
         this._color     = color;
-        this._game      = game;
-        this._speed     = speed || 25;
         this._hp        = 100;
         this._hunger    = 100;
         this._happiness = 100;
         this._src       = `./materials/cat-assets/${this.color}/`;
         this._animation = `${this.src}cat_idle_blink_8.gif`;
         this._animName  = 'cat_idle_blink_8';
-        this._html      = document.querySelector('.cat');
-        this._x         = 0;
-        this._y         = 0;
         this.emaciation = { active: 20, sleep: 720 };
-        this.isCooldown = false;
         this.hurtTimer  = false;
         this.healTimer  = false;
+        this.isCooldown = false;
     }
 
     get name()       { return this._name;       }
     get color()      { return this._color;      }
-    get game()       { return this._game;       }
     get hp()         { return this._hp;         }
     get hunger()     { return this._hunger;     }
     get happiness()  { return this._happiness;  }
     get src()        { return this._src;        }
     get animation()  { return this._animation;  }
-    get html()       { return this._html;       }
     get x()          { return this._x;          }
     get y()          { return this._y;          }
-    get speed()      { return this._speed;      }
 
     set animation(value) {
         this._animation = this._src + value + '.gif';
         this._animName  = value;
         this.html.children[0].src = this.animation;
+    }
+
+    set x(value) {
+        if (this.isCooldown) { return; }
+        
+        if (this.y != this.game.bazeY) { this.y = this.game.bazeY; return; }
+
+        let old = this._x;
+
+        if (value < 0)  { value = 0; }
+        if (value > 90 ) { value = 90; }
+
+        if (value == old) { return; }
+        
+        this._x = value;
+
+        if (this.x < old) {     //меняем направление
+            this.html.children[0].style = 'transform: scaleX(-1)';
+        }
+        else {
+            this.html.children[0].style = '';
+        }
+
+        let time = Math.abs((this._x - old)/this.speed);
+
+        this.html.style = 
+        `
+        transform: translateX(${this.x}vw) 
+        translateY(-${this.y}vh);
+        transition: transform ${time}s linear;
+        `;
+
+        this.animation = 'cat_run_12';
+        this.isCooldown = true;
+
+        setTimeout(() => {
+            this.isCooldown = false;
+            this.animation = 'cat_idle_blink_8';
+
+            this.happiness += 1;
+            this.hunger -= 1;
+
+            this.checkStats();
+            this.updateStats();
+        }, time*1000);
+    }
+
+    set y(value) {
+        if (this.isCooldown) { return; }
+
+        let old = this._y;
+
+        if (value < 0)    { value = 0;  }
+        if (value > 90)   { value = 90; }
+        if (value == old) { return;     }
+
+        let elem = this.game.getCollider(this);
+        if (elem) {
+            let height  = this.game.main.html.clientHeight;
+            let elemTop = (elem.top + elem.height*elem.areaCount) / height * 100;
+            let elemBottom = 100 - elemTop;
+            
+            if (value > old && value > elemBottom) {
+                this._y = elemBottom;                
+            }
+            else if (value < old && value < elemBottom) {
+                this._y = this.game.bazeY;
+            }
+            else { return }
+        }
+        else if (this.y != this.game.bazeY) {
+            this._y = this.game.bazeY;
+        }
+        else { return; }
+
+        let time = Math.abs( 2 * (this._y - old) / 1000 )**0.5;
+
+        this.html.style = `
+        transform: translateX(${this.x}vw) 
+        translateY(-${this.y}vh);
+        transition: transform ${time}s linear`;
+
+        if (this._y > old) {
+            this.animation = 'cat_jump_12';
+            setTimeout(() => this.animation = 'cat_fall_12', time*1000 < 250 ? time*1000 : 250);
+            setTimeout(() => this.animation = 'cat_idle_blink_8', time*1000);
+        }
+        else {
+            this.animation = 'cat_fall_12';
+            setTimeout(() => this.animation = 'cat_land_12', time*1000 < 250 ? time*1000 : 250);
+            setTimeout(() => this.animation = 'cat_idle_blink_8', time*1000);
+        }
+
+
+        this.isCooldown = true;
+        setTimeout(() => {
+            this.isCooldown = false;
+        }, time);
     }
 
     set hp(value) {
@@ -63,9 +272,7 @@ class Cat {
         if (value > this._hp) {
             if (this._hp == 0) {
                 this.isCooldown = false;
-                this.y += 5;
-                setTimeout(() => this.y -= 5, 100);
-                this.animation = 'cat_idle_blink_8';
+                this.jump(5);
             }
 
             this.html.classList.add('cat_green');
@@ -105,100 +312,6 @@ class Cat {
         this.animation = this._animName;
     }
 
-    set speed(value) {
-        if (value < 5) { value = 5 }
-        this._speed = value;
-    }
-
-    set x(value) {
-        if (this.isCooldown) { return; }
-
-        let old = this._x;
-
-        if (value < 0)  { value = 0; }
-        if (value > 90 ) { value = 90; }
-        this._x = value;
-
-        if (this._x == old) { return; }
-
-        if (this.x < old) {     //меняем направление куда смотрит кот
-            this.html.children[0].style = 'transform: scaleX(-1)';
-        }
-        else {
-            this.html.children[0].style = '';
-        }
-
-        let time = Math.abs((this._x - old)/this.speed);
-
-        this.html.style = 
-        `
-        transform: translateX(${this.x}vw) 
-        translateY(-${this.y}vh);
-        transition: transform ${time}s linear;
-        `;
-
-        this.animation = 'cat_run_12';
-        this.isCooldown = true;
-
-        setTimeout(() => {
-            this.isCooldown = false;
-            this.animation = 'cat_idle_blink_8';
-
-            this.happiness += 1;
-            this.hunger -= 1;
-
-            this.checkStats();
-            this.updateStats();
-        }, time*1000);
-    }
-
-    set y(value) {
-        if (this.isCooldown) { return; }
-
-        let old = this._y;
-
-        if (value < 0)    { value = 0;   }
-        if (value > 90)   { value = 90; }
-        if (value == old) { return; }
-
-        let elem = this.game.getCollider(this);
-        if (elem) {
-            if (value > old) {
-                let height  = this.game.main.html.clientHeight;
-                let elemTop = (elem.top + elem.height*elem.areaCount) / height * 100;
-
-                this._y = 100 - elemTop;
-                
-            }
-            if (value < old) {
-                this._y = this.game.bazeY;
-            }
-        }
-
-        let time = Math.abs( 2 * (this._y - old) / 1000 )**0.5;
-
-        this.html.style = `
-        transform: translateX(${this.x}vw) 
-        translateY(-${this.y}vh);
-        transition: transform ${time}s linear`;
-
-        if (this._y > old) {
-            this.animation = 'cat_jump_12';
-            setTimeout(() => this.animation = 'cat_fall_12', time*1000 < 250 ? time*1000 : 250);
-            setTimeout(() => this.animation = 'cat_idle_blink_8', time*1000);
-        }
-        else {
-            this.animation = 'cat_fall_12';
-            setTimeout(() => this.animation = 'cat_land_12', time*1000 < 250 ? time*1000 : 250);
-            setTimeout(() => this.animation = 'cat_idle_blink_8', time*1000);
-        }
-
-
-        this.isCooldown = true;
-        setTimeout(() => {
-            this.isCooldown = false;
-        }, time);
-    }
 
     start(animation, x) {
         let y = this.game.bazeY;
@@ -223,6 +336,8 @@ class Cat {
         setInterval(() => {
             this.happiness -= 1;
         }, this.emaciation.active * 500);
+
+        this.html.addEventListener('click', this.jump.bind(this, 5));
     }
 
     startHurt() {
@@ -297,9 +412,46 @@ class Cat {
         stats.hunger.value.textContent = this.hunger;
     }
 
+    jump(height) {
+        let old = this.y;
+        if (this.isCooldown || height <= 0) { return; }
+
+        this._y += height;
+
+        this.html.style = `
+        transform: translateX(${this.x}vw) 
+        translateY(-${this.y}vh);
+        transition: transform 0.1s linear`;
+
+        setTimeout(() => {
+            this._y -= height;
+            this.html.style = `
+            transform: translateX(${this.x}vw) 
+            translateY(-${this.y}vh);
+            transition: transform 0.1s linear`;
+        }, 100);
+        
+        this.animation = 'cat_jump_12';
+            setTimeout(() => this.animation = 'cat_fall_12', 100);
+            setTimeout(() => this.animation = 'cat_idle_blink_8', 100);
+
+        this.isCooldown = true;
+        setTimeout(() => {
+            this.isCooldown = false;
+        }, 100);
+    }
+
     die() {
         this.animation  = 'cat_die_12';
         setTimeout(() => this.animation = 'cat_dead', 250);
+    }
+}
+
+class Enemy extends Entity {
+    constructor(game, cat, html, speed, x, y) {
+        super(game, html, speed, x, y);
+
+
     }
 }
 
@@ -466,3 +618,4 @@ else {
 
 game.start();
 cat.start('cat_idle_blink_8', 14);
+cat.enableDragnDrop({isCollider: true});
