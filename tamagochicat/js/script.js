@@ -9,7 +9,7 @@ class Entity {
         this._game      = game;
         this.isCooldown = false;
 
-        game.main.html.append(html);
+        game.main.html.append(this.html);
     }
 
     get html()       { return this._html;       }
@@ -25,11 +25,13 @@ class Entity {
     }
 
     set x(value) {
+        if (isCooldown) { return; }
+        this.isCooldown = true;
+
         let old = this._x;
 
         if (value < 0)  { value = 0; }
         if (value > 90 ) { value = 90; }
-
         if (value == old) { return; }
 
         this._x = value;
@@ -42,15 +44,21 @@ class Entity {
         translateY(-${this.y}vh);
         transition: transform ${time}s linear;
         `;
+
+        setTimeout(() => this.isCooldown = false, time*1000);
     }
 
     set y(value) {
+        if (this.isCooldown) { return; }
+        this.isCooldown = true;
+
         let old = this._y;
+
         if (value < 0)    { value = 0;   }
         if (value > 90)   { value = 90; }
         if (value == old) { return; }
 
-        this._y = value;
+        this.checkCollider(value);
 
         let time = Math.abs( 2 * (this._y - old) / 1000 )**0.5;
 
@@ -60,6 +68,8 @@ class Entity {
         translateY(-${this.y}vh);
         transition: transform ${time}s linear
         `;
+
+        setTimeout(() => this.isCooldown = false, time*1000);
     }
 
     enableDragnDrop(rules) {
@@ -68,15 +78,23 @@ class Entity {
             if (this.isCooldown) { return; }
             this.isCooldown = true;
 
+            let timer = new Date();
+
             let shiftX = e.clientX - this.html.getBoundingClientRect().left;
             let shiftY = e.clientY - this.html.getBoundingClientRect().top;
-
-            this.html.onmousemove = (e) => {
+        
+            document.onmousemove = (e) => {
                 let height = this.game.main.html.clientHeight;
                 let width  = this.game.main.html.clientWidth;
     
                 let x = (e.clientX - shiftX) / width * 100;
-                let y = (e.clientY + shiftY) / height * 100;
+                let y = (e.clientY - shiftY) / height * 100;
+                
+                if (x < 0) { x = 0; }
+                if (y < 0) { y = 0; }
+
+                if (x > 90)  { x = 90;  }
+                if (y > 100) { y = 100; }
 
                 let old = this.x;
                 this._x = x;
@@ -89,25 +107,47 @@ class Entity {
 
                 this.html.style = `
                 transform: translateX(${this.x}vw)
-                translateY(-${this.y}vh);
+                translateY(calc(-${this.y}vh + 100%));
                 transition: transform 0s linear;`;
-    
             }
 
             document.onmouseup = (e) => {
                 this.isCooldown = false;
-                this.html.onmousemove = null;
+                document.onmousemove = null;
                 document.onmouseup = null;
-                this.y = 0;
 
-                if (rules.isCollider) {
-                    let coordinates = game.getCollider(this);
-                    if (coordinates) {
-
-                    }
+                if (rules?.isCollider) {
+                    this.y = this._y - 15;
+                    return;
                 }
+
+                this.y = 0;
             };
         };
+    }
+
+    checkCollider(value) {
+        let old = this._y;
+        if (old == value) { return; }
+        let elem = this.game.getCollider(this);
+
+        if (this.y != this.game.bazeY) {
+            this._y = this.game.bazeY;
+        }
+
+        if (elem) {
+            let height  = this.game.main.html.clientHeight;
+            let elemTop = (elem.top + elem.height*elem.areaCount) / height * 100;
+            let elemBottom = 100 - elemTop;
+            if (value > elemBottom) {
+                this._y = elemBottom;                
+            }
+            else if (value < elemBottom) {
+                this._y = this.game.bazeY;
+            }
+            else { return; }
+        }
+        else { return; }
     }
 }
 
@@ -121,7 +161,7 @@ class Cat extends Entity {
             <div class="cat__name"></div>
         `);
 
-        super(game, cat, speed, 0, 0);
+        super(game, cat, speed ?? 25, 0, 0);
         
         this._name      = name;
         this._color     = color;
@@ -207,24 +247,7 @@ class Cat extends Entity {
         if (value > 90)   { value = 90; }
         if (value == old) { return;     }
 
-        let elem = this.game.getCollider(this);
-        if (elem) {
-            let height  = this.game.main.html.clientHeight;
-            let elemTop = (elem.top + elem.height*elem.areaCount) / height * 100;
-            let elemBottom = 100 - elemTop;
-            
-            if (value > old && value > elemBottom) {
-                this._y = elemBottom;                
-            }
-            else if (value < old && value < elemBottom) {
-                this._y = this.game.bazeY;
-            }
-            else { return }
-        }
-        else if (this.y != this.game.bazeY) {
-            this._y = this.game.bazeY;
-        }
-        else { return; }
+        this.checkCollider(value);
 
         let time = Math.abs( 2 * (this._y - old) / 1000 )**0.5;
 
@@ -336,8 +359,6 @@ class Cat extends Entity {
         setInterval(() => {
             this.happiness -= 1;
         }, this.emaciation.active * 500);
-
-        this.html.addEventListener('click', this.jump.bind(this, 5));
     }
 
     startHurt() {
@@ -432,8 +453,8 @@ class Cat extends Entity {
         }, 100);
         
         this.animation = 'cat_jump_12';
-            setTimeout(() => this.animation = 'cat_fall_12', 100);
-            setTimeout(() => this.animation = 'cat_idle_blink_8', 100);
+        setTimeout(() => this.animation = 'cat_fall_12', 100);
+        setTimeout(() => this.animation = 'cat_idle_blink_8', 100);
 
         this.isCooldown = true;
         setTimeout(() => {
@@ -619,3 +640,12 @@ else {
 game.start();
 cat.start('cat_idle_blink_8', 14);
 cat.enableDragnDrop({isCollider: true});
+
+let meat = document.createElement('div');
+meat.className = 'food';
+meat.insertAdjacentHTML('beforeend', `
+<img src="./materials/meat.png">
+`);
+
+meat = new Entity(game, meat, 25, 20, 20);
+meat.enableDragnDrop({isCollider: false});

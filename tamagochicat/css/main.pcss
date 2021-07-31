@@ -11,7 +11,7 @@ body {
     left: 0;
     width: 22vh;
     transition: filter .2s;
-    cursor: default;
+    cursor: pointer;
     user-select: none;
 
     & img {
@@ -32,11 +32,16 @@ body {
 }
 
 .food {
-    width: 50px;
-    height: 50px;
+    width: 15vh;
+    cursor: pointer;
     position: absolute;
     bottom: 0;
     left: 0;
+
+    & img {
+        display: block;
+        width: 100%;
+    }
 }
 
 .main {
