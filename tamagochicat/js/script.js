@@ -2,8 +2,8 @@
 
 class Entity {
     constructor(game, html, speed, x, y) {
-        this._x         = x;
-        this._y         = y;
+        this._x         = x || 0;
+        this._y         = y || game?.bazeY || 0;
         this._speed     = speed || 25;
         this._html      = html;
         this._game      = game;
@@ -25,7 +25,7 @@ class Entity {
     }
 
     set x(value) {
-        if (isCooldown) { return; }
+        if (this.isCooldown) { return; }
         this.isCooldown = true;
 
         let old = this._x;
@@ -70,6 +70,18 @@ class Entity {
         `;
 
         setTimeout(() => this.isCooldown = false, time*1000);
+    }
+
+    start(x) {
+        let y = this.game.bazeY;
+
+        this._x = x;
+        this._y = y;
+
+        this.html.style = `
+        transform: translateX(${x}vw) 
+        translateY(-${y}vh);
+        `;
     }
 
     enableDragnDrop(rules) {
@@ -188,6 +200,8 @@ class Cat extends Entity {
     get y()          { return this._y;          }
 
     set animation(value) {
+        if (value == this._animName) { return; }
+
         this._animation = this._src + value + '.gif';
         this._animName  = value;
         this.html.children[0].src = this.animation;
@@ -205,6 +219,8 @@ class Cat extends Entity {
 
         if (value == old) { return; }
         
+        this.isCooldown = true;
+
         this._x = value;
 
         if (this.x < old) {     //меняем направление
@@ -224,7 +240,6 @@ class Cat extends Entity {
         `;
 
         this.animation = 'cat_run_12';
-        this.isCooldown = true;
 
         setTimeout(() => {
             this.isCooldown = false;
@@ -240,6 +255,7 @@ class Cat extends Entity {
 
     set y(value) {
         if (this.isCooldown) { return; }
+        
 
         let old = this._y;
 
@@ -248,6 +264,8 @@ class Cat extends Entity {
         if (value == old) { return;     }
 
         this.checkCollider(value);
+
+        this.isCooldown = true;
 
         let time = Math.abs( 2 * (this._y - old) / 1000 )**0.5;
 
@@ -268,10 +286,9 @@ class Cat extends Entity {
         }
 
 
-        this.isCooldown = true;
         setTimeout(() => {
             this.isCooldown = false;
-        }, time);
+        }, time*1000);
     }
 
     set hp(value) {
@@ -340,6 +357,7 @@ class Cat extends Entity {
         let y = this.game.bazeY;
 
         this.animation = animation;
+        this.reloadAnimation();
         this._x = x;
         this._y = y;
 
@@ -359,6 +377,16 @@ class Cat extends Entity {
         setInterval(() => {
             this.happiness -= 1;
         }, this.emaciation.active * 500);
+
+        document.onclick = (e) => {
+            let height = this.game.main.html.clientHeight;
+            let x = e.clientX / height * 100;
+            cat.x = x - 20;
+        }
+    }
+
+    reloadAnimation() {
+        this.html.children[0].src = this.animation;
     }
 
     startHurt() {
@@ -472,7 +500,43 @@ class Enemy extends Entity {
     constructor(game, cat, html, speed, x, y) {
         super(game, html, speed, x, y);
 
+        this.cat = cat;
+        this.interval = null;
+    }
 
+    start(x, y) {
+        this._x = x;
+        this._y = y;
+
+        this.html.style = `
+        transform: translateX(${x}vw) 
+        translateY(-${y}vh);
+        `;
+
+        let goToEnemy = () => {
+            if (cat.y == game.bazeY && !cat.isCooldown) {
+                cat.x = this.x;
+            }
+
+            else if (cat.y != game.bazeY) { cat.y = game.bazeY; }
+        }
+
+        this.interval = setInterval(goToEnemy, 300);
+        
+        this.y = game.bazeY;
+    }
+
+    destroy() {
+        this.interval = clearInterval(this.interval);
+        this.html.remove();
+    }
+}
+
+class Food extends Enemy {
+    constructor(foodName, game, cat, html, speed, x, y) {
+        super(game, cat, html, speed, x, y);
+
+        
     }
 }
 
@@ -641,11 +705,10 @@ game.start();
 cat.start('cat_idle_blink_8', 14);
 cat.enableDragnDrop({isCollider: true});
 
-let meat = document.createElement('div');
+/*let meat = document.createElement('div');
+meat.insertAdjacentHTML('beforeend', `<img src="./materials/meat.png">`);
 meat.className = 'food';
-meat.insertAdjacentHTML('beforeend', `
-<img src="./materials/meat.png">
-`);
 
-meat = new Entity(game, meat, 25, 20, 20);
-meat.enableDragnDrop({isCollider: false});
+meat = new Enemy(game, cat, meat, 25, 60, 60);
+meat.start(60, 60);
+meat.enableDragnDrop();*/
