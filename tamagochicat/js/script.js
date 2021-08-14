@@ -2,8 +2,14 @@
 
 class Entity {
     constructor(game, html, speed, x, y) {
-        this._x         = x || 0;
-        this._y         = y || game?.bazeY || 0;
+        if (x < 0)   { x = 0;   }
+        if (x > 100) { x = 100; }
+
+        if (y < 0)   { y = 0;   }
+        if (y > 100) { y = 100; }
+
+        this._x         = x ?? 0;
+        this._y         = y ?? game?.bazeY ?? 0;
         this._speed     = speed || 25;
         this._html      = html;
         this._game      = game;
@@ -113,9 +119,17 @@ class Entity {
                 this._y = 100 - y;
 
                 if (this.x < old) {     //меняем направление
-                    this.html.children[0].style = 'transform: scaleX(-1)';
+                    this.html.children[0].style.transform = 'scaleX(-1)';
+                    if (this.curtain) {
+                        this.curtain.style.transform = 'scaleX(-1)'
+                    }
                 }
-                else if (this.x > old) { this.html.children[0].style = ''; }
+                else if (this.x > old) { 
+                    this.html.children[0].style.transform = '';
+                    if (this.curtain) {
+                        this.curtain.style.transform = ''
+                    }
+                 }
 
                 this.html.style = `
                 transform: translateX(${this.x}vw)
@@ -171,22 +185,25 @@ class Cat extends Entity {
         cat.insertAdjacentHTML('beforeend', `
             <img src="">
             <div class="cat__name"></div>
+            <div class="cat__curtain"><img src=""></div>
         `);
 
         super(game, cat, speed ?? 25, 0, 0);
         
-        this._name      = name;
-        this._color     = color;
-        this._hp        = 100;
-        this._hunger    = 100;
-        this._happiness = 100;
-        this._src       = `./materials/cat-assets/${this.color}/`;
-        this._animation = `${this.src}cat_idle_blink_8.gif`;
-        this._animName  = 'cat_idle_blink_8';
-        this.emaciation = { active: 20, sleep: 720 };
-        this.hurtTimer  = false;
-        this.healTimer  = false;
-        this.isCooldown = false;
+        this._name       = name;
+        this._color      = color;
+        this._hp         = 100;
+        this._hunger     = 100;
+        this._happiness  = 100;
+        this._src        = `./materials/cat-assets/${this.color}/`;
+        this._animation  = `${this.src}cat_idle_blink_8.gif`;
+        this._animName   = 'cat_idle_blink_8';
+        this.emaciation  = { active: 20, sleep: 720, };
+        this.hurtTimer   = false;
+        this.healTimer   = false;
+        this.timer       = new Date();
+        this._isCooldown = false;
+        this._curtain    = document.querySelector('.cat__curtain > img');
     }
 
     get name()       { return this._name;       }
@@ -198,6 +215,13 @@ class Cat extends Entity {
     get animation()  { return this._animation;  }
     get x()          { return this._x;          }
     get y()          { return this._y;          }
+    get isCooldown() { return this._isCooldown; }
+    get curtain()    { return this._curtain;    }
+
+    set isCooldown(bool) {
+        this._isCooldown = bool;
+        this.timer = new Date();
+    }
 
     set animation(value) {
         if (value == this._animName) { return; }
@@ -215,7 +239,7 @@ class Cat extends Entity {
         let old = this._x;
 
         if (value < 0)  { value = 0; }
-        if (value > 90 ) { value = 90; }
+        if (value > 90) { value = 90; }
 
         if (value == old) { return; }
         
@@ -224,10 +248,12 @@ class Cat extends Entity {
         this._x = value;
 
         if (this.x < old) {     //меняем направление
-            this.html.children[0].style = 'transform: scaleX(-1)';
+            this.html.children[0].style.transform = 'scaleX(-1)';
+            this.curtain.style.transform = 'scaleX(-1)';
         }
         else {
-            this.html.children[0].style = '';
+            this.html.children[0].style.transform = '';
+            this.curtain.style.transform = '';
         }
 
         let time = Math.abs((this._x - old)/this.speed);
@@ -261,9 +287,10 @@ class Cat extends Entity {
 
         if (value < 0)    { value = 0;  }
         if (value > 90)   { value = 90; }
-        if (value == old) { return;     }
 
         this.checkCollider(value);
+
+        if (this._y == old) { return;     }
 
         this.isCooldown = true;
 
@@ -291,6 +318,17 @@ class Cat extends Entity {
         }, time*1000);
     }
 
+    set curtain(animation) {
+        if (!animation) { 
+            this.html.children[0].style.opacity = 1;
+            this._curtain.src = '';
+            return;
+        }
+
+        this.html.children[0].style.opacity = 0;
+        this._curtain.src = `${this.src}${animation}.gif`;
+    }
+
     set hp(value) {
         if (value <= 0) {
             value = 0;
@@ -304,9 +342,8 @@ class Cat extends Entity {
         }
 
         else if (value < this._hp) {
-            let old = this._animName;
-            this.animation = 'cat_hurt_12';
-            setTimeout(() => this.animation = old, 250);
+            this.curtain = 'cat_hurt_12';
+            setTimeout(() => this.curtain = '', 250);
         }
 
         if (value > this._hp) {
@@ -353,7 +390,7 @@ class Cat extends Entity {
     }
 
 
-    start(animation, x) {
+    start(animation = this.animation, x = this.x) {
         let y = this.game.bazeY;
 
         this.animation = animation;
@@ -378,15 +415,35 @@ class Cat extends Entity {
             this.happiness -= 1;
         }, this.emaciation.active * 500);
 
-        document.onclick = (e) => {
+        setInterval(() => {
+            if (new Date().getTime() - this.timer.getTime() > 5000) {
+                cat.sit();
+            }
+        }, 5000);
+
+        this.game.main.html.onclick = (e) => {
             let height = this.game.main.html.clientHeight;
             let x = e.clientX / height * 100;
-            cat.x = x - 20;
+            x -= 10;
+
+            if (cat.x < x) {
+                if (Math.abs(cat.x - x) > 20) {
+                    cat.x = x - 10;
+                }
+            }
+
+            else {
+                cat.x = x - 10;
+            }
         }
     }
 
     reloadAnimation() {
         this.html.children[0].src = this.animation;
+    }
+
+    sit() {
+        if (!this.isCooldown) { cat.animation = 'cat_sit_8'; }
     }
 
     startHurt() {
@@ -490,6 +547,35 @@ class Cat extends Entity {
         }, 100);
     }
 
+    attack() {
+        if (this.isCooldown) { return; }
+
+        this.isCooldown = true;
+        this.animation = 'cat_attack_12';
+        this.html.style.width = '23vw';
+        setTimeout(() => {
+            this.animation = 'cat_idle_blink_8';
+            this.isCooldown = false;
+            this.html.style.width = '';
+        }, 250);
+    }
+
+    eat(foodObj) {
+        this.attack();
+        this.happiness += foodObj.happinessCount;
+        this.hunger    += foodObj.hungerCount;
+    }
+
+    enableDragnDrop(rules) {
+        this.html.addEventListener('mousedown', () => {
+            if (!this.isCooldown) {
+                this.animation = 'cat_idle_blink_8';
+            }
+        });
+
+        super.enableDragnDrop(rules);
+    }
+
     die() {
         this.animation  = 'cat_die_12';
         setTimeout(() => this.animation = 'cat_dead', 250);
@@ -498,13 +584,16 @@ class Cat extends Entity {
 
 class Enemy extends Entity {
     constructor(game, cat, html, speed, x, y) {
+        if (x < 5)  { x = 5  }
+        if (x > 80) { x = 80 }
+
         super(game, html, speed, x, y);
 
         this.cat = cat;
         this.interval = null;
     }
 
-    start(x, y) {
+    start(x = this.x, y = this.y) {
         this._x = x;
         this._y = y;
 
@@ -514,11 +603,10 @@ class Enemy extends Entity {
         `;
 
         let goToEnemy = () => {
-            if (cat.y == game.bazeY && !cat.isCooldown) {
-                cat.x = this.x;
+            if (!cat.isCooldown) {
+                if   (cat.y == game.bazeY) { cat.x = this.x;     }
+                else                       { cat.y = game.bazeY; }
             }
-
-            else if (cat.y != game.bazeY) { cat.y = game.bazeY; }
         }
 
         this.interval = setInterval(goToEnemy, 300);
@@ -533,10 +621,42 @@ class Enemy extends Entity {
 }
 
 class Food extends Enemy {
-    constructor(foodName, game, cat, html, speed, x, y) {
+    constructor(foodName, game, cat, speed, x, y) {
+        let html = document.createElement('div');
+        html.className = 'food';
+        html.insertAdjacentHTML('beforeend', `
+        <img src="./materials/${foodName}.png" alt="foodName">
+        `);
+
         super(game, cat, html, speed, x, y);
 
-        
+        this.foodObj = game.food[foodName];
+    }
+
+    start(x, y) {
+        if (game.isFoodDropped) { return; }
+
+        super.start(x, y);
+
+        game.isFoodDropped = true;
+
+        this.interval = clearInterval(this.interval);
+
+        let goToEnemy = () => {
+            if (!cat.isCooldown) {
+                if (cat.x == this.x && cat.y == this.y) { 
+                    cat.eat(this.foodObj); 
+                    this.destroy();
+                    game.isFoodDropped = false;
+                    return; 
+                }
+
+                if   (cat.y == game.bazeY) { cat.x = this.x;     }
+                else                       { cat.y = game.bazeY; }
+            }
+        }
+
+        this.interval = setInterval(goToEnemy, 300);
     }
 }
 
@@ -547,6 +667,12 @@ class Game {
                 enumerable: true,
                 writable: true,
                 value: bazeY,
+            },
+
+            isFoodDropped: {
+                enumerable: true,
+                writable: true,
+                value: false,
             },
 
             header: {
@@ -582,8 +708,14 @@ class Game {
                     },
 
                     acts: {
-                        eat:  document.querySelector('#eat'),
-                        play: document.querySelector('#play'),
+                        eat:  {
+                            html: document.querySelector('#eat'),
+                            menu: document.querySelector('.header__eatMenu'),
+                        },
+                        play: {
+                            html: document.querySelector('#play'),
+                            menu: document.querySelector('.header__playMenu'),
+                        },
                     },
                 },
             },
@@ -646,11 +778,59 @@ class Game {
         this.header.html.style = 'visibility: visible';
         this.main.html.style   = 'visibility: visible';
 
-        this.header.acts.eat.addEventListener('click', (e) => {
+        this.reloadFoodMenu();        
+
+        let eat = this.header.acts.eat;
+        eat.html.addEventListener('click', (e) => {
             e.preventDefault();
 
+            if (!eat.menu.classList[1]) {
+                eat.menu.classList.add('header__eatMenu_visible');
+            }
 
+            else {
+                eat.menu.classList.remove('header__eatMenu_visible');
+            }
         });
+
+    
+        document.querySelector('.header__eatMenu-cancel').onclick = (e) => {
+            e.preventDefault();
+            if (eat.menu.classList[1]) { eat.menu.classList.remove('header__eatMenu_visible'); }
+        }
+
+        this.main.html.addEventListener('click', () => {
+            if (eat.menu.classList[1]) { eat.menu.classList.remove('header__eatMenu_visible'); }
+            if (play.menu.classList[1]) { play.menu.classList.remove('header__playMenu_visible'); }
+        });
+
+    }
+
+    reloadFoodMenu() {
+        let eat = this.header.acts.eat;
+        for (let name in this.food) {
+            this.header.acts.eat.menu.insertAdjacentHTML('afterbegin', `
+            <div class="header__eatMenu-food" data-name="${name}">
+                <img src="./materials/${name}.png" alt="${name}">
+                <p>${name[0].toUpperCase() + name.slice(1)}</p>
+            </div>
+            `);
+
+            document.querySelector(`div[data-name="${name}"]`).onclick = () => {
+                if (this.isFoodDropped) { return; }
+
+                eat.menu.classList.remove('header__eatMenu_visible');
+
+                if (/Windows|Mac|Linux/i.test(navigator.userAgent)) {
+                    this.dropFood(name);
+                    return;
+                }
+
+                this.dropFood(name);
+            }
+        }
+
+
     }
 
     getCollider(cat) {
@@ -675,10 +855,18 @@ class Game {
         return false;
     }
 
-    dropFood(foodName) {
-        let foodObj = {};
-        
-        
+    dropFood(foodName, x, y) {
+        let foodObj = this.food[foodName];
+
+        x = x ?? Math.random()*100;
+
+        y = y ?? 80;
+
+        if (!this.isFoodDropped) {
+            let food = new Food(foodName, game, cat, 25, x, 80);
+            food.start();
+            food.enableDragnDrop();
+        }
     }
 }
 
@@ -704,11 +892,3 @@ else {
 game.start();
 cat.start('cat_idle_blink_8', 14);
 cat.enableDragnDrop({isCollider: true});
-
-/*let meat = document.createElement('div');
-meat.insertAdjacentHTML('beforeend', `<img src="./materials/meat.png">`);
-meat.className = 'food';
-
-meat = new Enemy(game, cat, meat, 25, 60, 60);
-meat.start(60, 60);
-meat.enableDragnDrop();*/
