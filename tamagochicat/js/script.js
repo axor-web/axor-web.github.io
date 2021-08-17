@@ -44,9 +44,8 @@ class Entity {
 
         let time = Math.abs((this._x - old)/this.speed);
 
-        this.html.style = 
-        `
-        transform: translateX(${this.x}vw) 
+        this.html.style.transform = `
+        translateX(${this.x}vw) 
         translateY(-${this.y}vh);
         transition: transform ${time}s linear;
         `;
@@ -61,8 +60,8 @@ class Entity {
         let old = this._y;
 
         if (value < 0)    { value = 0;   }
-        if (value > 90)   { value = 90; }
-        if (value == old) { return; }
+        if (value > 100)  { value = 100; }
+        if (value == old) { return;      }
 
         this.checkCollider(value);
 
@@ -72,7 +71,7 @@ class Entity {
         `
         transform: translateX(${this.x}vw) 
         translateY(-${this.y}vh);
-        transition: transform ${time}s linear
+        transition: transform ${time}s linear;
         `;
 
         setTimeout(() => this.isCooldown = false, time*1000);
@@ -98,8 +97,8 @@ class Entity {
 
             let timer = new Date();
 
-            let shiftX = e.clientX - this.html.getBoundingClientRect().left;
-            let shiftY = e.clientY - this.html.getBoundingClientRect().top;
+            let shiftX = e.clientX - e.target.getBoundingClientRect().left;
+            let shiftY = e.clientY - e.target.getBoundingClientRect().top;
         
             document.onmousemove = (e) => {
                 let height = this.game.main.html.clientHeight;
@@ -422,9 +421,8 @@ class Cat extends Entity {
         }, 5000);
 
         this.game.main.html.onclick = (e) => {
-            let height = this.game.main.html.clientHeight;
-            let x = e.clientX / height * 100;
-            x -= 10;
+            let width = this.game.main.html.clientWidth;
+            let x = e.clientX / width * 100;
 
             if (cat.x < x) {
                 if (Math.abs(cat.x - x) > 20) {
@@ -464,7 +462,6 @@ class Cat extends Entity {
     }
 
     startHeal() {
-        
         if (this.hunger < 50 || this.happiness == 0 || this.hp == 100) { 
             this.stopHeal();
             return;
@@ -571,6 +568,8 @@ class Cat extends Entity {
             if (!this.isCooldown) {
                 this.animation = 'cat_idle_blink_8';
             }
+
+            if (cat.hp == 0) { cat.hp = 10 }
         });
 
         super.enableDragnDrop(rules);
@@ -634,11 +633,11 @@ class Food extends Enemy {
     }
 
     start(x, y) {
-        if (game.isFoodDropped) { return; }
+        if (game.isDropped) { return; }
 
         super.start(x, y);
 
-        game.isFoodDropped = true;
+        game.isDropped = true;
 
         this.interval = clearInterval(this.interval);
 
@@ -647,7 +646,7 @@ class Food extends Enemy {
                 if (cat.x == this.x && cat.y == this.y) { 
                     cat.eat(this.foodObj); 
                     this.destroy();
-                    game.isFoodDropped = false;
+                    game.isDropped = false;
                     return; 
                 }
 
@@ -669,7 +668,13 @@ class Game {
                 value: bazeY,
             },
 
-            isFoodDropped: {
+            /*isFoodDropped: {
+                enumerable: true,
+                writable: true,
+                value: false,
+            },*/
+
+            isDropped: {
                 enumerable: true,
                 writable: true,
                 value: false,
@@ -778,7 +783,7 @@ class Game {
         this.header.html.style = 'visibility: visible';
         this.main.html.style   = 'visibility: visible';
 
-        this.reloadFoodMenu();        
+        this.reloadMenu('food');   
 
         let eat = this.header.acts.eat;
         eat.html.addEventListener('click', (e) => {
@@ -806,7 +811,7 @@ class Game {
 
     }
 
-    reloadFoodMenu() {
+    /*reloadFoodMenu() {
         let eat = this.header.acts.eat;
         for (let name in this.food) {
             this.header.acts.eat.menu.insertAdjacentHTML('afterbegin', `
@@ -816,21 +821,132 @@ class Game {
             </div>
             `);
 
-            document.querySelector(`div[data-name="${name}"]`).onclick = () => {
+            let foodElem = document.querySelector(`div[data-name="${name}"] img`);
+            foodElem.ondragstart = () => false;
+            foodElem.onmousedown = (e) => {
                 if (this.isFoodDropped) { return; }
+
+                foodElem.style.opacity = 0;
+                setTimeout(() => foodElem.style.opacity = 1, 100);
 
                 eat.menu.classList.remove('header__eatMenu_visible');
 
                 if (/Windows|Mac|Linux/i.test(navigator.userAgent)) {
-                    this.dropFood(name);
-                    return;
+                    let shiftX = e.clientX - e.target.getBoundingClientRect().left;
+                    let shiftY = e.clientY - e.target.getBoundingClientRect().bottom;
+
+                    let x = ((e.clientX - shiftX) / this.main.html.clientWidth) * 100;
+                    let y = ((e.clientY - shiftY) / this.main.html.clientHeight) * 100;
+                    y = 100 - y;
+                    
+                    let food = this.dropEnemy('food', name, x, y);
+
+                    food._x = x;
+                    food._y = y;
+                    food.html.style = `
+                    transform: translateX(${x}vw)
+                    translateY(-${y}vh);
+                    `
+
+                    food.html.classList.add('food_priority');
+
+                    food.isCooldown = false;
+
+                    let customEvent = new Event('mousedown');
+                    [
+                        customEvent.pageX, 
+                        customEvent.pageY, 
+                        customEvent.clientX, 
+                        customEvent.clientY
+                    ] = [
+                        e.pageX, 
+                        e.pageY, 
+                        e.clientX, 
+                        e.clientY
+                    ];
+
+
+                    food.html.dispatchEvent(customEvent);                    
                 }
 
-                this.dropFood(name);
+                this.dropEnemy('food', name);
             }
         }
 
 
+    }*/
+
+    reloadMenu(type) {
+        let actMenu, actList;
+        if (type == 'food') { 
+            actMenu = this.header.acts.eat;
+            actList = this.food;
+        }
+        else { 
+            actMenu = this.header.acts.play; 
+            actList = this.toys;
+        }
+
+        for (let name in actList) {
+            actMenu.menu.insertAdjacentHTML('afterbegin', `
+            <div class="header__eatMenu-food" data-name="${name}">
+                <img src="./materials/${name}.png" alt="${name}">
+                <p>${name[0].toUpperCase() + name.slice(1)}</p>
+            </div>
+            `);
+
+            let elem = document.querySelector(`div[data-name="${name}"] img`);
+            elem.ondragstart = () => false;
+            elem.onmousedown = (e) => {
+                if (this.isDropped) { return; }
+
+                elem.style.opacity = 0;
+                setTimeout(() => elem.style.opacity = 1, 100);
+
+                actMenu.menu.classList.remove('header__eatMenu_visible');
+                actMenu.menu.classList.remove('header__playMenu_visible');
+
+                if (/Windows|Mac|Linux/i.test(navigator.userAgent)) {
+                    let shiftX = e.clientX - e.target.getBoundingClientRect().left;
+                    let shiftY = e.clientY - e.target.getBoundingClientRect().bottom;
+
+                    let x = ((e.clientX - shiftX) / this.main.html.clientWidth) * 100;
+                    let y = ((e.clientY - shiftY) / this.main.html.clientHeight) * 100;
+                    y = 100 - y;
+                    
+                    let elemEnemy = this.dropEnemy(type, name, x, y);
+
+                    elemEnemy._x = x;
+                    elemEnemy._y = y;
+                    elemEnemy.html.style = `
+                    transform: translateX(${x}vw)
+                    translateY(-${y}vh);
+                    `
+
+                    elemEnemy.html.classList.add('priority');
+
+                    elemEnemy.isCooldown = false;
+
+                    let customEvent = new Event('mousedown');
+                    [
+                        customEvent.pageX, 
+                        customEvent.pageY, 
+                        customEvent.clientX, 
+                        customEvent.clientY
+                    ] = [
+                        e.pageX, 
+                        e.pageY, 
+                        e.clientX, 
+                        e.clientY
+                    ];
+
+
+                    elemEnemy.html.dispatchEvent(customEvent);                    
+                }
+
+                this.dropEnemy(type, name);
+            }
+        }
     }
 
     getCollider(cat) {
@@ -855,17 +971,32 @@ class Game {
         return false;
     }
 
-    dropFood(foodName, x, y) {
-        let foodObj = this.food[foodName];
+    dropEnemy(type, name, x, y) {
+        if (!['food', 'toy'].includes(type)) {
+            return false;
+        }
 
         x = x ?? Math.random()*100;
 
         y = y ?? 80;
 
-        if (!this.isFoodDropped) {
-            let food = new Food(foodName, game, cat, 25, x, 80);
-            food.start();
-            food.enableDragnDrop();
+        if (!this.isDropped) {
+            let enemy;
+
+            if (type == 'food') { enemy = new Food(name, game, cat, 25, x, y); }
+            else                { enemy = null }
+
+            enemy.start();
+            enemy.enableDragnDrop();
+
+            enemy._x = x;
+            enemy._y = y;
+            enemy.style = `
+            transform: translateX(${x}vw) 
+            translateY(-${y}vh);
+            `;
+
+            return enemy;
         }
     }
 }
