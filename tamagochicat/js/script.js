@@ -999,9 +999,6 @@ class Game {
             if (eat.menu.classList[1])  { eat.menu.classList.remove('header__eatMenu_visible'); }
             if (play.menu.classList[1]) { play.menu.classList.remove('header__playMenu_visible'); }
         });
-
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
 
     reloadMenu(type) {
