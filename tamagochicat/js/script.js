@@ -44,8 +44,8 @@ class Entity {
 
         let time = Math.abs((this._x - old)/this.speed);
 
-        this.html.style.transform = `
-        translateX(${this.x}vw) 
+        this.html.style = `
+        transform: translateX(${this.x}vw) 
         translateY(-${this.y}vh);
         transition: transform ${time}s linear;
         `;
@@ -66,7 +66,7 @@ class Entity {
         this.checkCollider(value);
 
         let time = Math.abs( 2 * (this._y - old) / 1000 )**0.5;
-
+        
         this.html.style = 
         `
         transform: translateX(${this.x}vw) 
@@ -160,6 +160,7 @@ class Entity {
             this._y = this.game.bazeY;
         }
 
+
         if (elem) {
             let height  = this.game.main.html.clientHeight;
             let elemTop = (elem.top + elem.height*elem.areaCount) / height * 100;
@@ -173,6 +174,7 @@ class Entity {
             else { return; }
         }
         else { return; }
+        this._y = Math.round(this._y * 10) / 10;
     }
 }
 
@@ -434,6 +436,10 @@ class Cat extends Entity {
                 cat.x = x - 10;
             }
         }
+
+        window.onresize = () => {
+            this.y = game.bazeY;
+        }
     }
 
     reloadAnimation() {
@@ -549,7 +555,7 @@ class Cat extends Entity {
 
         this.isCooldown = true;
         this.animation = 'cat_attack_12';
-        this.html.style.width = '23vw';
+        this.html.style.width = '28vh';
         setTimeout(() => {
             this.animation = 'cat_idle_blink_8';
             this.isCooldown = false;
@@ -561,6 +567,17 @@ class Cat extends Entity {
         this.attack();
         this.happiness += foodObj.happinessCount;
         this.hunger    += foodObj.hungerCount;
+    }
+
+    play(toyObj) {
+        let timer = setInterval(() => {
+            this.attack();
+        }, 250);
+
+        setTimeout(() => {
+            timer = clearInterval(timer);
+            this.happiness += toyObj.happinessCount;
+        }, 500);
     }
 
     enableDragnDrop(rules) {
@@ -656,6 +673,122 @@ class Food extends Enemy {
         }
 
         this.interval = setInterval(goToEnemy, 300);
+    }
+}
+
+class Toy extends Enemy {
+    constructor(toyName, game, cat, speed, x, y) {
+        let toyObj = game.toys[toyName];
+        
+        let html = document.createElement('div');
+        html.className = 'toy';
+        html.insertAdjacentHTML('beforeend', `
+        <img src="${toyObj.src}" alt="toyName">
+        `);
+
+        super(game, cat, html, speed, x, y);
+
+        this.toyObj = toyObj;
+    }
+
+    set x(value) {
+        if (this.isCooldown) { return; }
+        this.isCooldown = true;
+
+        if (this.y != this.game.bazeY) { this.y = this.game.bazeY; return; }
+
+        let old = this._x;
+
+        if (value < 0)    { value = 0;  }
+        if (value > 90 )  { value = 90; }
+        if (value == old) { return;     }
+
+        
+        this._x = value;
+
+        let time = Math.abs((this._x - old)/this.speed);
+
+        if (this.toyObj.type == 'roll') {
+            this.html.children[0].classList.remove('rollback');
+            this.html.children[0].classList.remove('roll');
+        }
+
+        if (this.x < old) {     //меняем направление
+            this.html.children[0].style.transform = 'scaleX(-1)';
+            if (this.toyObj.type == 'roll') {
+                this.html.children[0].style.transform = '';
+                this.html.children[0].classList.add('rollback');
+            }
+        }
+        else {
+            this.html.children[0].style.transform = '';
+            if (this.toyObj.type == 'roll') {
+                this.html.children[0].classList.add('roll');
+            }
+        }
+
+        this.html.style = `
+        transform: translateX(${this.x}vw) 
+        translateY(-${this.y}vh);
+        transition: transform ${time}s linear;
+        `;
+
+        setTimeout(() => {
+            this.isCooldown = false;
+        }, time*1000);
+
+        if (this.toyObj.type == 'roll') {
+            setTimeout(() => {
+                this.html.children[0].classList.remove('rollback');
+                this.html.children[0].classList.remove('roll');
+            }, 600);
+        }
+    }
+
+    get x() { return this._x; }
+
+    start(x, y) {
+        if (game.isDropped) { return; }
+        game.isDropped = true;
+
+        super.start(x, y);
+
+        this.interval = clearInterval(this.interval);
+
+        let goToEnemy = () => {
+            if (!cat.isCooldown) {
+                if (cat.x == this.x && cat.y == this.y) { 
+                    cat.play(this.toyObj);
+                    this.isCooldown = true;
+                    setTimeout(() => {
+                        game.isDropped = false;
+                        this.destroy();
+                        return; 
+                    }, 1000);
+                }
+
+                if   (cat.y == game.bazeY) { cat.x = this.x;     }
+                else                       { cat.y = game.bazeY; }
+            }
+        }
+
+        this.interval = setInterval(goToEnemy, 300);
+
+        let behavior = () => {
+
+            let sign = Math.random()*100;
+            if (sign > this.x) {
+                this.x += 15;
+            }
+            else { this.x -= 15; }
+        }
+
+        setTimeout(() => this.behavior = setInterval(behavior, 600), 400);
+    }
+
+    destroy() {
+        super.destroy();
+        this.behavior = clearInterval(this.behavior);
     }
 }
 
@@ -768,6 +901,36 @@ class Game {
                     },
                 },
             },
+
+            toys: {
+                enumerable: true,
+                wrutable: true,
+                value: {
+                    mouse: {
+                        src: './materials/mouse.png',
+                        happinessCount: 50,
+                        type: 'run',
+                    },
+
+                    ball: {
+                        src: './materials/ball.png',
+                        happinessCount: 35,
+                        type: 'roll',
+                    },
+
+                    ballOfThread: {
+                        src: './materials/ballofthread.png',
+                        happinessCount: 40,
+                        type: 'roll',
+                    },
+
+                    frog: {
+                        src: './materials/frog.gif',
+                        happinessCount: 45,
+                        type: 'run',
+                    }
+                }
+            },
         });
     }
 
@@ -783,18 +946,42 @@ class Game {
         this.header.html.style = 'visibility: visible';
         this.main.html.style   = 'visibility: visible';
 
-        this.reloadMenu('food');   
+        this.reloadMenu('food');
+        this.reloadMenu('toy');
 
         let eat = this.header.acts.eat;
+        let play = this.header.acts.play;
+
         eat.html.addEventListener('click', (e) => {
             e.preventDefault();
 
             if (!eat.menu.classList[1]) {
                 eat.menu.classList.add('header__eatMenu_visible');
+
+                if (play.menu.classList[1]) {
+                    play.menu.classList.remove('header__playMenu_visible');
+                }
             }
 
             else {
                 eat.menu.classList.remove('header__eatMenu_visible');
+            }
+        });
+
+        
+        play.html.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (!play.menu.classList[1]) {
+                play.menu.classList.add('header__playMenu_visible');
+
+                if (eat.menu.classList[1]) {
+                    eat.menu.classList.remove('header__eatMenu_visible');
+                }
+            }
+
+            else {
+                play.menu.classList.remove('header__playMenu_visible');
             }
         });
 
@@ -803,78 +990,17 @@ class Game {
             e.preventDefault();
             if (eat.menu.classList[1]) { eat.menu.classList.remove('header__eatMenu_visible'); }
         }
+        document.querySelector('.header__playMenu-cancel').onclick = (e) => {
+            e.preventDefault();
+            if (play.menu.classList[1]) { play.menu.classList.remove('header__playMenu_visible'); }
+        }
 
         this.main.html.addEventListener('click', () => {
-            if (eat.menu.classList[1]) { eat.menu.classList.remove('header__eatMenu_visible'); }
+            if (eat.menu.classList[1])  { eat.menu.classList.remove('header__eatMenu_visible'); }
             if (play.menu.classList[1]) { play.menu.classList.remove('header__playMenu_visible'); }
         });
 
     }
-
-    /*reloadFoodMenu() {
-        let eat = this.header.acts.eat;
-        for (let name in this.food) {
-            this.header.acts.eat.menu.insertAdjacentHTML('afterbegin', `
-            <div class="header__eatMenu-food" data-name="${name}">
-                <img src="./materials/${name}.png" alt="${name}">
-                <p>${name[0].toUpperCase() + name.slice(1)}</p>
-            </div>
-            `);
-
-            let foodElem = document.querySelector(`div[data-name="${name}"] img`);
-            foodElem.ondragstart = () => false;
-            foodElem.onmousedown = (e) => {
-                if (this.isFoodDropped) { return; }
-
-                foodElem.style.opacity = 0;
-                setTimeout(() => foodElem.style.opacity = 1, 100);
-
-                eat.menu.classList.remove('header__eatMenu_visible');
-
-                if (/Windows|Mac|Linux/i.test(navigator.userAgent)) {
-                    let shiftX = e.clientX - e.target.getBoundingClientRect().left;
-                    let shiftY = e.clientY - e.target.getBoundingClientRect().bottom;
-
-                    let x = ((e.clientX - shiftX) / this.main.html.clientWidth) * 100;
-                    let y = ((e.clientY - shiftY) / this.main.html.clientHeight) * 100;
-                    y = 100 - y;
-                    
-                    let food = this.dropEnemy('food', name, x, y);
-
-                    food._x = x;
-                    food._y = y;
-                    food.html.style = `
-                    transform: translateX(${x}vw)
-                    translateY(-${y}vh);
-                    `
-
-                    food.html.classList.add('food_priority');
-
-                    food.isCooldown = false;
-
-                    let customEvent = new Event('mousedown');
-                    [
-                        customEvent.pageX, 
-                        customEvent.pageY, 
-                        customEvent.clientX, 
-                        customEvent.clientY
-                    ] = [
-                        e.pageX, 
-                        e.pageY, 
-                        e.clientX, 
-                        e.clientY
-                    ];
-
-
-                    food.html.dispatchEvent(customEvent);                    
-                }
-
-                this.dropEnemy('food', name);
-            }
-        }
-
-
-    }*/
 
     reloadMenu(type) {
         let actMenu, actList;
@@ -882,15 +1008,19 @@ class Game {
             actMenu = this.header.acts.eat;
             actList = this.food;
         }
-        else { 
+        else if (type == 'toy') { 
             actMenu = this.header.acts.play; 
             actList = this.toys;
+        }
+        else {
+            console.error('Error: unknown type');
+            return;
         }
 
         for (let name in actList) {
             actMenu.menu.insertAdjacentHTML('afterbegin', `
             <div class="header__eatMenu-food" data-name="${name}">
-                <img src="./materials/${name}.png" alt="${name}">
+                <img src="${actList[name].src}" alt="${name}">
                 <p>${name[0].toUpperCase() + name.slice(1)}</p>
             </div>
             `);
@@ -898,7 +1028,7 @@ class Game {
             let elem = document.querySelector(`div[data-name="${name}"] img`);
             elem.ondragstart = () => false;
             elem.onmousedown = (e) => {
-                if (this.isDropped) { return; }
+                if (this.isDropped || document.querySelector('.' + type)) { return; }
 
                 elem.style.opacity = 0;
                 setTimeout(() => elem.style.opacity = 1, 100);
@@ -980,11 +1110,12 @@ class Game {
 
         y = y ?? 80;
 
-        if (!this.isDropped) {
+        if (!this.isDropped && !document.querySelector('.' + type)) {
             let enemy;
 
-            if (type == 'food') { enemy = new Food(name, game, cat, 25, x, y); }
-            else                { enemy = null }
+            if      (type == 'food') { enemy = new Food(name, game, cat, 25, x, y); }
+            else if (type == 'toy')  { enemy = new Toy(name, game, cat, 25, x, y); }
+            else                     { console.error('Error: unknown type of enemy'); return; }
 
             enemy.start();
             enemy.enableDragnDrop();
