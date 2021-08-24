@@ -1000,6 +1000,9 @@ class Game {
             if (play.menu.classList[1]) { play.menu.classList.remove('header__playMenu_visible'); }
         });
 
+        if (!(/Win|Mac|Linux/i.test(navigator.platform) && 'touchend' in document)) {
+            document.body.requestFullscreen();
+        }
     }
 
     reloadMenu(type) {
