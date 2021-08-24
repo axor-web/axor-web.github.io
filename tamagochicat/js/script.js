@@ -1036,8 +1036,7 @@ class Game {
                 actMenu.menu.classList.remove('header__eatMenu_visible');
                 actMenu.menu.classList.remove('header__playMenu_visible');
 
-                if (/Windows|Mac|Linux/i.test(navigator.userAgent)) {
-                    alert('computer');
+                if (/Win|Mac|Linux/i.test(navigator.platform) && 'touchend' in document) {
                     let shiftX = e.clientX - e.target.getBoundingClientRect().left;
                     let shiftY = e.clientY - e.target.getBoundingClientRect().bottom;
 
