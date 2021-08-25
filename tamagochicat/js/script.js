@@ -649,7 +649,7 @@ class Food extends Enemy {
         this.foodObj = game.food[foodName];
     }
 
-    start(x, y) {
+    start(x = this.x, y = this.y) {
         if (game.isDropped) { return; }
 
         super.start(x, y);
@@ -747,7 +747,7 @@ class Toy extends Enemy {
 
     get x() { return this._x; }
 
-    start(x, y) {
+    start(x = this.x, y = this.y) {
         if (game.isDropped) { return; }
         game.isDropped = true;
 
@@ -1035,7 +1035,7 @@ class Game {
                 actMenu.menu.classList.remove('header__eatMenu_visible');
                 actMenu.menu.classList.remove('header__playMenu_visible');
 
-                if (/Win|Mac|Linux/i.test(navigator.platform) && 'touchend' in document) {
+                if (/Win|Mac|Linux/i.test(navigator.platform) && !('ontouchend' in document)) {
                     let shiftX = e.clientX - e.target.getBoundingClientRect().left;
                     let shiftY = e.clientY - e.target.getBoundingClientRect().bottom;
 
@@ -1114,17 +1114,17 @@ class Game {
 
             if      (type == 'food') { enemy = new Food(name, game, cat, 25, x, y); }
             else if (type == 'toy')  { enemy = new Toy(name, game, cat, 25, x, y); }
-            else                     { console.error('Error: unknown type of enemy'); return; }
 
             enemy.start();
             enemy.enableDragnDrop();
 
+            /*
             enemy._x = x;
             enemy._y = y;
             enemy.style = `
             transform: translateX(${x}vw) 
             translateY(-${y}vh);
-            `;
+            `;*/
 
             return enemy;
         }
