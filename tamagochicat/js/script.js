@@ -920,8 +920,8 @@ class Game {
                         type: 'roll',
                     },
 
-                    ballOfThread: {
-                        src: './materials/ballofthread.png',
+                    thread: {
+                        src: './materials/thread.png',
                         happinessCount: 40,
                         type: 'roll',
                     },
@@ -1019,12 +1019,29 @@ class Game {
         }
 
         for (let name in actList) {
-            actMenu.menu.insertAdjacentHTML('afterbegin', `
+            /*actMenu.menu.insertAdjacentHTML('afterbegin', `
             <div class="header__eatMenu-food" data-name="${name}">
                 <img src="${actList[name].src}" alt="${name}">
                 <p>${name[0].toUpperCase() + name.slice(1)}</p>
             </div>
-            `);
+            `);*/
+
+            if (type == 'food') {
+                actMenu.menu.insertAdjacentHTML('afterbegin', `
+                    <div class="header__eatMenu-food" data-name="${name}">
+                        <img src="${actList[name].src}" alt="${name}">
+                        <p>${name[0].toUpperCase() + name.slice(1)}</p>
+                    </div>
+                `);
+            }
+            else {
+                actMenu.menu.insertAdjacentHTML('afterbegin', `
+                    <div class="header__playMenu-toy" data-name="${name}">
+                        <img src="${actList[name].src}" alt="${name}">
+                        <p>${name[0].toUpperCase() + name.slice(1)}</p>
+                    </div>
+                `);
+            }
 
             let elem = document.querySelector(`div[data-name="${name}"] img`);
             elem.ondragstart = () => false;
