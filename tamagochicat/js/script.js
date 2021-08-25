@@ -775,6 +775,8 @@ class Toy extends Enemy {
         this.interval = setInterval(goToEnemy, 300);
 
         let behavior = () => {
+            this.html.classList.remove('roll');
+            this.html.classList.remove('rollback');
 
             let sign = Math.random()*100;
             if (sign > this.x) {
