@@ -90,6 +90,12 @@ class Entity {
     }
 
     enableDragnDrop(rules) {
+        if (/iPhone|iPad|Android/i.test(navigator.platform)) {  ///////REMOVE!!!!!!!!
+            this.enableMobileDragnDrop(rules);
+
+            return;
+        }
+
         this.html.ondragstart = () => false;
         this.html.onmousedown = (e) => {
             if (this.isCooldown) { return; }
@@ -140,6 +146,69 @@ class Entity {
                 this.isCooldown = false;
                 document.onmousemove = null;
                 document.onmouseup = null;
+
+                if (rules?.isCollider) {
+                    this.y = this._y - 15;
+                    return;
+                }
+
+                this.y = 0;
+            };
+        };
+    }
+
+    enableMobileDragnDrop(rules) {
+        this.html.ondragstart = () => false;
+        
+        this.html.ontouchstart = (e) => {
+            if (this.isCooldown) { return; }
+            this.isCooldown = true;
+
+            let timer = new Date();
+
+            let shiftX = e.touches[0].clientX - e.touches[0].target.getBoundingClientRect().left;
+            let shiftY = e.touches[0].clientY - e.touches[0].target.getBoundingClientRect().top;
+        
+            document.ontouchmove = (e) => {
+                let height = this.game.main.html.clientHeight;
+                let width  = this.game.main.html.clientWidth;
+    
+                let x = (e.touches[0].clientX - shiftX) / width * 100;
+                let y = (e.touches[0].clientY - shiftY) / height * 100;
+                
+                if (x < 0) { x = 0; }
+                if (y < 0) { y = 0; }
+
+                if (x > 90)  { x = 90;  }
+                if (y > 100) { y = 100; }
+
+                let old = this.x;
+                this._x = x;
+                this._y = 100 - y;
+
+                if (this.x < old) {     //меняем направление
+                    this.html.children[0].style.transform = 'scaleX(-1)';
+                    if (this.curtain) {
+                        this.curtain.style.transform = 'scaleX(-1)'
+                    }
+                }
+                else if (this.x > old) { 
+                    this.html.children[0].style.transform = '';
+                    if (this.curtain) {
+                        this.curtain.style.transform = ''
+                    }
+                 }
+
+                this.html.style = `
+                transform: translateX(${this.x}vw)
+                translateY(calc(-${this.y}vh + 100%));
+                transition: transform 0s linear;`;
+            }
+
+            document.ontouchend = (e) => {
+                this.isCooldown = false;
+                document.ontouchmove = null;
+                document.ontouchend = null;
 
                 if (rules?.isCollider) {
                     this.y = this._y - 15;
@@ -425,16 +494,7 @@ class Cat extends Entity {
         this.game.main.html.onclick = (e) => {
             let width = this.game.main.html.clientWidth;
             let x = e.clientX / width * 100;
-
-            if (cat.x < x) {
-                if (Math.abs(cat.x - x) > 20) {
-                    cat.x = x - 10;
-                }
-            }
-
-            else {
-                cat.x = x - 10;
-            }
+            cat.x = x;
         }
 
         window.onresize = () => {
@@ -1014,7 +1074,7 @@ class Game {
             actList = this.toys;
         }
         else {
-            console.error('Error: unknown type');
+            console.error('Error: Unknown type');
             return;
         }
 
@@ -1045,16 +1105,17 @@ class Game {
 
             let elem = document.querySelector(`div[data-name="${name}"] img`);
             elem.ondragstart = () => false;
-            elem.onmousedown = (e) => {
-                if (this.isDropped || document.querySelector('.' + type)) { return; }
 
-                elem.style.opacity = 0;
-                setTimeout(() => elem.style.opacity = 1, 100);
-
-                actMenu.menu.classList.remove('header__eatMenu_visible');
-                actMenu.menu.classList.remove('header__playMenu_visible');
-
-                if (/Win|Mac|Linux/i.test(navigator.platform) && !('ontouchend' in document)) {
+            if (/Win|Mac|Linux/i.test(navigator.platform) && !('ontouchend' in document)) {
+                elem.onmousedown = (e) => {
+                    if (this.isDropped || document.querySelector('.' + type)) { return; }
+    
+                    elem.style.opacity = 0;
+                    setTimeout(() => elem.style.opacity = 1, 100);
+    
+                    actMenu.menu.classList.remove('header__eatMenu_visible');
+                    actMenu.menu.classList.remove('header__playMenu_visible');
+    
                     let shiftX = e.clientX - e.target.getBoundingClientRect().left;
                     let shiftY = e.clientY - e.target.getBoundingClientRect().bottom;
 
@@ -1088,11 +1149,55 @@ class Game {
                         e.clientY
                     ];
 
+                    elemEnemy.html.dispatchEvent(customEvent);
 
-                    elemEnemy.html.dispatchEvent(customEvent);                    
+                    return;               
                 }
+            }
 
-                this.dropEnemy(type, name);
+            else if (/iPhone|iPad|Android/i.test(navigator.platform)) {
+                elem.ontouchstart = (e) => {
+                    if (this.isDropped || document.querySelector('.' + type)) { return; }
+                    elem.style.opacity = 0;
+                    setTimeout(() => elem.style.opacity = 1, 100);
+    
+                    actMenu.menu.classList.remove('header__eatMenu_visible');
+                    actMenu.menu.classList.remove('header__playMenu_visible');
+    
+                    let shiftX = e.touches[0].clientX - e.touches[0].target.getBoundingClientRect().left;
+                    let shiftY = e.touches[0].clientY - e.touches[0].target.getBoundingClientRect().bottom;
+
+                    let x = ((e.touches[0].clientX - shiftX) / this.main.html.clientWidth) * 100;
+                    let y = ((e.touches[0].clientY - shiftY) / this.main.html.clientHeight) * 100;
+                    y = 100 - y;
+                    
+                    let elemEnemy = this.dropEnemy(type, name, x, y);
+
+                    elemEnemy._x = x;
+                    elemEnemy._y = y;
+                    elemEnemy.html.style = `
+                    transform: translateX(${x}vw)
+                    translateY(-${y}vh);
+                    `
+
+                    elemEnemy.html.classList.add('priority');
+
+                    elemEnemy.isCooldown = false;
+                    let customEvent = new Event('touchstart');
+                    customEvent.touches = e.touches;
+
+                    elemEnemy.html.dispatchEvent(customEvent);
+
+                    return;               
+                }
+            }
+
+            else { 
+                elem.onclick = () => {
+                    this.dropEnemy(type, name);
+                    actMenu.menu.classList.remove('header__eatMenu_visible');
+                    actMenu.menu.classList.remove('header__playMenu_visible');
+                };
             }
         }
     }
