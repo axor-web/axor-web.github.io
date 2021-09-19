@@ -861,11 +861,11 @@ class Game {
                 value: bazeY || 20,
             },
 
-            /*isFoodDropped: {
+            isBazeYChanged : {
                 enumerable: true,
                 writable: true,
                 value: false,
-            },*/
+            },
 
             isDropped: {
                 enumerable: true,
@@ -1013,6 +1013,7 @@ class Game {
         window.addEventListener('resize', () => {
             window.scrollTo(0, 0)
             document.body.style.height = window.innerHeight + 'px';
+            this.checkHeight();
         });
 
         this.header.html.style.visibility = 'visible';
@@ -1075,8 +1076,13 @@ class Game {
 
     checkHeight() {
         let wall = document.querySelector('.main__wall');
-        if (window.innerHeight != wall.clientHeight) {
+        if (window.innerHeight != wall.clientHeight && !this.isBazeYChanged) {
             this.bazeY += 10;
+            this.isBazeYChanged = true;
+        }
+        else if (this.isBazeYChanged) {
+            this.bazeY -= 10;
+            this.isBazeYChanged = false;
         }
     }
 
