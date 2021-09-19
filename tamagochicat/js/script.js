@@ -85,7 +85,7 @@ class Entity {
 
         this.html.style = `
         transform: translateX(${x}vw) 
-        translateY(${100-y}vh);
+        translateY(calc(${100-this.y}vh - 100%));
         `;
     }
 
@@ -717,8 +717,8 @@ class Food extends Enemy {
         this.interval = clearInterval(this.interval);
 
         let goToEnemy = () => {
-            if (!cat.isCooldown && !this.isCooldown) {
-                if (cat.x == this.x && cat.y == this.y) { 
+            if (!cat.isCooldown) {
+                if (cat.x == this.x && cat.y == this.y && !this.isCooldown) { 
                     cat.eat(this.foodObj); 
                     this.destroy();
                     game.isDropped = false;
@@ -812,10 +812,11 @@ class Toy extends Enemy {
         super.start(x, y);
 
         this.interval = clearInterval(this.interval);
+        this.behavior = clearInterval(this.behavior);
 
         let goToEnemy = () => {
-            if (!cat.isCooldown && !this.isCooldown) {
-                if (cat.x == this.x && cat.y == this.y) { 
+            if (!cat.isCooldown) {
+                if (cat.x == this.x && cat.y == this.y && !this.isCooldown) { 
                     cat.play(this.toyObj);
                     this.isCooldown = true;
                     setTimeout(() => {
@@ -830,8 +831,7 @@ class Toy extends Enemy {
             }
         }
 
-        this.interval = setInterval(goToEnemy, 300);
-
+        this.interval = setInterval(goToEnemy, 200);
         let behavior = () => {
             this.html.classList.remove('roll');
             this.html.classList.remove('rollback');
@@ -992,6 +992,8 @@ class Game {
                 }
             },
         });
+
+        this.checkHeight();
     }
 
     get bazeY() { return this._bazeY; }
@@ -1003,7 +1005,9 @@ class Game {
     }
 
     start() {
-        window.onload = () => setTimeout(() => window.scrollTo(0, 0), 10);
+        window.onload = () => {
+            setTimeout(() => window.scrollTo(0, 0), 10);
+        };
         document.body.style.height = window.innerHeight + 'px';
 
         window.addEventListener('resize', () => {
@@ -1067,6 +1071,13 @@ class Game {
             if (eat.menu.classList[1])  { eat.menu.classList.remove('header__eatMenu_visible'); }
             if (play.menu.classList[1]) { play.menu.classList.remove('header__playMenu_visible'); }
         });
+    }
+
+    checkHeight() {
+        let wall = document.querySelector('.main__wall');
+        if (window.innerHeight != wall.clientHeight) {
+            this.bazeY += 10;
+        }
     }
 
     reloadMenu(type) {
