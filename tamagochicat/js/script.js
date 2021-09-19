@@ -46,7 +46,7 @@ class Entity {
 
         this.html.style = `
         transform: translateX(${this.x}vw) 
-        translateY(-${this.y}vh);
+        translateY(calc(${100-this.y}vh - 100%));
         transition: transform ${time}s linear;
         `;
 
@@ -70,7 +70,7 @@ class Entity {
         this.html.style = 
         `
         transform: translateX(${this.x}vw) 
-        translateY(-${this.y}vh);
+        translateY(calc(${100-this.y}vh - 100%));
         transition: transform ${time}s linear;
         `;
 
@@ -85,12 +85,12 @@ class Entity {
 
         this.html.style = `
         transform: translateX(${x}vw) 
-        translateY(-${y}vh);
+        translateY(${100-y}vh);
         `;
     }
 
     enableDragnDrop(rules) {
-        if (/iPhone|iPad|Android/i.test(navigator.platform)) {  ///////REMOVE!!!!!!!!
+        if (/iPhone|iPad|Android/i.test(navigator.userAgent)) {
             this.enableMobileDragnDrop(rules);
 
             return;
@@ -105,14 +105,14 @@ class Entity {
 
             let shiftX = e.clientX - e.target.getBoundingClientRect().left;
             let shiftY = e.clientY - e.target.getBoundingClientRect().top;
-        
+            
             document.onmousemove = (e) => {
-                let height = this.game.main.html.clientHeight;
-                let width  = this.game.main.html.clientWidth;
+                let height = document.body.clientHeight;
+                let width  = document.body.clientWidth;
     
                 let x = (e.clientX - shiftX) / width * 100;
                 let y = (e.clientY - shiftY) / height * 100;
-                
+
                 if (x < 0) { x = 0; }
                 if (y < 0) { y = 0; }
 
@@ -138,7 +138,7 @@ class Entity {
 
                 this.html.style = `
                 transform: translateX(${this.x}vw)
-                translateY(calc(-${this.y}vh + 100%));
+                translateY(calc(${100-this.y}vh));
                 transition: transform 0s linear;`;
             }
 
@@ -148,7 +148,7 @@ class Entity {
                 document.onmouseup = null;
 
                 if (rules?.isCollider) {
-                    this.y = this._y - 15;
+                    this.y = this._y - 10;
                     return;
                 }
 
@@ -170,8 +170,8 @@ class Entity {
             let shiftY = e.touches[0].clientY - e.touches[0].target.getBoundingClientRect().top;
         
             document.ontouchmove = (e) => {
-                let height = this.game.main.html.clientHeight;
-                let width  = this.game.main.html.clientWidth;
+                let height = document.body.clientHeight;
+                let width  = document.body.clientWidth;
     
                 let x = (e.touches[0].clientX - shiftX) / width * 100;
                 let y = (e.touches[0].clientY - shiftY) / height * 100;
@@ -201,7 +201,7 @@ class Entity {
 
                 this.html.style = `
                 transform: translateX(${this.x}vw)
-                translateY(calc(-${this.y}vh + 100%));
+                translateY(calc(${100-this.y}vh));
                 transition: transform 0s linear;`;
             }
 
@@ -211,7 +211,7 @@ class Entity {
                 document.ontouchend = null;
 
                 if (rules?.isCollider) {
-                    this.y = this._y - 15;
+                    this.y = this._y - 10;
                     return;
                 }
 
@@ -231,7 +231,7 @@ class Entity {
 
 
         if (elem) {
-            let height  = this.game.main.html.clientHeight;
+            let height  = document.body.clientHeight;
             let elemTop = (elem.top + elem.height*elem.areaCount) / height * 100;
             let elemBottom = 100 - elemTop;
             if (value > elemBottom) {
@@ -331,7 +331,7 @@ class Cat extends Entity {
         this.html.style = 
         `
         transform: translateX(${this.x}vw) 
-        translateY(-${this.y}vh);
+        translateY(calc(${100-this.y}vh - 100%));
         transition: transform ${time}s linear;
         `;
 
@@ -368,7 +368,7 @@ class Cat extends Entity {
 
         this.html.style = `
         transform: translateX(${this.x}vw) 
-        translateY(-${this.y}vh);
+        translateY(calc(${100-this.y}vh - 100%));
         transition: transform ${time}s linear`;
 
         if (this._y > old) {
@@ -470,7 +470,7 @@ class Cat extends Entity {
 
         this.html.style = `
         transform: translateX(${x}vw) 
-        translateY(-${y}vh);
+        translateY(calc(${100-y}vh - 100%));
         `;
 
         this.updateStats();
@@ -497,9 +497,7 @@ class Cat extends Entity {
             cat.x = x;
         }
 
-        window.onresize = () => {
-            this.y = game.bazeY;
-        }
+        window.addEventListener('resize', () => this.y = game.bazeY);
     }
 
     reloadAnimation() {
@@ -589,14 +587,14 @@ class Cat extends Entity {
 
         this.html.style = `
         transform: translateX(${this.x}vw) 
-        translateY(-${this.y}vh);
+        translateY(calc(${100-this.y}vh - 100%));
         transition: transform 0.1s linear`;
 
         setTimeout(() => {
             this._y -= height;
             this.html.style = `
             transform: translateX(${this.x}vw) 
-            translateY(-${this.y}vh);
+            translateY(calc(${100-this.y}vh - 100%));
             transition: transform 0.1s linear`;
         }, 100);
         
@@ -701,7 +699,7 @@ class Food extends Enemy {
         let html = document.createElement('div');
         html.className = 'food';
         html.insertAdjacentHTML('beforeend', `
-        <img src="./materials/${foodName}.png" alt="foodName">
+        <img src="./materials/${foodName}.png" alt="foodName" draggable="false">
         `);
 
         super(game, cat, html, speed, x, y);
@@ -719,7 +717,7 @@ class Food extends Enemy {
         this.interval = clearInterval(this.interval);
 
         let goToEnemy = () => {
-            if (!cat.isCooldown) {
+            if (!cat.isCooldown && !this.isCooldown) {
                 if (cat.x == this.x && cat.y == this.y) { 
                     cat.eat(this.foodObj); 
                     this.destroy();
@@ -743,7 +741,7 @@ class Toy extends Enemy {
         let html = document.createElement('div');
         html.className = 'toy';
         html.insertAdjacentHTML('beforeend', `
-        <img src="${toyObj.src}" alt="toyName">
+        <img src="${toyObj.src}" alt="toyName" draggable="false">
         `);
 
         super(game, cat, html, speed, x, y);
@@ -789,7 +787,7 @@ class Toy extends Enemy {
 
         this.html.style = `
         transform: translateX(${this.x}vw) 
-        translateY(-${this.y}vh);
+        translateY(calc(${100-this.y}vh - 100%));
         transition: transform ${time}s linear;
         `;
 
@@ -816,7 +814,7 @@ class Toy extends Enemy {
         this.interval = clearInterval(this.interval);
 
         let goToEnemy = () => {
-            if (!cat.isCooldown) {
+            if (!cat.isCooldown && !this.isCooldown) {
                 if (cat.x == this.x && cat.y == this.y) { 
                     cat.play(this.toyObj);
                     this.isCooldown = true;
@@ -860,7 +858,7 @@ class Game {
             _bazeY: {
                 enumerable: true,
                 writable: true,
-                value: bazeY,
+                value: bazeY || 20,
             },
 
             /*isFoodDropped: {
@@ -1005,8 +1003,16 @@ class Game {
     }
 
     start() {
-        this.header.html.style = 'visibility: visible';
-        this.main.html.style   = 'visibility: visible';
+        window.onload = () => setTimeout(() => window.scrollTo(0, 0), 10);
+        document.body.style.height = window.innerHeight + 'px';
+
+        window.addEventListener('resize', () => {
+            window.scrollTo(0, 0)
+            document.body.style.height = window.innerHeight + 'px';
+        });
+
+        this.header.html.style.visibility = 'visible';
+        this.main.html.style.visibility   = 'visible';
 
         this.reloadMenu('food');
         this.reloadMenu('toy');
@@ -1106,7 +1112,7 @@ class Game {
             let elem = document.querySelector(`div[data-name="${name}"] img`);
             elem.ondragstart = () => false;
 
-            if (/Win|Mac|Linux/i.test(navigator.platform) && !('ontouchend' in document)) {
+            if (/Win|Mac|Linux/i.test(navigator.userAgent) && !('ontouchend' in document)) {
                 elem.onmousedown = (e) => {
                     if (this.isDropped || document.querySelector('.' + type)) { return; }
     
@@ -1117,19 +1123,18 @@ class Game {
                     actMenu.menu.classList.remove('header__playMenu_visible');
     
                     let shiftX = e.clientX - e.target.getBoundingClientRect().left;
-                    let shiftY = e.clientY - e.target.getBoundingClientRect().bottom;
+                    let shiftY = e.clientY - e.target.getBoundingClientRect().top;
 
-                    let x = ((e.clientX - shiftX) / this.main.html.clientWidth) * 100;
-                    let y = ((e.clientY - shiftY) / this.main.html.clientHeight) * 100;
-                    y = 100 - y;
+                    let x = ((e.clientX - shiftX) / document.body.clientWidth) * 100;
+                    let y = ((e.clientY - shiftY) / document.body.clientHeight) * 100;
                     
                     let elemEnemy = this.dropEnemy(type, name, x, y);
 
                     elemEnemy._x = x;
-                    elemEnemy._y = y;
+                    elemEnemy._y = 100 - y;
                     elemEnemy.html.style = `
                     transform: translateX(${x}vw)
-                    translateY(-${y}vh);
+                    translateY(${y}vh);
                     `
 
                     elemEnemy.html.classList.add('priority');
@@ -1155,7 +1160,7 @@ class Game {
                 }
             }
 
-            else if (/iPhone|iPad|Android/i.test(navigator.platform)) {
+            else if (/iPhone|iPad|Android/i.test(navigator.userAgent)) {
                 elem.ontouchstart = (e) => {
                     if (this.isDropped || document.querySelector('.' + type)) { return; }
                     elem.style.opacity = 0;
@@ -1165,19 +1170,18 @@ class Game {
                     actMenu.menu.classList.remove('header__playMenu_visible');
     
                     let shiftX = e.touches[0].clientX - e.touches[0].target.getBoundingClientRect().left;
-                    let shiftY = e.touches[0].clientY - e.touches[0].target.getBoundingClientRect().bottom;
+                    let shiftY = e.touches[0].clientY - e.touches[0].target.getBoundingClientRect().top;
 
-                    let x = ((e.touches[0].clientX - shiftX) / this.main.html.clientWidth) * 100;
-                    let y = ((e.touches[0].clientY - shiftY) / this.main.html.clientHeight) * 100;
-                    y = 100 - y;
+                    let x = ((e.touches[0].clientX - shiftX) / document.body.clientWidth) * 100;
+                    let y = ((e.touches[0].clientY - shiftY) / document.body.clientHeight) * 100;
                     
                     let elemEnemy = this.dropEnemy(type, name, x, y);
 
                     elemEnemy._x = x;
-                    elemEnemy._y = y;
+                    elemEnemy._y = 100 - y;
                     elemEnemy.html.style = `
                     transform: translateX(${x}vw)
-                    translateY(-${y}vh);
+                    translateY(${y}vh);
                     `
 
                     elemEnemy.html.classList.add('priority');
@@ -1242,6 +1246,9 @@ class Game {
             enemy.start();
             enemy.enableDragnDrop();
 
+            enemy.html.children[0].ondragstart = null;
+            
+
             /*
             enemy._x = x;
             enemy._y = y;
@@ -1275,5 +1282,5 @@ else {
 }
 
 game.start();
-cat.start('cat_idle_blink_8', 14);
+cat.start('cat_idle_blink_8', 10);
 cat.enableDragnDrop({isCollider: true});
