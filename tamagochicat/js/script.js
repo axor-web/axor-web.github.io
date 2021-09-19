@@ -1076,7 +1076,7 @@ class Game {
 
     checkHeight() {
         let wall = document.querySelector('.main__wall');
-        if (window.innerHeight != wall.clientHeight && !this.isBazeYChanged) {
+        if (window.innerHeight != wall.clientHeight && !this.isBazeYChanged && window.innerHeight <= window.innerWidth) {
             this.bazeY += 10;
             this.isBazeYChanged = true;
         }
