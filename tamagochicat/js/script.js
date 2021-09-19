@@ -231,7 +231,7 @@ class Entity {
 
 
         if (elem) {
-            let height  = document.body.clientHeight;
+            let height  = document.querySelector('.main__wall').clientHeight;
             let elemTop = (elem.top + elem.height*elem.areaCount) / height * 100;
             let elemBottom = 100 - elemTop;
             if (value > elemBottom) {
