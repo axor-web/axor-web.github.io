@@ -17,7 +17,9 @@
     "compile-main-witcher": "npx postcss witcher/css/main.pcss -o witcher/css/main.css -w ",
     "compile-footer-witcher": "npx postcss witcher/css/footer.pcss -o witcher/css/footer.css -w ",
     "compile-header-tamagochicat": "npx postcss tamagochicat/css/header.pcss -o tamagochicat/css/header.css -w ",
-    "compile-main-tamagochicat": "npx postcss tamagochicat/css/main.pcss -o tamagochicat/css/main.css -w "
+    "compile-main-tamagochicat": "npx postcss tamagochicat/css/main.pcss -o tamagochicat/css/main.css -w ",
+    "compile-header-birthday": "npx postcss birthday/css/header.pcss -o birthday/css/header.css -w ",
+    "compile-main-birthday": "npx postcss birthday/css/main.pcss -o birthday/css/main.css -w "
   },
   "repository": {
     "type": "git",
