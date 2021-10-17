@@ -668,7 +668,7 @@ class Game {
             this.main.wall.html.style = 'background-image: url(./materials/school.png);'
 
             let interval = setInterval(() => {
-                if (cat.x > 30 && cat.x < 53 && !cat.isCooldown) {
+                if (cat.x > 30 && cat.x < 60 && !cat.isCooldown) {
                     let s1 = `Моя любимая самая умненькая солнышко, как и всегда, отлично и продуктивно отучилась! <br>Время встретить меня с подарками!`;
                     this.message(cat, s1, () => {
                         this.setTask('Цель: подойти ко мне и забрать подарочки!');
