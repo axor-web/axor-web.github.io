@@ -1,3 +1,3 @@
 # axor.github.io
 
-## This is portfolio with HTML, CSS, JS Projects
+## This is a portfolio with HTML, CSS, JS Projects
