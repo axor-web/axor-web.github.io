@@ -1,0 +1,108 @@
+:root {
+    --comBlue: #0E78D9;
+    --comGray: #A1A1A1;
+    --inactive: #D4D4D4;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    list-style: none;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+*:link, *:visited, *:active {
+    color: #fff;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 1170px;
+    padding: 0 20px;
+}
+
+.header {
+    width: 100vw;
+    background: linear-gradient(to bottom, #000000, rgba(0,0,0,0));
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+    & .wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__menu {
+        display: flex;
+        align-items: center;
+
+        &-logo {
+            display: flex;
+            padding: 10px 0;
+            padding-right: 24px;
+            
+            & img {
+                height: 40px;
+            }
+        }
+
+        &-button {
+            height: 32px;
+            width: 32px;
+            padding: 7px 3px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+
+            & div {
+                height: 2px;
+                width: 26px;
+                background: #fff;
+                border-radius: 50px;
+                opacity: 1;
+                transition: transform .3s, opacity .3s;
+                transform-origin: center;
+            }
+        }
+
+        &_active {
+            & .header__menu-button {
+                justify-content: center;
+                & div {
+                    &:first-of-type {
+                        transform: rotateZ(45deg) translateY(2px) translateX(0.75px);
+                    }
+
+                    &:nth-of-type(2) {
+                        transform: translateX(20px);
+                        opacity: 0;
+                    }
+
+                    &:last-of-type {
+                        transform: rotateZ(-45deg) translateY(-2px) translateX(0.75px);
+                    }
+                }
+            }
+        }
+    }
+
+    &__profile {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        &-text {
+            margin-left: 12px;
+        }
+    }
+}

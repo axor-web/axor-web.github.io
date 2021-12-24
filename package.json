@@ -4,22 +4,14 @@
   "description": "Portfolio",
   "main": "postcss.config.js",
   "scripts": {
-    "compile-header-appo": "npx postcss appo/css/header.pcss -o appo/css/header.css -w ",
-    "compile-main-appo": "npx postcss appo/css/main.pcss -o appo/css/main.css -w ",
-    "compile-footer-appo": "npx postcss appo/css/footer.pcss -o appo/css/footer.css -w ",
-    "compile-header-datawarehouse": "npx postcss datawarehouse/css/header.pcss -o datawarehouse/css/header.css -w ",
-    "compile-main-datawarehouse": "npx postcss datawarehouse/css/main.pcss -o datawarehouse/css/main.css -w ",
-    "compile-footer-datawarehouse": "npx postcss datawarehouse/css/footer.pcss -o datawarehouse/css/footer.css -w ",
-    "compile-header-woo": "npx postcss woo/css/header.pcss -o woo/css/header.css -w ",
-    "compile-main-woo": "npx postcss woo/css/main.pcss -o woo/css/main.css -w ",
-    "compile-footer-woo": "npx postcss woo/css/footer.pcss -o woo/css/footer.css -w ",
     "compile-header-witcher": "npx postcss witcher/css/header.pcss -o witcher/css/header.css -w ",
     "compile-main-witcher": "npx postcss witcher/css/main.pcss -o witcher/css/main.css -w ",
     "compile-footer-witcher": "npx postcss witcher/css/footer.pcss -o witcher/css/footer.css -w ",
     "compile-header-tamagochicat": "npx postcss tamagochicat/css/header.pcss -o tamagochicat/css/header.css -w ",
     "compile-main-tamagochicat": "npx postcss tamagochicat/css/main.pcss -o tamagochicat/css/main.css -w ",
-    "compile-header-birthday": "npx postcss birthday/css/header.pcss -o birthday/css/header.css -w ",
-    "compile-main-birthday": "npx postcss birthday/css/main.pcss -o birthday/css/main.css -w "
+    "compile-header-kvartirus": "npx postcss kvartirus/css/header.pcss -o kvartirus/css/header.css -w",
+    "compile-index-kvartirus": "npx postcss kvartirus/css/index.pcss -o kvartirus/css/index.css -w",
+    "compile-search-kvartirus": "npx postcss kvartirus/css/search.pcss -o kvartirus/css/search.css -w"
   },
   "repository": {
     "type": "git",
@@ -36,7 +28,10 @@
     "cssnano": "^5.0.6",
     "postcss": "^8.3.2",
     "postcss-cli": "^8.3.1",
-    "postcss-nested": "^5.0.5"
+    "postcss-nested": "^5.0.5",
+    "vanillajs-datepicker": "^1.1.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "lightpick": "^1.6.2"
+  }
 }

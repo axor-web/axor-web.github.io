@@ -4,23 +4,147 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/header.pcss">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/search.css">
     <link rel="stylesheet" href="css/index.css">
     <title>Kvartirus</title>
 </head>
 <body>
     <header class="header">
-        <div class="wrapper"></div>
+        <div class="wrapper">
+            <div class="header__menu">
+                <a class="header__menu-logo" href="index.html"><img src="img/logo.svg" alt="logo"></a>
+                <div class="header__menu-button">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="header__menu-card"></div>
+            </div>
+            <a class="header__profile" href=#>
+                <img src="img/profile.svg" alt="profile logo" class="header__profile-logo">
+                <div class="header__profile-text">Войти</div>
+            </a>
+        </div>
     </header>
 
     <main class="main">
+        <div class="wrapper">
+            <section class="main__appeal">
+                <div class="main__appeal-info">
+                    <h1>Заголовок</h1>
+                    <p>Небольшой оффер или девис в две строчки. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <form class="search">
+                    <div class="search-block">
+                        <input type="text" name="place" id="place" placeholder="Зеленоградск">
+                        <label for="place">Куда вы едете?</label>
+                    </div>
 
+                    <div class="search-block">
+                        <input type="date" name="arrival_date" id="arrival_date" value="2021-12-25">
+                        <label for="arrival_date">Прибытие</label>
+                    </div>
+
+                    <div class="search-block">
+                        <input type="date" name="departure_date" id="departure_date" value="2021-12-30">
+                        <label for="departure_date">Выезд</label>
+                    </div>
+
+                    <div class="search-block">
+                        <select name="numb_of_people" id="numb_of_people">
+                            <option value="1">1 человек</option>
+                            <option value="2">2 человека</option>
+                            <option value="3">3 человека</option>
+                            <option value="4">4 человека</option>
+                            <option value="5">5 человек</option>
+                            <option value="5">Больше 5 человек</option>
+                        </select>
+                        <label for="numb_of_people">Количество гостей</label>
+                    </div>
+                    
+                    <div class="search-block">
+                        <select name="type_of_place" id="type_of_place">
+                            <option value="Квартира">Квартира</option>
+                            <option value="Дом">Дом</option>
+                        </select>
+                        <label for="type_of_place">Помещение</label>
+                    </div>
+                    <input type="submit" name="search" id="search" value="Найти">
+                </form>
+            </section>
+
+
+            <section class="main__suggestions">
+                <div class="wrapper">
+                    <div class="main__suggestions-card">
+                        <div class="main__suggestions-card-img">
+                            <img src="img/city1.webp" srcset="img/city1.jpg" alt="photo">
+                        </div>
+                        <div class="main__suggestions-card-info">
+                            <div class="main__suggestions-card-info-num"><h2>532</h2><p>помещения</p></div>
+                            <div class="main__suggestions-card-info-place">Зеленоградск</div>
+                        </div>
+                    </div>
+
+                    <div class="main__suggestions-card">
+                        <div class="main__suggestions-card-img">
+                            <img src="img/city2.webp" srcset="img/city2.jpg" alt="photo">
+                        </div>
+                        <div class="main__suggestions-card-info">
+                            <div class="main__suggestions-card-info-num"><h2>428</h2><p>помещения</p></div>
+                            <div class="main__suggestions-card-info-place">Светлогорск</div>
+                        </div>
+                    </div>
+
+                    <div class="main__suggestions-card">
+                        <div class="main__suggestions-card-img">
+                            <img src="img/city3.webp" srcset="img/city3.jpg" alt="photo">
+                        </div>
+                        <div class="main__suggestions-card-info">
+                            <div class="main__suggestions-card-info-num"><h2>345</h2><p>помещения</p></div>
+                            <div class="main__suggestions-card-info-place">Калининград</div>
+                        </div>
+                    </div>
+
+                    <div class="main__suggestions-card">
+                        <div class="main__suggestions-card-img">
+                            <img src="img/city1.webp" srcset="img/city1.jpg" alt="photo">
+                        </div>
+                        <div class="main__suggestions-card-info">
+                            <div class="main__suggestions-card-info-num"><h2>532</h2><p>помещения</p></div>
+                            <div class="main__suggestions-card-info-place">Зеленоградск</div>
+                        </div>
+                    </div>
+
+                    <div class="main__suggestions-card">
+                        <div class="main__suggestions-card-img">
+                            <img src="img/city2.webp" srcset="img/city2.jpg" alt="photo">
+                        </div>
+                        <div class="main__suggestions-card-info">
+                            <div class="main__suggestions-card-info-num"><h2>428</h2><p>помещения</p></div>
+                            <div class="main__suggestions-card-info-place">Светлогорск</div>
+                        </div>
+                    </div>
+
+                    <div class="main__suggestions-card">
+                        <div class="main__suggestions-card-img">
+                            <img src="img/city3.webp" srcset="img/city3.jpg" alt="photo">
+                        </div>
+                        <div class="main__suggestions-card-info">
+                            <div class="main__suggestions-card-info-num"><h2>345</h2><p>помещения</p></div>
+                            <div class="main__suggestions-card-info-place">Калининград</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
+        
+    <div id="background">
+        <img src="img/background.webp" srcset="img/background.jpg" alt="background">
+    </div>
 
-    <footer class="footer">
-
-    </footer>
-    
-    <img src="img/" alt="background">
+    <script src="scripts/index.js"></script>
 </body>
 </html>

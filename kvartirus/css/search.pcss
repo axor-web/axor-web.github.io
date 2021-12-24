@@ -1,0 +1,124 @@
+.search {
+    display: flex;
+    position: relative;
+    &_active {
+        & input, & select {
+            color: #000 !important;
+        }
+    }
+
+    &-block {
+        box-sizing: border-box;
+        position: relative;
+        border-right: 1px solid var(--inactive);
+
+        &:first-of-type {
+            & input {
+                border-top-left-radius: 50px;
+                border-bottom-left-radius: 50px;
+            }
+        }
+        &:last-of-type {
+            border-right: none;
+        }
+        &:nth-of-type(2) {
+            border-right: none;
+            &::after {
+                content: '';
+                display: block;
+                width: 1px;
+                height: 24px;
+                background-color: var(--inactive);
+                position: absolute;
+                top: 16px;
+                right: 0;
+                border-radius: 50px;
+            }
+        }
+    }
+    & > input:last-of-type {
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+    }
+
+    & input, & select {
+        color: var(--comGray);
+        transition: color .3s;
+        background-color: #fff;
+        height: 56px;
+        text-align: start;
+        box-sizing: border-box;
+        padding: 17px 12px;
+        margin: 0;
+        font-size: 16px;
+        width: 200px;
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+    }
+    & input {
+        &::placeholder {
+            color: var(--comGray);
+        }
+
+        &#place {
+            padding-left: 24px;
+            text-transform: capitalize;
+            background-image: url('../img/pin.svg');
+        }
+        &#arrival_date {
+            cursor: pointer;
+            width: 160px;
+
+            &::-webkit-calendar-picker-indicator {
+                cursor: inherit;
+                background-image: none;
+            }
+        }
+        &#departure_date {
+            cursor: pointer;
+            &::-webkit-calendar-picker-indicator {
+                cursor: inherit;
+                background-image: url('../img/calendar.svg');
+            }
+        }
+
+
+        &#search {
+            background: var(--comBlue);
+            color: #fff !important;
+            font-size: 24px;
+            padding: 11px 0;
+            padding-left: 42px;
+            background-image: url('../img/search.svg');
+            background-repeat: no-repeat;
+            background-position: center right 42px;
+            cursor: pointer;
+        }
+    }
+
+    & select {
+        appearance: none;
+        cursor: pointer;
+        
+        & option {
+            background: #fff;
+        }
+
+        &#numb_of_people {
+            background-image: url('../img/people.svg');
+        }
+
+        &#type_of_place {
+            background-image: url('../img/home.svg');
+        }
+    }
+
+    & label {
+        color: #fff;
+        font-size: 16px;
+        position: absolute;
+        top: -34px;
+        left: 0;
+        cursor: text;
+    }
+}
