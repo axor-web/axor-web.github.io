@@ -20,19 +20,21 @@
 
 .wrapper {
     width: 100%;
-    max-width: 1170px;
+    max-width: 1210px;
     padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .header {
     width: 100vw;
-    background: linear-gradient(to bottom, #000000, rgba(0,0,0,0));
+    background: var(--comBlue);
     display: flex;
     justify-content: center;
     color: #fff;
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1000;
     
     & .wrapper {
         display: flex;
@@ -103,6 +105,21 @@
 
         &-text {
             margin-left: 12px;
+        }
+    }
+}
+
+
+@media screen and (max-width: 700px) {
+    .header {
+        &__menu {
+            &-button {
+                order: 1;
+            }
+            &-logo {
+                order: 2;
+                margin-left: 12px;
+            }
         }
     }
 }

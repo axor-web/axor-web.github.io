@@ -1,38 +1,49 @@
 .search {
     display: flex;
     position: relative;
+    align-items: center;
+    height: 56px;
+    box-sizing: border-box;
+    
     &_active {
         & input, & select {
             color: #000 !important;
         }
     }
 
-    &-block {
+    &__dates {
+        display: flex;
+        & .search__block {
+            border-right: none;
+
+            &:first-of-type {
+                & input {
+                       &::after {
+                           content: '';
+                           display: block;
+                           width: 1px;
+                           height: 24px;
+                           background-color: var(--inactive);
+                           position: absolute;
+                           top: 16px;
+                           right: 0;
+                           border-radius: 50px;
+                       }
+                }
+            }
+        }
+    }
+
+    &__block {
         box-sizing: border-box;
         position: relative;
         border-right: 1px solid var(--inactive);
-
+    }
+    & > &__block {
         &:first-of-type {
             & input {
                 border-top-left-radius: 50px;
                 border-bottom-left-radius: 50px;
-            }
-        }
-        &:last-of-type {
-            border-right: none;
-        }
-        &:nth-of-type(2) {
-            border-right: none;
-            &::after {
-                content: '';
-                display: block;
-                width: 1px;
-                height: 24px;
-                background-color: var(--inactive);
-                position: absolute;
-                top: 16px;
-                right: 0;
-                border-radius: 50px;
             }
         }
     }
@@ -65,7 +76,7 @@
             text-transform: capitalize;
             background-image: url('../img/pin.svg');
         }
-        &#arrival_date {
+        &#arrival-date {
             cursor: pointer;
             width: 160px;
 
@@ -74,7 +85,7 @@
                 background-image: none;
             }
         }
-        &#departure_date {
+        &#departure-date {
             cursor: pointer;
             &::-webkit-calendar-picker-indicator {
                 cursor: inherit;
@@ -120,5 +131,106 @@
         top: -34px;
         left: 0;
         cursor: text;
+    }
+}
+
+
+@media screen and (max-width: 1210px) and (min-width: 961px){
+    .search {
+        height: 62px;
+        transform: scale(0.77);
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .search {
+        height: auto;
+        background-color: #fff;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 48px;
+        border-radius: 32px;
+        padding: 24px;
+
+        &__dates {
+            width: 100%;
+            justify-content: space-between;
+            border: 1px solid var(--inactive);
+            border-radius: 50px;
+
+            & .search__block {
+                border: none;
+                width: auto;
+                flex-grow: 1;
+                display: flex;
+
+                & input {
+                    border: none;
+
+                    &#arrival-date {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        &__block {
+            border: none;
+            width: 100%;
+
+            &:first-of-type {
+                & input {
+                    &#place {
+                        padding-left: 12px;
+                    }
+                }
+            }
+
+            & input, select {
+                border: 1px solid var(--inactive);
+                border-radius: 50px;
+                width: 100%;
+            }
+
+            & input {
+                &[type="date"] {
+                    &::-webkit-calendar-picker-indicator {
+                        background-position: top center;
+                    }
+                }
+            }
+            
+            & label {
+                color: #000;
+                font-weight: 700;
+                top: -28px;
+            }
+        }
+
+        & > &__block, &__dates {
+            margin-top: 48px;
+        }
+
+        & > input#search {
+            border-radius: 50px;
+            width: 100%;
+            margin-top: 18px;
+            text-align: center;
+            padding-left: 0;
+            font-size: 18px;
+        }
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .search {
+        margin-top: 0;
+
+        &__dates {
+            justify-content: center;
+
+            & .search__block {
+                width: 50%;
+            }
+        }
     }
 }
