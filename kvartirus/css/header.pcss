@@ -14,7 +14,7 @@
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-*:link, *:visited, *:active {
+*:link, *:visited {
     color: #fff;
 }
 
@@ -109,6 +109,9 @@
     }
 }
 
+.footer {
+    display: none;
+}
 
 @media screen and (max-width: 700px) {
     .header {
@@ -119,6 +122,32 @@
             &-logo {
                 order: 2;
                 margin-left: 12px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .footer {
+        font-size: 14px;
+        display: flex;
+        justify-content: space-around;
+        position: fixed;
+        bottom: 0;
+        width: 100vw;
+        box-shadow: 0px -2px 12px rgba(7, 18, 43, 0.16);
+
+        & a {
+            color: var(--comGray);
+            box-sizing: border-box;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            height: 48px;
+            flex-grow: 1;
+
+            & img {
+                margin-right: 8px;
             }
         }
     }
