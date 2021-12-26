@@ -24,3 +24,4 @@ search.onclick = () => {
     search.classList.add('search_active');
     search.onclick = null;
 };
+

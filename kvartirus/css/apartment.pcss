@@ -14,7 +14,7 @@
         width: 100%;
     }
 
-    &__back-btn {
+    &__btn {
         background: var(--comBlue);
         border-radius: 50px;
         color: #fff;
@@ -36,6 +36,98 @@
         gap: 20px;
         margin-top: 24px;
         width: 100%;
-        
+
+        grid-template-areas:
+            "photos book"
+            "photos-list nothing"
+            "info reviews"
+            "benefits benefits"
+            "map map"
+            "recents recents";
+
+            & h3 {
+                font-size: 24px;
+                font-weight: 600;
+                margin-bottom: 24px;
+            }
+    }
+
+    &__photo {
+        grid-area: photos;
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    &__book {
+        grid-area: book;
+        border-radius: 12px;
+        box-shadow: 0px 6px 24px rgba(7, 18, 43, 0.12);
+        padding: 24px;
+
+        & input, & select {
+            border: 1px solid var(--inactive);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 16px;
+        }
+
+        & label {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        &-input {
+            width: 100%;
+            display: grid;
+            padding-bottom: 24px;
+
+            &-guests {
+                grid-template-columns: 1fr;
+
+                & select {
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                    background-image: url('../img/people.svg');
+                    background-repeat: no-repeat;
+                    background-position: right 10px center;
+                    background-color: #fff;
+                }
+            }
+            &-dates {
+                grid-template-columns: 1fr 1fr;
+                position: relative;
+                &::after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    right: 0;
+                    height: 24px;
+                    width: 1px;
+                }
+
+                & input {
+                    &:first-of-type {
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                        border-right: 0;
+                    }
+                    &:last-of-type {
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                        border-left: 0;
+                    }
+                }
+            }
+        }
     }
 }
