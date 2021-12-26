@@ -91,6 +91,12 @@ document.querySelector('.main__specs-menu').onclick = (e) => {
     hideSearch();
 }
 
+document.querySelector('#main__specs-btns-map').onclick = () => {
+    document.querySelector('.main__specs-menu-map iframe').src = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15051.073200557083!2d37.58078374853958!3d55.728877795253304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1640435531733!5m2!1sru!2sru";
+    
+    document.querySelector('#main__specs-btns-map').onclick = null;
+}
+
 function countSomething(input, controls) {
     controls = controls.children;
 
@@ -124,12 +130,6 @@ countSomething(rating, ratingControls);
 const bedsNum = document.querySelector('#beds-num');
 const bedsNumControls = document.querySelector('#beds-num ~ .controls');
 countSomething(bedsNum, bedsNumControls);
-
-window.onload = () => {
-    //document.querySelector('.main__specs-menu-map iframe').src = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15051.073200557083!2d37.58078374853958!3d55.728877795253304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1640435531733!5m2!1sru!2sru"
-}
-
-
 
 let sliders = document.querySelectorAll('.slider');
 

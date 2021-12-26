@@ -27,7 +27,6 @@ class Slider {
     }
 
     touchStartHandler(event) {
-        event.preventDefault();
         let firstTouch = event.touches[0];
         
         this.touchCoordinates.x1 = firstTouch.clientX;
@@ -45,7 +44,6 @@ class Slider {
         this.imgs.style.transition = '';
     }
     touchEndHandler(event) {
-        event.preventDefault();
         this.moveToNearest();
 
         this.imgs.style.transition = 'transform .3s';
