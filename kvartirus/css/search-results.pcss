@@ -165,6 +165,18 @@
                             border-radius: 50px;
                             border: 1px solid var(--inactive);
                             font-size: 16px;
+                            
+                            &[type="number"] {
+                                appearance: none;
+                                -webkit-appearance: none;
+                                -moz-appearance: none;
+
+                                &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+                                    -webkit-appearance: none;
+                                    appearance: none;
+                                    margin: 0;
+                                }
+                            }
                         }
                     }
                 }
@@ -318,6 +330,7 @@
                         background-image: url('../img/plus.svg');
                         background-repeat: no-repeat;
                         background-position: left 20px center;
+                        cursor: pointer;
                     }
                 }
 
@@ -368,8 +381,9 @@
                     color: #fff;
                     border-radius: 50px;
                     max-width: 170px;
-                    
                     margin-top: 24px;
+
+                    cursor: pointer;
                 }
             }
 
@@ -435,12 +449,19 @@
             border-radius: 12px;
             margin-bottom: 24px;
 
+            &:link, &:visited, &:active {
+                color: #000;
+            }
+
             &-img {
                 width: 420px;
                 height: 256px;
                 overflow: hidden;
                 border-radius: 12px;
                 margin-right: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
                 & img {
                     width: 100%;
@@ -724,6 +745,9 @@
 
 @media screen and (max-width: 860px) {
     .main {
+        .wrapper {
+            padding: 0 16px;
+        }
         &__list {
             &-card {
                 &-img {
@@ -880,16 +904,20 @@
     .main {
         &__list {
             &-card {
+                padding: 8px;
+                &-img {
+                    margin-right: 12px;
+                }
                 &-info {
                     & img {
                         width: 16px;
                         height: 16px;
                     }
                     & h3 {
-                        font-size: 12px;
+                        font-weight: 600;
+                        font-size: 10px;
                     }
                     & p, &-text-about > div {
-                        width: 90px;
                         font-size: 8px;
                         height: 16px;
                         margin-bottom: 12px;
@@ -898,15 +926,22 @@
                             margin-right: 4px;
                         }
                     }
+                    & p {
+                        width: auto;
+                    }
                     &-text-about {
+                        width: 100%;
                         height: 50px;
+                        gap: 0;
                         & > div {
-                            margin-bottom: 8px;
+                            margin-bottom: 4px;
+                            width: 86px;
                         }
                     }
                     &-text-benefits > div {
                         font-size: 8px;
-                        margin-right: 8px;
+                        margin-bottom: 4px;
+                        margin-right: 4px;
                     }
                     &-specs {
                         font-size: 10px;
@@ -933,7 +968,7 @@
     }
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 365px) {
     .main {
         &__list {
             &-card {
