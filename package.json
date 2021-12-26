@@ -13,7 +13,7 @@
     "compile-index-kvartirus": "npx postcss kvartirus/css/index.pcss -o kvartirus/css/index.css -w",
     "compile-search-kvartirus": "npx postcss kvartirus/css/search.pcss -o kvartirus/css/search.css -w",
     "compile-search-results-kvartirus": "npx postcss kvartirus/css/search-results.pcss -o kvartirus/css/search-results.css -w",
-    "compile-search-results-2-kvartirus": "npx postcss kvartirus/css/search-results-2.pcss -o kvartirus/css/search-results-2.css -w",
+    "compile-search-results-slider-kvartirus": "npx postcss kvartirus/css/search-results-slider.pcss -o kvartirus/css/search-results-slider.css -w",
     "compile-apartment-kvartirus": "npx postcss kvartirus/css/apartment.pcss -o kvartirus/css/apartment.css -w",
     "compile-slider-kvartirus": "npx postcss kvartirus/css/slider.pcss -o kvartirus/css/slider.css -w"
   },

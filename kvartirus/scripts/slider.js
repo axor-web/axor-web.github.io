@@ -69,7 +69,7 @@ class Slider {
     moveToNearest() {
         let imageWidth = this.imgs.children[0].clientWidth;
         let num = 0;
-        console.log(this.x);
+        
         if (this.side) { num = Math.ceil((this.x / imageWidth) - 0.15);  }
         else           { num = Math.floor((this.x / imageWidth) + 0.15); }
         this.slideTo(num);
