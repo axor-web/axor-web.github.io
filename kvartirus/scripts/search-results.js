@@ -24,10 +24,13 @@ function showSearch(e) {
     e.stopPropagation();
     search.classList.add('search_active');
 }
+function hideSearch() {
+    search.classList.remove('search_active');
+}
 function checkClicks(e) {
     if (window.innerWidth <= 960) {
         window.addEventListener('click', () =>  {
-            search.classList.remove('search_active');
+            hideSearch();
         });
     }
 
@@ -79,11 +82,13 @@ for (let btn of btns) {
     btn.addEventListener('click', (e) => {
         e.stopPropagation();
         activateMenu(btn);
+        hideSearch();
     });
 }
 
 document.querySelector('.main__specs-menu').onclick = (e) => {
     e.stopPropagation();
+    hideSearch();
 }
 
 function countSomething(input, controls) {
