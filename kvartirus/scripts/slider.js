@@ -8,8 +8,19 @@ class Slider {
             }
         }
 
-        this.imgs = html.children[0];
         this.html = html;
+        this.imgs = html.children[0];
+        this.btns = html.children[1];
+
+        for (let i = 0; i < this.imgs.children.length; i++) { 
+            this.btns.insertAdjacentHTML('beforeend', `<div><div></div></div>`);
+            this.btns.children[i].addEventListener('click', (event) => {
+                this.slideTo(i);
+            }); 
+        }
+
+        this.btns.children[0].classList.add('slider__buttons_active');
+
         this.num = 0;
         this.touchCoordinates = {
             x1: 0,
@@ -18,9 +29,25 @@ class Slider {
         this.x = 0;
         this.side = true;
 
-        this.imgs.addEventListener('touchstart', this.touchStartHandler.bind(this));
-        this.imgs.addEventListener('touchmove', this.touchMoveHandler.bind(this));
-        this.imgs.addEventListener('touchend', this.touchEndHandler.bind(this));
+        if ('ontouchstart' in window) {
+            this.html.classList.add('slider_active');
+            this.imgs.addEventListener('touchstart', this.touchStartHandler.bind(this));
+            this.imgs.addEventListener('touchmove', this.touchMoveHandler.bind(this));
+            this.imgs.addEventListener('touchend', this.touchEndHandler.bind(this));
+        }
+        else {
+            this.html.children[2].classList.add('slider__arrows_active');
+            this.arrows = this.html.children[2];
+
+            this.arrows.children[0].classList.add('slider__arrows_inactive');
+
+            this.arrows.children[0].addEventListener('click', () => {
+                this.slideBack();
+            });
+            this.arrows.children[1].addEventListener('click', () => {
+                this.slideForward();
+            });
+        }
         
         window.addEventListener('load', this.resizeImages.bind(this));
         window.addEventListener('resize', this.resizeImages.bind(this));
@@ -28,8 +55,8 @@ class Slider {
 
     touchStartHandler(event) {
         let firstTouch = event.touches[0];
-        
         this.touchCoordinates.x1 = firstTouch.clientX;
+        this.imgs.style.transition = '';
     }
     touchMoveHandler(event) {
         event.preventDefault();
@@ -40,8 +67,6 @@ class Slider {
 
         this.swipe(xDiff);
         this.touchCoordinates.x1 = firstTouch.clientX;
-
-        this.imgs.style.transition = '';
     }
     touchEndHandler(event) {
         this.moveToNearest();
@@ -75,20 +100,42 @@ class Slider {
 
     slideTo(num) {
         let maxLen = this.imgs.children.length;
-        if (num < 0)       { num = 0;      }
-        if (num >= maxLen) { num = maxLen; }
+
+        if (num < 0)           { num = 0;          }
+        if (num >= maxLen - 1) { num = maxLen - 1; }
+
+        if (!'ontouchstart' in window) {
+            if (num >= this.num) {
+
+                this.arrows.children[0].classList.remove('slider__arrows_inactive');
+                if (num >= this.imgs.children.length - 1) { this.arrows.children[1].classList.add('slider__arrows_inactive'); }
+            }
+            else {
+                this.arrows.children[1].classList.remove('slider__arrows_inactive');
+                if (num <= 0) { this.arrows.children[0].classList.add('slider__arrows_inactive'); }
+            }
+        }
+
+        this.num = num;
 
         let imageWidth = this.imgs.children[0].clientWidth;
 
         this.x = num * imageWidth;
+        this.imgs.style.transition = 'transform .3s';
         this.imgs.style.transform = `translateX(-${this.x}px)`;
+
+        for (let btn of this.btns.children) { btn.classList.remove('slider__buttons_previous-active'); }
+        for (let btn of this.btns.children) { btn.classList.remove('slider__buttons_active'); }
+
+        this.btns.children[num - 1]?.classList.add('slider__buttons_previous-active');
+        this.btns.children[num].classList.add('slider__buttons_active');
     }
 
     slideBack() {
-        slideTo(this.num - 1);
+        this.slideTo(this.num - 1);
     }
     slideForward() {
-        slideTo(this.num + 1);
+        this.slideTo(this.num + 1);
     }
 
     resizeImages() {

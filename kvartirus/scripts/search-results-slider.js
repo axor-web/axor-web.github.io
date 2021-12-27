@@ -135,7 +135,7 @@ let sliders = document.querySelectorAll('.slider');
 
 let imgs = [
     ['apartment1', 'apartment2', 'apartment3', 'apartment4', 'apartment5'],
-    ['apartment4', 'apartment3', 'apartment2, apartment1'],
+    ['apartment4', 'apartment3', 'apartment2', 'apartment1'],
     ['apartment2', 'apartment3', 'apartment4'],
 ];
 let slidersObjects = [];
