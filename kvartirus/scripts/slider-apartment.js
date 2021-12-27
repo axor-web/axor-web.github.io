@@ -10,18 +10,20 @@ class Slider {
 
         this.html = html;
         this.imgs = html.children[0];
-        this.btns = html.children[1];
+        this.btns = document.querySelector('.main__photo-btns');
+        this.uncoverBtn = document.querySelector('.main__photo-btns-uncover');
+        const list = this.btns.children[0];
 
-        for (let i = 0; i < this.imgs.children.length; i++) { 
-            this.btns.insertAdjacentHTML('beforeend', `<div><div></div></div>`);
-            this.btns.children[i].addEventListener('click', (event) => {
+        for (let i = 0; i < this.imgs.children.length; i++) {
+            list.insertAdjacentHTML('beforeend', `<div><img src="./img/${imgsNames[i]}.jpg" srcset="./img/${imgsNames[i]}.webp" alt="apartment" loading="lazy"></div>`);
+            list.children[i].addEventListener('click', (event) => {
                 event.preventDefault();
                 this.slideTo(i);
             }); 
         }
 
-        this.btns.children[0].classList.add('slider__buttons_active');
-
+        list.children[0].classList.add('main__photo-btns_active');
+        
         this.num = 0;
         this.touchCoordinates = {
             x1: 0,
@@ -32,6 +34,14 @@ class Slider {
         this.x = 0;
         this.side = true;
 
+        this.uncoverBtn.addEventListener('click', uncoverHandler.bind(this));
+        function uncoverHandler(event) {
+            this.btns.children[0].classList.add('main__photo-btns-list_full');
+            this.uncoverBtn.classList.add('main__photo-btns-uncover_disabled');
+            this.uncoverBtn.removeEventListener('click', uncoverHandler);
+            delete this.uncoverBtn;
+        }
+
         if ('ontouchstart' in window) {
             this.html.classList.add('slider_active');
             this.imgs.addEventListener('touchstart', this.touchStartHandler.bind(this));
@@ -39,10 +49,10 @@ class Slider {
             this.imgs.addEventListener('touchend', this.touchEndHandler.bind(this));
         }
         else {
-            this.html.children[2].classList.add('slider__arrows_active');
-            this.arrows = this.html.children[2];
-
+            this.arrows = this.html.children[1];
+            this.arrows.classList.add('slider__arrows_active');
             this.arrows.children[0].classList.add('slider__arrows_inactive');
+
 
             this.arrows.children[0].addEventListener('click', () => {
                 this.slideBack();
@@ -132,11 +142,8 @@ class Slider {
         this.imgs.style.transition = 'transform .3s';
         this.imgs.style.transform = `translateX(-${this.x}px)`;
 
-        for (let btn of this.btns.children) { btn.classList.remove('slider__buttons_previous-active'); }
-        for (let btn of this.btns.children) { btn.classList.remove('slider__buttons_active'); }
-
-        this.btns.children[num - 1]?.classList.add('slider__buttons_previous-active');
-        this.btns.children[num].classList.add('slider__buttons_active');
+        for (let btn of this.btns.children[0].children) { btn.classList.remove('main__photo-btns_active'); }
+        this.btns.children[0].children[num].classList.add('main__photo-btns_active');
     }
 
     slideBack() {

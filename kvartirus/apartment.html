@@ -7,6 +7,7 @@
     <title>Apartment</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/apartment.css">
+    <link rel="stylesheet" href="css/slider-apartment.css">
 </head>
 <body>
     <header class="header">
@@ -33,7 +34,11 @@
             <div class="main__content">
                 <div class="main__photo">
                     <div class="slider">
-                        
+                        <div class="slider__images"></div>
+                        <div class="slider__arrows">
+                            <div><img src="./img/arrow1.svg" alt="arrow"></div>
+                            <div><img src="./img/arrow1.svg" alt="arrow"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="main__book">
@@ -63,8 +68,17 @@
                         <a href="#" class="main__btn">Забронировать</a>
                     </div>
                 </div>
+                <div class="main__photo-btns">
+                    <div class="main__photo-btns-list">
+                        
+                    </div>
+                    <div class="main__photo-btns-uncover"><img src="./img/arrow1.svg" alt="arrow"></div>
+                </div>
             </div>
         </div>
     </main>
+
+    <script src="./scripts/slider-apartment.js"></script>
+    <script src="./scripts/apartment.js"></script>
 </body>
 </html>

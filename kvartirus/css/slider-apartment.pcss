@@ -1,0 +1,100 @@
+.slider {
+    overflow: hidden;
+    position: relative;
+    z-index: 300;
+    border-radius: 12px;
+    user-select: none;
+    width: 100%;
+    height: 450px;
+
+    &:hover, &:focus, &_active {
+         .slider__buttons {
+            opacity: 1;
+        }
+        .slider__arrows {
+            opacity: 1;
+            visibility: visible;
+            & > div {
+                background-color: rgba(0, 0, 0, .1);
+            }
+        }
+    }
+
+    &__images {
+        z-index: 100;
+        display: flex;
+        justify-content: flex-start;
+        align-items: stretch;
+        position: absolute;
+        left: 0;
+        height: 100%;
+
+        &-img {
+            z-index: 40;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+
+            & img {
+                position: absolute;
+                z-index: 20;
+                min-height: 100%;
+                min-width: 100%;
+                width: auto;
+            }
+        }
+    }
+
+    &__arrows {
+        display: none;
+        justify-content: space-between;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: none;
+        opacity: 0;
+        transition: opacity .2s;
+
+        &_active {
+            display: flex;
+            z-index: 120;
+        }
+
+        &_inactive {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        & > div {
+            height: 100%;
+            width: 12%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color .3s;
+            cursor: pointer;
+
+            & img {
+                width: 40%;
+                filter: invert();
+            }
+
+            &:first-of-type {
+                img {
+                    transform: rotateZ(180deg);
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .slider {
+        
+    }
+}
