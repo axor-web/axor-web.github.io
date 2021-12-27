@@ -25,6 +25,8 @@ class Slider {
         this.touchCoordinates = {
             x1: 0,
             x2: 0,
+            y1: 0,
+            y2: 0,
         };
         this.x = 0;
         this.side = true;
@@ -56,14 +58,21 @@ class Slider {
     touchStartHandler(event) {
         let firstTouch = event.touches[0];
         this.touchCoordinates.x1 = firstTouch.clientX;
+        this.touchCoordinates.y1 = firstTouch.clientY;
         this.imgs.style.transition = '';
     }
     touchMoveHandler(event) {
         event.preventDefault();
         let firstTouch = event.touches[0];
         this.touchCoordinates.x2 = firstTouch.clientX;
+        this.touchCoordinates.y2 = firstTouch.clientY;
 
         let xDiff = this.touchCoordinates.x1 - this.touchCoordinates.x2;
+        let yDiff = this.touchCoordinates.y1 - this.touchCoordinates.y2;
+
+        if (Math.abs(xDiff) < Math.abs(yDiff)) {
+            return;
+        }
 
         this.swipe(xDiff);
         this.touchCoordinates.x1 = firstTouch.clientX;
