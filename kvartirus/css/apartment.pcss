@@ -71,6 +71,10 @@
         border-radius: 12px;
         box-shadow: 0px 6px 24px rgba(7, 18, 43, 0.12);
         padding: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
 
         & input, & select {
             border: 1px solid var(--inactive);
@@ -85,10 +89,14 @@
             margin-bottom: 12px;
         }
 
+        &-info {
+            width: 100%;
+        }
+
         &-input {
             width: 100%;
             display: grid;
-            padding-bottom: 24px;
+            margin-bottom: 24px;
 
             &-guests {
                 grid-template-columns: 1fr;
@@ -104,18 +112,24 @@
                 }
             }
             &-dates {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 5fr 6fr;
                 position: relative;
                 &::after {
                     content: '';
                     display: block;
                     position: absolute;
-                    right: 0;
+                    left: 42.5%;
                     height: 24px;
                     width: 1px;
+                    background-color: var(--inactive);
+                    bottom: 12px;
                 }
 
                 & input {
+                    &::-webkit-calendar-picker-indicator {
+                        background: none;
+                        //width: 100%;
+                    }
                     &:first-of-type {
                         border-top-right-radius: 0;
                         border-bottom-right-radius: 0;
@@ -125,7 +139,26 @@
                         border-top-left-radius: 0;
                         border-bottom-left-radius: 0;
                         border-left: 0;
+                        background-image: url('../img/calendar.svg');
+                        background-repeat: no-repeat;
+                        background-position: right 10px center;
                     }
+                }
+            }
+        }
+
+        &-continue {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &-price {
+                font-weight: 600;
+                font-size: 18px;
+                & span {
+                    font-size: 24px;
+                    margin-right: 0.2em;
                 }
             }
         }
