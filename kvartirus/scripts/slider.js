@@ -114,7 +114,7 @@ class Slider {
         if (num < 0)           { num = 0;          }
         if (num >= maxLen - 1) { num = maxLen - 1; }
         if (!('ontouchstart' in window)) {
-            if (num >= this.num) {
+            if (num > this.num) {
                 this.arrows.children[0].classList.remove('slider__arrows_inactive');
                 if (num >= this.imgs.children.length - 1) { this.arrows.children[1].classList.add('slider__arrows_inactive'); }
             }

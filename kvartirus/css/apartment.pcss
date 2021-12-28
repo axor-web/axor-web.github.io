@@ -35,7 +35,7 @@
     &__content {
         display: grid;
         grid-template-columns: 7fr fit-content(476px);
-        gap: 20px;
+        gap: 48px 20px;
         margin-top: 24px;
         width: 100%;
 
@@ -99,6 +99,7 @@
                     position: relative;
                     opacity: 0.5;
                     transition: opacity .3s;
+                    cursor: pointer;
 
                     & img {
                         position: absolute;
@@ -231,6 +232,124 @@
                     margin-right: 0.2em;
                 }
             }
+        }
+    }
+
+    &__info {
+        grid-area: info;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 470px;
+
+        & h3 {
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        & p {
+            color: var(--comBlackGray);
+            font-size: 18px;
+        }
+
+        &-head {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            & h3 {
+                margin-bottom: 4px;
+                font-weight: 500;
+            }
+            &-rate {
+                display: flex;
+                align-items: center;
+                font-size: 24px;
+                & img {
+                    margin-right: 8px;
+                    height: 32px;
+                    width: auto;
+                }
+            }
+        }
+
+        &-about {
+            margin-bottom: 16px;
+        }
+
+        &-details {
+            display: flex;
+            flex-wrap: wrap;
+
+            &-block {
+                width: 150px;
+                margin-bottom: 24px;
+
+                & h4 {
+                    font-size: 16px;
+                    font-weight: 600;
+                    padding-bottom: 8px;
+                }
+                & span {
+                    display: flex;
+                    align-items: center;
+                    font-size: 12px;
+
+                    & img {
+                        height: 32px;
+                        width: auto;
+                    }
+                }
+            }
+        }
+    }
+
+    &__reviews {
+        grid-area: reviews;
+
+        &-head {
+            border-bottom: 1px solid var(--inactive);
+            margin-bottom: 24px;
+
+            & h3 {
+                margin-bottom: 13px;
+            }
+        }
+
+        &-list {
+            margin-bottom: 24px;
+        }
+
+        &-review {
+            margin-bottom: 24px;
+            &-info {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 12px;
+
+                & h4 {
+                    font-size: 18px;
+                    font-weight: 500;
+                }
+                & span {
+                    color: var(--comGray);
+                }
+            }
+        }
+
+        &-show-btn {
+            color: var(--comBlue);
+            text-decoration: underline;
+        }
+    }
+
+    &__benefits {
+        grid-area: benefits;
+        display: flex;
+        justify-content: space-between;
+
+        &-benefit {
+            width: 188px;
         }
     }
 }
