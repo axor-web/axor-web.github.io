@@ -41,6 +41,7 @@ body {
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
+        box-sizing: border-box;
     }
 
     &__appeal {
@@ -148,6 +149,27 @@ body {
         & .wrapper {
             max-width: 940px;
         }
+        & .search {
+            &__dates, & #search, select, input {
+                height: 100%;
+            }
+            & input[type="date"] {
+                padding-top: 0;
+                padding-bottom: 0;
+
+                &#arrival-date, &#departure-date {
+                    min-width: 100px;
+                    max-width: 150px;
+                }
+            }
+            &__city {
+               max-width: 165px;
+            }
+            &__dates {
+                max-width: 300px;
+            }
+        }
+
         &__appeal {
             margin-top: 100px;
             & .wrapper {
@@ -262,6 +284,31 @@ body {
     .main {
         justify-content: center;
         padding-bottom: 20px;
+
+        & .search {
+            &__block, &__dates {
+                max-width: 1000px;
+                width: 100%;
+            }
+
+            &__dates {
+                & .search__block {
+                    & input {
+                        padding: 12px 17px;
+                        max-width: 1000px;
+
+                        &#arrival-date, &#departure-date {
+                            max-width: 1000px;
+                        }
+                    }
+                }
+            }
+            & input, & select {
+                max-width: 1000px;
+                width: 100%;
+            }
+        }
+
         &__appeal {
             height: auto;
             margin-top: 90px;
