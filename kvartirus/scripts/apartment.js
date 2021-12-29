@@ -44,10 +44,29 @@ const masonry = Macy({
     breakAt: {
         1210: 5,
         1015: 4,
-        810: 3,
-        620: 2,
-        420: 1
+        705: 3,
+        540: 2,
+        365: 1
     }
 });
 
 window.onresize = masonry.recalculate.bind(masonry);
+
+const mobileShowBtns = document.querySelectorAll('.main__mobile-show-btn');
+const mobileHiddenElems = document.querySelectorAll('.main__mobile_hiding');
+
+for (let i = 0; i < mobileShowBtns.length; i++) {
+    const btn = mobileShowBtns[i]
+    btn.addEventListener('click', mobileShowBtnHandler.bind(btn, mobileHiddenElems[i]));
+}
+
+function mobileShowBtnHandler(elems) {
+    if ([].includes.call(elems.classList, 'main__mobile_active')) {
+        this.classList.remove('main__mobile-show-btn_active');
+        elems.classList.remove('main__mobile_active');
+        return;
+    }
+
+    this.classList.add('main__mobile-show-btn_active');
+    elems.classList.add('main__mobile_active');
+}
