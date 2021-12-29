@@ -335,9 +335,27 @@ body {
     .main {
         justify-content: flex-start;
         margin-bottom: 0;
+        .wrapper {
+            max-width: 1000px;
+            padding: 0 16px;
+        }
 
         &__appeal {
             margin-top: 96px;
+        }
+
+        .search {
+            filter: none;
+            padding: 0;
+            padding-bottom: 50px;
+            margin-top: 0;
+
+            & input[type="date"] {
+                &#arrival-date, #departure-date {
+                    padding: 17px 12px;
+                    min-width: 160px;
+                }
+            }
         }
     }
 
