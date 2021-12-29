@@ -23,6 +23,13 @@ class Slider {
         }
 
         list.children[0].classList.add('main__photo-btns_active');
+
+        if (list.children.length <= 4) {
+            this.uncoverBtn.style.display = 'none';
+        }
+        else {
+            this.uncoverBtn.addEventListener('click', this.uncoverHandler.bind(this));
+        }
         
         this.num = 0;
         this.touchCoordinates = {
@@ -33,14 +40,6 @@ class Slider {
         };
         this.x = 0;
         this.side = true;
-
-        this.uncoverBtn.addEventListener('click', uncoverHandler.bind(this));
-        function uncoverHandler(event) {
-            this.btns.children[0].classList.add('main__photo-btns-list_full');
-            this.uncoverBtn.classList.add('main__photo-btns-uncover_disabled');
-            this.uncoverBtn.removeEventListener('click', uncoverHandler);
-            delete this.uncoverBtn;
-        }
 
         if ('ontouchstart' in window) {
             this.html.classList.add('slider_active');
@@ -63,6 +62,13 @@ class Slider {
         
         window.addEventListener('load', this.resizeImages.bind(this));
         window.addEventListener('resize', this.resizeImages.bind(this));
+    }
+
+    uncoverHandler(event) {
+        this.btns.children[0].classList.add('main__photo-btns-list_full');
+        this.uncoverBtn.classList.add('main__photo-btns-uncover_disabled');
+        this.uncoverBtn.removeEventListener('click', this.uncoverHandler);
+        delete this.uncoverBtn;
     }
 
     touchStartHandler(event) {
