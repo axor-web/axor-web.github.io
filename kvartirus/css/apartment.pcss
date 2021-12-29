@@ -85,6 +85,7 @@
                 width: 87.5%;
                 overflow: hidden;
                 transition: overflow .3s;
+                -webkit-transition: overflow .3s;
 
                 &_full {
                     overflow: visible;
@@ -101,6 +102,7 @@
                     position: relative;
                     opacity: 0.5;
                     transition: opacity .3s;
+                    -webkit-transition: opacity .3s;
                     cursor: pointer;
 
                     & img {
@@ -121,6 +123,7 @@
                 height: 100%;
                 width: 50vw;
                 transition: transform 1.4s, opacity 0.7s, visibility 0.7s;
+                -webkit-transition: transform 1.4s, opacity 0.7s, visibility 0.7s;
                 display: flex;
                 align-items: center;
                 background-color: #fff;
@@ -686,6 +689,7 @@
                 height: 24px;
                 width: auto;
                 transition: transform .2s;
+                -webkit-transition: transform .2s;
             }
 
             &_active {
@@ -699,6 +703,7 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height .5s, margin-top .5s;
+            -webkit-transition: max-height .5s, margin-top .5s;
         }
         &__mobile_active {
             margin-top: 16px;
