@@ -32,24 +32,6 @@ window.onscroll = () => {
     window.onscroll = null;
 }
 
-
-/*function sortBenefits(listElem) {
-    arr = [...listElem.children];
-    arr.sort((elem1, elem2) => {
-        if (elem1.clientHeight > elem2.clientHeight)      { return 1;  }
-        else if (elem1.clientHeight < elem2.clientHeight) { return -1; }
-        return 0;
-    });
-    arr.reverse();
-
-    for (let i = 1; i <= arr.length; i++) {
-        elem = arr[i-1];
-        elem.style.order = i;
-    }
-}
-
-sortBenefits(document.querySelector('.main__benefits-list'));*/
-
 const list = document.querySelector('.main__benefits-list');
 
 const masonry = Macy({
