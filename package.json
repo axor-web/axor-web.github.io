@@ -16,7 +16,8 @@
     "compile-search-results-slider-kvartirus": "npx postcss kvartirus/css/search-results-slider.pcss -o kvartirus/css/search-results-slider.css -w",
     "compile-apartment-kvartirus": "npx postcss kvartirus/css/apartment.pcss -o kvartirus/css/apartment.css -w",
     "compile-slider-kvartirus": "npx postcss kvartirus/css/slider.pcss -o kvartirus/css/slider.css -w",
-    "compile-slider-apartment-kvartirus": "npx postcss kvartirus/css/slider-apartment.pcss -o kvartirus/css/slider-apartment.css -w"
+    "compile-slider-apartment-kvartirus": "npx postcss kvartirus/css/slider-apartment.pcss -o kvartirus/css/slider-apartment.css -w",
+    "compile-apartment-form-kvartirus": "npx postcss kvartirus/css/apartment-form.pcss -o kvartirus/css/apartment-form.css -w"
   },
   "repository": {
     "type": "git",

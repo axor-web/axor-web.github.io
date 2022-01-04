@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apartment form</title>
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/apartment-form.css">
+</head>
+<body>
+    <header class="header">
+        <div class="wrapper">
+            <div class="header__menu">
+                <a class="header__menu-logo" href="index.html"><img src="img/logo.svg" alt="logo"></a>
+                <div class="header__menu-button">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="header__menu-card"></div>
+            </div>
+            <a class="header__profile" href=#>
+                <img src="img/profile.svg" alt="profile logo" class="header__profile-logo">
+                <div class="header__profile-text">Войти</div>
+            </a>
+        </div>
+    </header>
+
+    <div class="main">
+        <div class="wrapper">
+            <div class="main__progress-bar">
+                <div class="main__progress-bar-elems">
+                    <div>
+                        <div class="main__progress-bar-num main__progress-bar-num_active"><span>1</span></div>
+                        <div class="main__progress-bar-sign">Ввод данных</div>
+                    </div>
+
+                    <div>
+                        <div class="main__progress-bar-num"><span>2</span></div>
+                        <div class="main__progress-bar-sign">Проверка</div>
+                    </div>
+
+                    <div>
+                        <div class="main__progress-bar-num"><span>3</span></div>
+                        <div class="main__progress-bar-sign">Оплата</div>
+                    </div>                    
+                </div>
+            </div>
+
+            <div class="main__forms">
+                <form class="main__forms-inputs main__forms_active">
+                    <div class="main__forms-inputs-apartment">
+                        <h3>Забронировать апартаменты</h3>
+
+                        <div class="main__forms-block">
+                            <label for="name">Помещение</label>
+                            <div id="name">"Апартаменты в центре города"</div>
+                        </div>
+
+                        <div class="main__forms-block main__forms-date">
+                            <label for="arrival">Прибытие</label>
+                            <label for="departure">Выезд</label>
+
+                            <input type="date" id="arrival" name="arrival">
+                            <input type="date" id="departure" name="departure">
+                        </div>
+
+                        <div class="main__forms-block">
+                            <label for="people">Количество гостей</label>
+                            <select name="people" id="people">
+                                <option value="1">1 взрослый</option>
+                                <option value="2">2 взрослый</option>
+                                <option value="3">3 взрослый</option>
+                                <option value="4">4 взрослый</option>
+                                <option value="5">5 взрослый</option>
+                                <option value="6">Более 5 взрослых</option>
+                            </select>
+                        </div>
+
+                        <div class="main__forms-block">
+                            <label for="notes">Примечания</label>
+                            <textarea name="notes" id="notes" cols="auto" rows="5" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras scelerisque nibh diam justo, nunc nec aliquam nibh. Felis mattis lectus facilisis adipiscing sem. Vestibulum tincidunt enim laoreet congue tincidunt felis gravida. Scelerisque id sed non ridiculus volutpat curabitur pharetra consequat quis."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="main__forms-inputs-user">
+                        <h3>Аккаунт</h3>
+
+                        <div class="main__forms-block">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="Example@mail.ru">
+                        </div>
+
+                        <div class="main__forms-block">
+                            <label for="surname">Фамилия</label>
+                            <input type="text" id="surname" name="surname" required placeholder="Иванов">
+                        </div>
+
+                        <div class="main__forms-block">
+                            <label for="name">Имя</label>
+                            <input type="text" id="name" name="name" required placeholder="Иван">
+                        </div>
+
+                        <div class="main__forms-block main__forms-block-tel">
+                            <label for="tel">Телефон</label>
+                            <input type="tel" id="tel" name="tel" required placeholder="(777) 999 00 00" pattern="/^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/">
+                            </input>
+                            <select name="country" id="country">
+                                <option value="8">+7</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="main__forms-btns">
+                        <a href="#" class="main__btn main__forms-btns-back"><img src="./img/arrow2.svg" alt="arrow"><span>Вернуться</span></a>
+                        <a href="#" class="main__btn main__forms-btns-forward"><span>Продолжить</span><img src="./img/arrow2.svg" alt="arrow"></a>
+                    </div>
+                </form>
+
+                <form class="main__forms-check">
+                    <div class="main__forms-check-info">
+                        <h3>Главная информация</h3>
+                        <div class="main__forms-check-info-photo"><img src="./img/apartment1.jpeg" srcset="./img/apartment1.webp" alt="apartment"></div>
+                    </div>
+
+                    <div class="main__forms-check-map">
+                        <h3>Местоположение</h3>
+                        <div class="main__forms-check-map-iframe">
+                            <iframe src="" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+
+                    <div class="main__forms-check-details">
+                        <div class="main__forms-block">
+                            <label for="house">Помещение</label>
+                            <div id="house">"Апартаменты в центре города"</div>
+                        </div>
+                        <div class="main__forms-block main__forms-split">
+                            <label for="arrival">Прибытие</label>
+                            <label for="departure">Выезд</label>
+
+                            <input type="date" name="arrival" id="arrival" readonly>
+                            <input type="date" name="departure" id="departure" readonly>
+                        </div>
+                        <div class="main__forms-block main__forms-split">
+                            <label for="people">Количество гостей</label>
+                            <label for="price">Стоимость</label>
+                            
+                            <div id="people">1 взрослый</div>
+                            <div id="price">9800 Руб</div>
+                        </div>
+                    </div>
+
+                    <div class="main__forms-check-other">
+                        <div class="main__forms-block">
+                            <label for="other">Примечания</label>
+                            <div id="other">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras scelerisque nibh diam justo, nunc nec aliquam nibh. Felis mattis lectus facilisis adipiscing sem. Vestibulum tincidunt enim laoreet congue tincidunt felis gravida. Scelerisque id sed non ridiculus volutpat curabitur pharetra consequat quis...</div>
+                        </div>
+
+                        <div class="main__forms-block main__forms-terms">
+                            <label for="">Наши условия и политика</label>
+                            <div>
+                                <a href="#">Условия обслуживания</a>
+                                <a href="#">Политика конфиденциальности</a>
+                                <a href="#">Политика возврата денежных средств</a>
+
+                                <div>
+                                    <input type="checkbox" id="check" name="check" required>
+                                    <label for="check">Я принимаю все условия и политику</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="main__forms-check-contacts">
+                        <h3>Контакты</h3>
+
+                        <div class="main__forms-check-contacts-info main__forms-block">
+                            <div class="main__forms-block">
+                                <label for="email">Email</label>
+                                <div id="email">Example@mail.ru</div>
+                            </div>
+
+                            <div class="main__forms-block">
+                                <label for="surname">Фамилия</label>
+                                <div id="surname">Иванов</div>
+                            </div>
+
+                            <div class="main__forms-block">
+                                <label for="name">Имя</label>
+                                <div id="name">Иван</div>
+                            </div>
+
+                            <div class="main__forms-block">
+                                <label for="tel">Телефон</label>
+                                <div id="tel">
+                                    <span>+7</span> (777) 999 00 00
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="main__forms-btns">
+                        <a href="#" class="main__btn main__forms-btns-back"><img src="./img/arrow2.svg" alt="arrow"><span>Вернуться</span></a>
+                        <a href="#" class="main__btn main__forms-btns-forward"><span>Продолжить</span><img src="./img/arrow2.svg" alt="arrow"></a>
+                    </div>
+                </form>
+
+                <form class="main__forms-pay">
+                    
+                    <div class="main__forms-btns">
+                        <a href="#" class="main__btn main__forms-btns-back"><img src="./img/arrow2.svg" alt="arrow"><span>Вернуться</span></a>
+                        <a href="#" class="main__btn main__forms-btns-forward"><span>Продолжить</span><img src="./img/arrow2.svg" alt="arrow"></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="./scripts/apartment-form.js"></script>
+</body>
+</html>
