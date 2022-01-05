@@ -62,8 +62,8 @@
                             <label for="arrival">Прибытие</label>
                             <label for="departure">Выезд</label>
 
-                            <input type="date" id="arrival" name="arrival">
-                            <input type="date" id="departure" name="departure">
+                            <input type="date" id="arrival" name="arrival" required value="2022-01-01">
+                            <input type="date" id="departure" name="departure" required value="2022-01-14">
                         </div>
 
                         <div class="main__forms-block">
@@ -104,7 +104,7 @@
 
                         <div class="main__forms-block main__forms-block-tel">
                             <label for="tel">Телефон</label>
-                            <input type="tel" id="tel" name="tel" required placeholder="(777) 999 00 00" pattern="/^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/">
+                            <input type="tel" id="tel" name="tel" required placeholder="(777) 999 00 00" maxlength="10" pattern="/^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/">
                             </input>
                             <select name="country" id="country">
                                 <option value="8">+7</option>
