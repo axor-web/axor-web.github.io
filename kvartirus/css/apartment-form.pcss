@@ -181,6 +181,10 @@
                 background-position: right 20px center, left 20px center;
             }
             & input[type="date"] {
+                height: 53px;
+                box-sizing: border-box;
+                width: 100%;
+
                 &::-webkit-calendar-picker-indicator {
                    height: 100%;
                    cursor: pointer;
@@ -219,6 +223,7 @@
                 }
             }
             &-tel {
+                align-content: center;
                 &::after {
                     content: '';
                     display: block;
