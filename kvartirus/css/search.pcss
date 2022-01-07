@@ -128,6 +128,8 @@
             padding-left: 24px;
             text-transform: capitalize;
             background-image: url('../img/pin.svg');
+            padding-right: 37px;
+            overflow: hidden;
         }
         &#arrival-date {
             cursor: pointer;
@@ -197,7 +199,8 @@
 
 @media screen and (max-width: 1210px) and (min-width: 961px){
     .search {
-        height: 48px;
+        min-height: 48px;
+        align-items: flex-start;
         & input, & select {
             min-width: 130px;
             font-size: 14px;
