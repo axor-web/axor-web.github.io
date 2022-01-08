@@ -15,7 +15,7 @@ function checkClicks(e) {
     }
 
     window.addEventListener('click', () => {
-        activateMenu();
+        activateMenu(null);
     });
 }
 
@@ -27,7 +27,7 @@ const btns = document.querySelector('.main__specs-btns').children;
 const menus = document.querySelector('.main__specs-menu').children;
 
 function activateMenu(btn) {
-    if ([].includes.call(btn.classList, 'active-btn')) {
+    if (btn && [].includes.call(btn?.classList, 'active-btn')) {
         btn = null;
     }
 
