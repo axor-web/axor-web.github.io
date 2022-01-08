@@ -14,3 +14,10 @@ function updateList() {
 }
 
 updateList();
+
+const hideBtn = document.querySelector('.search__hide-btn');
+
+hideBtn.onclick = (e) => {
+    e.stopPropagation();
+    document.querySelector('.search').classList.remove('search_active');
+};

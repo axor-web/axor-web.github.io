@@ -730,9 +730,10 @@
                     box-sizing: border-box;
                     max-height: 1200px;
                     align-items: center;
-                    width: auto;
+                    width: 100%;
+
                     &-content {
-                        width: auto;
+                        width: 100%;
                         max-height: 1200px;
                         flex-wrap: nowrap;
                         align-items: center;
@@ -740,6 +741,8 @@
 
                         & > div {
                             padding-right: 0;
+                            width: 100%;
+                            max-width: 600px;
                         }
                     }
                 }
@@ -813,12 +816,12 @@
                 position: absolute;
                 top: 0;
                 overflow: hidden;
-                height: 140px;
+                max-height: 140px;
                 filter: none;
-                transition: height .5s;
+                transition: max-height .5s;
 
                 &_active {
-                    height: 470px;
+                    max-height: 1000px;
                     filter: drop-shadow(0px 6px 18px rgba(7, 18, 43, 0.12));
                 }
 
@@ -1021,7 +1024,9 @@
         &__specs {
             &-btns {
                 & > a {
-                    font-size: 12px;
+                    & span {
+                        font-size: 12px;
+                    }
                 }
             }
         }

@@ -19,7 +19,28 @@
                     <div></div>
                     <div></div>
                 </div>
-                <div class="header__menu-card"></div>
+
+                <ul class="header__menu-card">
+                    <li><img src="./img/map1.svg" alt="map">Основные направления
+                        <ul>
+                            <li><img src="./img/house1.svg" alt="city">Города
+                                <ul>
+                                    <li><img src="./img/house1.svg" alt="city">Светлогорск</li>
+                                    <li><img src="./img/house1.svg" alt="city">Калининград</li>
+                                    <li><img src="./img/house1.svg" alt="city">Зеленоградск</li>
+                                </ul>
+                            </li>
+                            <li><img src="./img/map1.svg" alt="map">Пункт 8</li>
+                        </ul>
+                    </li>
+                    <li><img src="./img/map1.svg" alt="map">Пункт 1</li>
+                    <li><img src="./img/map1.svg" alt="map">Пункт 2</li>
+                    <li><img src="./img/map1.svg" alt="map">Пункт 3</li>
+                    <li><img src="./img/map1.svg" alt="map">Пункт 4</li>
+                    <li><img src="./img/map1.svg" alt="map">Пункт 5</li>
+                    <li><img src="./img/map1.svg" alt="map">Пункт 6</li>
+                    <li><img src="./img/map1.svg" alt="map">Пункт 7</li>
+                </ul>
             </div>
             <a class="header__profile" href=#>
                 <img src="img/profile.svg" alt="profile logo" class="header__profile-logo">
@@ -77,7 +98,11 @@
                         </select>
                         <label for="type_of_place">Помещение</label>
                     </div>
-                    <input type="submit" name="search" id="search" value="Найти">
+                    
+                    <div class="search__block search__btns">
+                        <div class="search__hide-btn"><img src="./img/arrow2.svg" alt="arrow"></div>
+                        <input type="submit" name="search" id="search" value="Найти">
+                    </div>
                 </form>
             </div>
         </section>
@@ -159,6 +184,7 @@
     </div>
 
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/header.js"></script>
     <script src="./scripts/search.js"></script>
 </body>
 </html>
